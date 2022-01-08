@@ -20,7 +20,7 @@ class Fen
   def create_pieces(splitted)
     pieces = []
     splitted.each do |row|
-      row.split('').each do |value|
+      row.chars.each do |value|
         pieces += make_piece(value)
       end
     end

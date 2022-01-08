@@ -24,4 +24,9 @@ class Board
     end
     board
   end
+
+  def make_move(source, destination)
+    @board[destination].piece = @board[source].piece
+    @board[source].piece = nil
+  end
 end

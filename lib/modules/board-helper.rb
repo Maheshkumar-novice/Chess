@@ -7,7 +7,7 @@ require_relative '../cell'
 module BoardHelper
   private
 
-  def create_cell_marker(column, row)
+  def create_cell_marker(row, column)
     (column + row.to_s).to_sym
   end
 

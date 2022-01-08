@@ -21,7 +21,7 @@ class Board
     board = {}
     @rows.each do |row|
       @columns.each do |column|
-        cell_marker = create_cell_marker(column, row)
+        cell_marker = create_cell_marker(row, column)
         board[cell_marker] = create_cell(row, column)
       end
     end

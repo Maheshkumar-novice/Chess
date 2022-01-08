@@ -5,7 +5,7 @@ require_relative './piece'
 
 # FEN Operations
 class Fen
-  def to_pieces
+  def to_pieces(fen)
     create_pieces(split(fen))
   end
 

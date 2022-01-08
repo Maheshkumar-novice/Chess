@@ -6,8 +6,7 @@ require_relative './piece'
 # FEN Operations
 class Fen
   def to_pieces
-    splitted = split(fen)
-    create_pieces(splitted)
+    create_pieces(split(fen))
   end
 
   private

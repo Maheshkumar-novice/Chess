@@ -3,10 +3,12 @@
 
 require_relative './fen'
 require_relative './modules/board-helper'
+require_relative './modules/board-printer'
 
 # Chess board
 class Board
   include BoardHelper
+  include BoardPrinter
 
   DEFAULT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 

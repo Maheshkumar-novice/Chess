@@ -13,4 +13,15 @@ class Board
     @columns = ('a'..'h').to_a
     @board = create_board
   end
+
+  def create_board
+    board = {}
+    @rows.each do |row|
+      @columns.each do |column|
+        cell_marker = create_cell_marker(column, row)
+        board[cell_marker] = create_cell(row, column)
+      end
+    end
+    board
+  end
 end

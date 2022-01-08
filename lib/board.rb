@@ -2,9 +2,12 @@
 # frozen_string_literal: true
 
 require_relative './fen'
+require_relative './modules/board-helper'
 
 # Chess board
 class Board
+  include BoardHelper
+
   DEFAULT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
   def initialize(fen = DEFAULT_FEN)

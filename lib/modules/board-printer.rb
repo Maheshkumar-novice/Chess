@@ -15,6 +15,7 @@ module BoardPrinter
     print_column_info
     print_remaining_board
     print_column_info
+    puts "\n\n"
   end
 
   def print_column_info
@@ -43,7 +44,7 @@ module BoardPrinter
   end
 
   def print_cell(value)
-    template(value.piece&.name).to_s.chomp
+    print template(value.piece&.name).to_s.chomp
   end
 
   def print_after_row_end(row_no)

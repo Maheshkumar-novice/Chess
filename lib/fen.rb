@@ -13,7 +13,7 @@ class Fen
 
   def split(fen)
     splitted = fen.split('/')
-    splitted[-1] = splitted[-1][0..7]
+    splitted[-1] = splitted[-1].split[0]
     splitted
   end
 

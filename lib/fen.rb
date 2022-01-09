@@ -49,8 +49,8 @@ class Fen
   end
 
   def piece_color(value)
-    return 'black' if value.match?(/^[[:upper:]]{1}$/)
+    return 'white' if value.match?(/^[[:upper:]]{1}$/)
 
-    'white'
+    'black'
   end
 end

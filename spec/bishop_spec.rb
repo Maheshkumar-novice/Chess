@@ -29,17 +29,17 @@ describe 'Bishop' do
         'rnbqk2r/ppppppb1/5n2/6p1/P6p/3PP2P/1PPNBPPR/R1BQK1N1 b Qkq - 2 7'
       end
 
-      it 'returns all the moves of white rook from g2' do
-        cell = :g2
+      it 'returns all the moves of white bishop from d2' do
+        cell = :d2
         result = board.create_moves(cell).sort
-        expected_result = %i[f1 h3 h1 f3].sort
+        expected_result = %i[a5 b4 c1 c3 e1 e3].sort
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the moves of black rook from e7' do
-        cell = :e7
+      it 'returns all the moves of black bishop from b7' do
+        cell = :b7
         result = board.create_moves(cell).sort
-        expected_result = %i[d6 f8 d8 f6 g5 h4].sort
+        expected_result = %i[a6 a8 c6 c8].sort
         expect(result).to eq(expected_result)
       end
     end

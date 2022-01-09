@@ -32,14 +32,14 @@ describe 'Rook' do
       it 'returns all the moves of white rook from h1' do
         cell = :h1
         result = board.create_moves(cell).sort
-        expected_result = %i[g1 f1 e1 h2 h3 h4 h5].sort
+        expected_result = %i[g1 f1 h2 h3 h4].sort
         expect(result).to eq(expected_result)
       end
 
       it 'returns all the moves of black rook from a8' do
         cell = :a8
         result = board.create_moves(cell).sort
-        expected_result = %i[a7 a6 a5 b8 c8].sort
+        expected_result = %i[a7 a6 a5 a4 b8 c8 d8].sort
         expect(result).to eq(expected_result)
       end
     end

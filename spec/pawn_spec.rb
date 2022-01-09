@@ -103,17 +103,17 @@ describe 'Pawn' do
         'rnb1kbnr/ppp2ppp/3ppq2/8/8/BPN5/P1PPPPPP/R2QKBNR w KQkq - 0 4'
       end
 
-      it 'returns all the moves of white pawn from e3' do
-        cell = :e3
+      it 'returns all the moves of black pawn from e6' do
+        cell = :e6
         result = board.create_moves(cell).sort
-        expected_result = %i[e4 d4 f4].sort
+        expected_result = %i[d5 f5 e5].sort
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the moves of black pawn from b6' do
-        cell = :b6
+      it 'returns all the moves of white pawn from g3' do
+        cell = :g3
         result = board.create_moves(cell).sort
-        expected_result = %i[a5 b5 c5].sort
+        expected_result = %i[f4 g4 h4].sort
         expect(result).to eq(expected_result)
       end
     end

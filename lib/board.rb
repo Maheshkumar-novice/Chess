@@ -4,11 +4,13 @@
 require_relative './fen'
 require_relative './modules/board-helper'
 require_relative './modules/board-printer'
+require_relative './modules/moves-generator'
 
 # Chess board
 class Board
   include BoardHelper
   include BoardPrinter
+  include MovesGenerator
 
   DEFAULT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
@@ -33,5 +35,11 @@ class Board
   def make_move(source, destination)
     @board[destination].piece = @board[source].piece
     @board[source].piece = nil
+  end
+
+  def create_moves(cell)
+    moves = []
+    move_methods(@board[cell].piece.name).each { |method| moves += send(method, cell) }
+    moves
   end
 end

@@ -28,7 +28,7 @@ module MovesValidator
     ].compact
   end
 
-  def pawn?
+  def pawn?(cell)
     @board[cell].piece.name.downcase == 'p'
   end
 

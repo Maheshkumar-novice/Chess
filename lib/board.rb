@@ -5,12 +5,14 @@ require_relative './fen'
 require_relative './modules/board-helper'
 require_relative './modules/board-printer'
 require_relative './modules/moves-generator'
+require_relative './modules/moves-validator'
 
 # Chess board
 class Board
   include BoardHelper
   include BoardPrinter
   include MovesGenerator
+  include MovesValidator
 
   DEFAULT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
@@ -41,5 +43,17 @@ class Board
     moves = []
     move_methods(@board[cell].piece.name).each { |method| moves += send(method, cell) }
     moves
+  end
+
+  def classify_moves(cell, moves, captures = [], empty = [])
+    enemy_color = @board[cell].piece.color == 'white' ? 'black' : 'white'
+    return classify_moves_of_pawn(cell, moves, enemy_color) if pawn?(cell)
+
+    moves.each do |move|
+      empty << move if empty?(move)
+      captures << move if capture?(move, enemy_color)
+    end
+
+    { empty: empty, captures: captures }
   end
 end

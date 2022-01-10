@@ -44,4 +44,82 @@ describe 'Queen' do
       end
     end
   end
+
+  describe 'Board#classify_moves' do
+    subject(:board) { Board.new }
+    let(:result) { board.classify_moves(cell, board.create_moves(cell)) }
+
+    context 'with default fen board' do
+      context 'when moves of white queen e1 are classified' do
+        let(:cell) { :e1 }
+
+        it 'returns all the empty moves' do
+          empty = result[:empty]
+          expected_result = []
+          expect(empty).to eq(expected_result)
+        end
+
+        it 'returns all the captures' do
+          captures = result[:captures]
+          expected_result = []
+          expect(captures).to eq(expected_result)
+        end
+      end
+
+      context 'when moves of black queen e8 are classified' do
+        let(:cell) { :e8 }
+
+        it 'returns all the empty moves' do
+          empty = result[:empty]
+          expected_result = []
+          expect(empty).to eq(expected_result)
+        end
+
+        it 'returns all the captures' do
+          captures = result[:captures]
+          expected_result = []
+          expect(captures).to eq(expected_result)
+        end
+      end
+    end
+
+    context 'with custom fen board' do
+      subject(:board) { Board.new(fen) }
+      let(:fen) do
+        'r1k3nr/p1p1bpp1/2n1p1Np/1pBpQb2/3P4/NPPR1q1P/P3PPP1/4KB1R b K - 2 18'
+      end
+
+      context 'when moves of white queen d5 are classified' do
+        let(:cell) { :d5 }
+
+        it 'returns all the empty moves' do
+          empty = result[:empty].sort
+          expected_result = %i[d4 d3 c6 c4 b3 a2 e6].sort
+          expect(empty).to eq(expected_result)
+        end
+
+        it 'returns all the captures' do
+          captures = result[:captures].sort
+          expected_result = %i[c5 e5 d6 f7 b7].sort
+          expect(captures).to eq(expected_result)
+        end
+      end
+
+      context 'when moves of black queen c3 are classified' do
+        let(:cell) { :c3 }
+
+        it 'returns all the empty moves' do
+          empty = result[:empty].sort
+          expected_result = %i[b3 d3 b4 a5 d4 c4].sort
+          expect(empty).to eq(expected_result)
+        end
+
+        it 'returns all the captures' do
+          captures = result[:captures].sort
+          expected_result = %i[b2 d2 c2 e3 a3].sort
+          expect(captures).to eq(expected_result)
+        end
+      end
+    end
+  end
 end

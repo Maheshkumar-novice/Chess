@@ -132,4 +132,83 @@ describe 'Pawn' do
       end
     end
   end
+
+  describe 'Board#classify_moves' do
+    subject(:board) { Board.new }
+    let(:result) { board.classify_moves(cell, board.create_moves(cell)) }
+
+    context 'with default fen board' do
+      context 'when moves of white pawn f2 are classified' do
+        let(:cell) { :f2 }
+
+        it 'returns all the empty moves' do
+          empty = result[:empty]
+          expected_result = %i[f3 f4]
+          expect(empty).to eq(expected_result)
+        end
+
+        it 'returns all the captures' do
+          captures = result[:captures]
+          expected_result = []
+          expect(captures).to eq(expected_result)
+        end
+      end
+
+      context 'when moves of black pawn c7 are classified' do
+        let(:cell) { :c7 }
+
+        it 'returns all the empty moves' do
+          empty = result[:empty]
+          expected_result = %i[c6 c5]
+          expect(empty).to eq(expected_result)
+        end
+
+        it 'returns all the captures' do
+          captures = result[:captures]
+          expected_result = []
+          expect(captures).to eq(expected_result)
+        end
+      end
+    end
+
+    context 'with cusom fen board' do
+      it { board.print_board }
+      subject(:board) { Board.new(fen) }
+      let(:fen) do
+        'rnb1kbnr/2p1pppp/1p1q4/p1Pp4/PP6/8/3PPPPP/RNBQKBNR w KQkq a6 0 5'
+      end
+
+      context 'when moves of white pawn g4 are classified' do
+        let(:cell) { :g4 }
+
+        it 'returns all the empty moves' do
+          empty = result[:empty]
+          expected_result = %i[g5]
+          expect(empty).to eq(expected_result)
+        end
+
+        it 'returns all the captures' do
+          captures = result[:captures]
+          expected_result = [:h5]
+          expect(captures).to eq(expected_result)
+        end
+      end
+
+      context 'when moves of black pawn g6 are classified' do
+        let(:cell) { :g6 }
+
+        it 'returns all the empty moves' do
+          empty = result[:empty]
+          expected_result = [:g5]
+          expect(empty).to eq(expected_result)
+        end
+
+        it 'returns all the captures' do
+          captures = result[:captures]
+          expected_result = [:f5]
+          expect(captures).to eq(expected_result)
+        end
+      end
+    end
+  end
 end

@@ -37,6 +37,6 @@ module MovesValidator
   end
 
   def capture?(move, enemy_color)
-    @board[move].piece.color == enemy_color
+    @board[move].piece&.color == enemy_color
   end
 end

@@ -16,6 +16,8 @@ class Board
 
   DEFAULT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
+  attr_reader :board
+
   def initialize(fen = DEFAULT_FEN)
     @pieces = Fen.new.to_pieces(fen)
     @rows = (1..8).to_a

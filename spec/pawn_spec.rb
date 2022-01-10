@@ -116,6 +116,20 @@ describe 'Pawn' do
         expected_result = %i[f4 g4 h4].sort
         expect(result).to eq(expected_result)
       end
+
+      it 'returns all the moves of black pawn from c7' do
+        cell = :c7
+        result = board.create_moves(cell).sort
+        expected_result = %i[c6 b6 d6].sort
+        expect(result).to eq(expected_result)
+      end
+
+      it 'returns all the moves of white pawn from f2' do
+        cell = :f2
+        result = board.create_moves(cell).sort
+        expected_result = %i[f3 e3 g3].sort
+        expect(result).to eq(expected_result)
+      end
     end
   end
 end

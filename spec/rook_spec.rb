@@ -83,7 +83,7 @@ describe 'Rook' do
       end
     end
 
-    context 'with cusom fen board' do
+    context 'with custom fen board' do
       subject(:board) { Board.new(fen) }
       let(:fen) do
         'rnb1kbn1/2p1ppp1/1p6/pPP2r1p/P2pPQ2/3R2qP/3P1PP1/1NB1KBNR b Kq - 4 11'

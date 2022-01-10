@@ -171,7 +171,7 @@ describe 'Pawn' do
       end
     end
 
-    context 'with cusom fen board' do
+    context 'with custom fen board' do
       subject(:board) { Board.new(fen) }
       let(:fen) do
         'rnb1kbnr/2p1pppp/1p1q4/p1Pp4/PP6/8/3PPPPP/RNBQKBNR w KQkq a6 0 5'

@@ -67,20 +67,20 @@ module MovesGenerator
 
   def white_pawn_moves(cell)
     moves = generate_moves_from_possible_steps(%i[column_above top_left_diagonal top_right_diagonal], cell)
-    moves << add_double_step(cell, :column_above) if cell.match?(/^[a-h]2$/)
+    moves += add_double_step(cell, :column_above) if cell.match?(/^[a-h]2$/)
     moves
   end
 
   def black_pawn_moves(cell)
     moves = generate_moves_from_possible_steps(%i[column_below bottom_left_diagonal bottom_right_diagonal], cell)
-    moves << add_double_step(cell, :column_below) if cell.match?(/^[a-h]7$/)
+    moves += add_double_step(cell, :column_below) if cell.match?(/^[a-h]7$/)
     moves
   end
 
   def add_double_step(cell, step)
     step1 = @board[cell].send(step)
-    step2 = @board[step1].send(step) unless step1.nil?
-    step2
+    step2 = @board[step1].send(step) if !step1.nil? && @board[step1].piece.nil?
+    step2 ? [step2] : []
   end
 
   def generate_moves_from_directions(directions, cell, moves = [])

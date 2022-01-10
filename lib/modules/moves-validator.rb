@@ -5,7 +5,7 @@
 module MovesValidator
   private
 
-  def pawn_classify(cell, moves, enemy_color, captures = [], empty = [])
+  def classify_moves_of_pawn(cell, moves, enemy_color, captures = [], empty = [])
     diagonal_moves = pawn_diagonal_moves(@board[cell])
     diagonal_moves.each do |move|
       captures << move if capture?(move, enemy_color)

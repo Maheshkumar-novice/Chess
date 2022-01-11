@@ -47,10 +47,12 @@ class Board
     moves
   end
 
-  def classify_moves(cell, moves, captures = [], empty = [])
+  def classify_moves(cell, moves)
     enemy_color = @board[cell].piece.color == 'white' ? 'black' : 'white'
     return classify_moves_of_pawn(cell, moves, enemy_color) if pawn?(cell)
 
+    captures = []
+    empty = []
     moves.each do |move|
       empty << move if empty?(move)
       captures << move if capture?(move, enemy_color)

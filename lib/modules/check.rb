@@ -13,9 +13,9 @@ module Check
   end
 
   def move_leads_to_check?(source, destination, color)
-    @board.make_move(source, destination)
+    make_move(source, destination)
     king_in_check = king_in_check?(color)
-    @board.make_move(destination, source)
+    make_move(destination, source)
 
     king_in_check
   end

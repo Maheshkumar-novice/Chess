@@ -5,7 +5,7 @@
 module MovesGenerator
   private
 
-  def move_methods(piece_name)
+  def movements_of_piece(piece_name)
     {
       r: %i[horizontal_moves vertical_moves],
       n: [:knight_moves],

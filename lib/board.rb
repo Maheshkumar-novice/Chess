@@ -43,7 +43,7 @@ class Board
 
   def create_moves(cell)
     moves = []
-    move_methods(@board[cell].piece.name).each { |method| moves += send(method, cell) }
+    movements_of_piece(@board[cell].piece.name).each { |movement_method| moves += send(movement_method, cell) }
     moves
   end
 

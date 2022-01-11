@@ -27,7 +27,7 @@ module Check
   end
 
   def eliminate_nil_pieces(moves)
-    moves.reject do |move|
+    moves.compact.reject do |move|
       @board[move].piece.nil?
     end
   end

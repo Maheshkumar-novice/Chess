@@ -3,19 +3,21 @@
 
 # Board Printer
 module BoardPrinter
+  def print_board
+    print_column_info
+    print_remaining_board
+    print_column_info
+    puts "\n\n"
+  end
+
+  private
+
   def template(value)
     value = ' ' if value.nil?
 
     <<~T
       | #{value}#{' '}
     T
-  end
-
-  def print_board
-    print_column_info
-    print_remaining_board
-    print_column_info
-    puts "\n\n"
   end
 
   def print_column_info

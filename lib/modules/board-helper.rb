@@ -7,6 +7,14 @@ require_relative '../cell'
 module BoardHelper
   private
 
+  def king_position(king_color)
+    @board.each do |marker, cell|
+      color = cell.piece&.color
+      name = cell.piece&.name.to_s.downcase
+      return marker if color == king_color && name == 'k'
+    end
+  end
+
   def create_cell_marker(row, column)
     (column + row.to_s).to_sym
   end

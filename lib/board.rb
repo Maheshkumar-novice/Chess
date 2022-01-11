@@ -47,6 +47,12 @@ class Board
     moves
   end
 
+  def eliminate_check_context_moves(source, destinations, color)
+    destinations.reject do |destination|
+      move_leads_to_check?(source, destination, color)
+    end
+  end
+
   def classify_moves(cell, moves)
     enemy_color = @board[cell].piece.color == 'white' ? 'black' : 'white'
     return classify_moves_of_pawn(cell, moves, enemy_color) if pawn?(cell)

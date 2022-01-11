@@ -13,10 +13,12 @@ module Check
   end
 
   def move_leads_to_check?(source, destination, color)
+    previous_source_piece = @board[source].piece
+    previous_destination_piece = @board[destination].piece
     make_move(source, destination)
     king_in_check = king_in_check?(color)
-    make_move(destination, source)
-
+    @board[source].piece = previous_source_piece
+    @board[destination].piece = previous_destination_piece
     king_in_check
   end
 

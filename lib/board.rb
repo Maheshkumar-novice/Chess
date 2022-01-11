@@ -6,6 +6,7 @@ require_relative './modules/board-helper'
 require_relative './modules/board-printer'
 require_relative './modules/moves-generator'
 require_relative './modules/moves-validator'
+require_relative './modules/check'
 
 # Chess board
 class Board
@@ -13,6 +14,7 @@ class Board
   include BoardPrinter
   include MovesGenerator
   include MovesValidator
+  include Check
 
   DEFAULT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 

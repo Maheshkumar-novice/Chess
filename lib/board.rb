@@ -43,6 +43,13 @@ class Board
     @board[source].piece = nil
   end
 
+  def moves_from_source(cell, color)
+    all_moves = create_moves(cell)
+    moves_without_same_color = reject_moves_of_same_color(all_moves, color)
+    moves_without_check_moves = eliminate_check_context_moves(cell, moves_without_same_color, color)
+    classify_moves(cell, moves_without_check_moves)
+  end
+
   def create_moves(cell)
     moves = []
     movements_of_piece(@board[cell].piece.name).each { |movement_method| moves += send(movement_method, cell) }

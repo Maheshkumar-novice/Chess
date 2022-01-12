@@ -7,6 +7,12 @@ require_relative '../cell'
 module BoardHelper
   private
 
+  def reject_moves_of_same_color(moves, color)
+    moves.reject do |move|
+      @board[move].piece&.color == color
+    end
+  end
+
   def king_position(king_color)
     @board.each do |marker, cell|
       color = cell.piece&.color

@@ -5,103 +5,93 @@
 module Check
   private
 
-  def king_in_check?(color)
-    king_position = king_position(color)
-    check_possibilities.any? do |check_possibility|
-      send(check_possibility, king_position)
-    end
-  end
-
-  def move_leads_to_check?(source, destination, color)
-    previous_source_piece = @board[source].piece
-    previous_destination_piece = @board[destination].piece
-    make_move(source, destination)
-    king_in_check = king_in_check?(color)
-    @board[source].piece = previous_source_piece
-    @board[destination].piece = previous_destination_piece
-    king_in_check
-  end
-
   def check_possibilities
     %i[horizontal_check? vertical_check? diagonal_check? knight_check? pawn_check? king_check?]
   end
 
-  def eliminate_nil_pieces(moves)
-    moves.compact.reject do |move|
-      @board[move].piece.nil?
-    end
-  end
-
-  def different_colors?(move, king_position)
-    @board[move].piece.color != @board[king_position].piece.color
-  end
-
-  def moves_piece_in_pieces_can_check?(pieces_can_check, move)
-    pieces_can_check.include?(@board[move].piece.name.downcase)
-  end
-
-  def check?(pieces_can_check, move, king_position)
-    different_colors?(move, king_position) && moves_piece_in_pieces_can_check?(pieces_can_check, move)
-  end
-
-  def horizontal_check?(king_position)
-    horizontal_moves = eliminate_nil_pieces(horizontal_moves(king_position))
+  def horizontal_check?(king_position, board)
+    horizontal_moves = generate_all_moves_from_directions(%i[row_right row_left], king_position, board)
+    horizontal_moves = eliminate_nil_pieces(horizontal_moves, board)
     horizontal_moves.any? do |horizontal_move|
-      check?(%w[r q], horizontal_move, king_position)
+      check?(%w[r q], horizontal_move, king_position, board)
     end
   end
 
-  def vertical_check?(king_position)
-    vertical_moves = eliminate_nil_pieces(vertical_moves(king_position))
+  def vertical_check?(king_position, board)
+    vertical_moves = generate_all_moves_from_directions(%i[column_above column_below], king_position, board)
+    vertical_moves = eliminate_nil_pieces(vertical_moves, board)
     vertical_moves.any? do |vertical_move|
-      check?(%w[r q], vertical_move, king_position)
+      check?(%w[r q], vertical_move, king_position, board)
     end
   end
 
-  def diagonal_check?(king_position)
-    diagonal_moves = eliminate_nil_pieces(diagonal_moves(king_position))
+  def diagonal_check?(king_position, board)
+    diagonal_moves = generate_all_moves_from_directions(%i[top_left_diagonal
+                                                           top_right_diagonal
+                                                           bottom_right_diagonal
+                                                           bottom_left_diagonal], king_position, board)
+    diagonal_moves = eliminate_nil_pieces(diagonal_moves, board)
     diagonal_moves.any? do |diagonal_move|
-      check?(%w[b q], diagonal_move, king_position)
+      check?(%w[b q], diagonal_move, king_position, board)
     end
   end
 
-  def knight_check?(king_position)
-    knight_moves = eliminate_nil_pieces(knight_moves(king_position))
+  def knight_check?(king_position, board)
+    knight_moves = knight_moves(king_position, board)
+    knight_moves = eliminate_nil_pieces(knight_moves, board)
     knight_moves.any? do |knight_move|
-      check?(%w[n], knight_move, king_position)
+      check?(%w[n], knight_move, king_position, board)
     end
   end
 
-  def pawn_check?(king_position)
-    color = @board[king_position].piece.color
-    return black_pawn_check?(king_position) if color == 'white'
-    return white_pawn_check?(king_position) if color == 'black'
+  def pawn_check?(king_position, board)
+    color = board[king_position].piece.color
+    return black_pawn_check?(king_position, board) if color == 'white'
+    return white_pawn_check?(king_position, board) if color == 'black'
   end
 
-  def black_pawn_check?(king_position)
+  def black_pawn_check?(king_position, board)
     moves = []
-    moves << @board[king_position].top_right_diagonal
-    moves << @board[king_position].top_left_diagonal
-    moves = eliminate_nil_pieces(moves)
+    moves << board[king_position].top_right_diagonal
+    moves << board[king_position].top_left_diagonal
+    moves = eliminate_nil_pieces(moves, board)
     moves.any? do |move|
-      check?(%w[p], move, king_position)
+      check?(%w[p], move, king_position, board)
     end
   end
 
-  def white_pawn_check?(king_position)
+  def white_pawn_check?(king_position, board)
     moves = []
-    moves << @board[king_position].bottom_right_diagonal
-    moves << @board[king_position].bottom_left_diagonal
-    moves = eliminate_nil_pieces(moves)
+    moves << board[king_position].bottom_right_diagonal
+    moves << board[king_position].bottom_left_diagonal
+    moves = eliminate_nil_pieces(moves, board)
     moves.any? do |move|
-      check?(%w[p], move, king_position)
+      check?(%w[p], move, king_position, board)
     end
   end
 
-  def king_check?(king_position)
-    king_moves = eliminate_nil_pieces(king_moves(king_position))
+  def king_check?(king_position, board)
+    king_moves = eliminate_nil_pieces(moves(board), board)
     king_moves.any? do |king_move|
-      check?(%w[k], king_move, king_position)
+      check?(%w[k], king_move, king_position, board)
+    end
+  end
+
+  def check?(pieces_can_check, move, king_position, board)
+    different_colors?(move, king_position, board) && moves_piece_in_pieces_can_check?(pieces_can_check, move, board)
+  end
+
+  def different_colors?(move, king_position, board)
+    board[move].piece.color != board[king_position].piece.color
+  end
+
+  def moves_piece_in_pieces_can_check?(pieces_can_check, move, board)
+    pieces_can_check.include?(board[move].piece.name.downcase)
+  end
+
+  def eliminate_nil_pieces(moves, board)
+    moves.compact.reject do |move|
+      board[move].piece.nil?
     end
   end
 end

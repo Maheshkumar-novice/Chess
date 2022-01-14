@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './piece'
+Dir['./pieces/*.rb'].sort.each { |file| require file }
 
 # FEN Operations
 class Fen
@@ -42,10 +42,21 @@ class Fen
   end
 
   def create_valid_piece(value)
-    piece = Piece.new
+    piece = piece(value)
     piece.name = value
     piece.color = piece_color(value)
     piece
+  end
+
+  def piece(value)
+    {
+      r: Rook.new,
+      b: Bishop.new,
+      n: Knight.new,
+      k: King.new,
+      q: Queen.new,
+      p: Pawn.new
+    }[value.downcase.to_sym]
   end
 
   def piece_color(value)

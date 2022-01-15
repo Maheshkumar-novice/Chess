@@ -28,15 +28,15 @@ module BoardPrinter
   end
 
   def print_remaining_board
-    row_no = 1
+    row_no = 8
     print_before_first_row(row_no)
     @board.each do |key, value|
       print_cell(value)
       next unless key.match?(/h/)
 
       print_after_row_end(row_no)
-      row_no += 1
-      print "#{row_no} " if row_no <= 8
+      row_no -= 1
+      print "#{row_no} " if row_no >= 1
     end
   end
 

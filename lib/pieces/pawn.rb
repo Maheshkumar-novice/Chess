@@ -5,12 +5,12 @@ require_relative '../piece'
 
 # Pawn
 class Pawn < Piece
-  def moves(board)
+  def create_moves(board)
     return white_pawn_moves(board) if @color == 'white'
     return black_pawn_moves(board) if @color == 'black'
   end
 
-  def classified_moves(moves, board)
+  def classify_moves(moves, board)
     diagonal_moves = pawn_diagonal_moves(board[@current_cell]).select { |move| moves.include?(move) }
     moves = moves.reject { |move| diagonal_moves.include?(move) }
 

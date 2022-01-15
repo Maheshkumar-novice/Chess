@@ -8,7 +8,7 @@ require_relative '../modules/check'
 class King < Piece
   include Check
 
-  def moves(board)
+  def create_moves(board)
     generate_single_step_moves_from_directions(%i[row_right
                                                   row_left
                                                   column_above

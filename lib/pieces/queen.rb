@@ -5,7 +5,7 @@ require_relative '../piece'
 
 # Queen
 class Queen < Piece
-  def moves(board)
+  def create_moves(board)
     generate_all_moves_from_directions(%i[top_left_diagonal
                                           top_right_diagonal
                                           bottom_right_diagonal

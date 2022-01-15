@@ -1,7 +1,12 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-Dir['./pieces/*.rb'].sort.each { |file| require file }
+require_relative './pieces/rook'
+require_relative './pieces/knight'
+require_relative './pieces/bishop'
+require_relative './pieces/king'
+require_relative './pieces/queen'
+require_relative './pieces/pawn'
 
 # FEN Operations
 class Fen

@@ -1,5 +1,6 @@
 # Check List
 - [ ] Refactoring
+- [ ] Tests for Cell
 - [ ] Update board to standard form
 - [ ] Tests
 - [ ] Refactoring

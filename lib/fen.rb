@@ -19,7 +19,7 @@ class Fen
   def split(fen)
     splitted = fen.split('/')
     splitted[-1] = splitted[-1].split[0]
-    splitted.map!(&:reverse).reverse
+    splitted
   end
 
   def create_pieces(splitted)

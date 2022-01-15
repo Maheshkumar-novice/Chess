@@ -6,12 +6,15 @@
 - [ ] Create permanent board printer
 - [ ] Tests
 - [ ] Refactoring
+- [ ] Game play testing
 - [ ] Create users
 - [ ] Tests
 - [ ] Refactoring
+- [ ] Game play testing
 - [ ] Game class creation
 - [ ] Tests
 - [ ] Refactoring
+- [ ] Game play testing
 - [ ] MetaData class creatioon
 - [ ] Tests
 - [ ] Refactoring

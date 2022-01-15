@@ -71,7 +71,7 @@ module Check
   end
 
   def king_check?(king_position, board)
-    king_moves = eliminate_nil_pieces(moves(board), board)
+    king_moves = eliminate_nil_pieces(create_moves(board), board)
     king_moves.any? do |king_move|
       check?(%w[k], king_move, king_position, board)
     end

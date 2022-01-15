@@ -10,7 +10,7 @@ describe Board do
     context 'with default fen board' do
       context 'when a2 moves to a4' do
         it 'moves a2 to a4' do
-          chess_board = board.instance_variable_get(:@board)
+          chess_board = board.board
           source = :a2
           destination = :a4
           previous_source_piece = chess_board[:a2].piece
@@ -22,7 +22,7 @@ describe Board do
 
       context 'when g1 moves to f3' do
         it 'moves g1 to f3' do
-          chess_board = board.instance_variable_get(:@board)
+          chess_board = board.board
           source = :g1
           destination = :f3
           previous_source_piece = chess_board[:g1].piece

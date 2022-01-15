@@ -1,7 +1,7 @@
 # Check List
 - [x] Refactoring
 - [x] Tests for Cell
-- [ ] Update board to standard form
+- [x] Update board to standard form
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Create permanent board printer

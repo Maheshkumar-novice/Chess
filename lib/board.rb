@@ -16,7 +16,7 @@ class Board
 
   def initialize(fen = DEFAULT_FEN)
     @pieces = Fen.new.to_pieces(fen)
-    @rows = (1..8).to_a
+    @rows = (1..8).to_a.reverse
     @columns = ('a'..'h').to_a
     @board = create_board
   end

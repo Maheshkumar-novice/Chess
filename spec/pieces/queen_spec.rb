@@ -31,19 +31,19 @@ describe Queen do
         'rnb1kbnr/pp1ppppp/8/5Q2/1Ppq4/4P3/P1PP1PPP/RNB1KBNR w KQkq - 2 5'
       end
 
-      it 'returns all the moves of white queen from c5' do
-        cell = :c5
+      it 'returns all the moves of white queen from f5' do
+        cell = :f5
         queen = board[cell].piece
         result = queen.create_moves(board).sort
-        expected_result = %i[c4 c3 c2 c6 c7 b5 a5 d5 e5 f5 g5 h5 b6 a7 d4 e3 f2 b4 a3 d6 e7].sort
+        expected_result = %i[a5 b5 c5 d5 e5 g5 h5 f6 f7 f4 f3 f2 e6 d7 g6 h7 e4 d3 c2 g4 h3].sort
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the moves of black queen from e4' do
-        cell = :e4
+      it 'returns all the moves of black queen from d4' do
+        cell = :d4
         queen = board[cell].piece
         result = queen.create_moves(board).sort
-        expected_result = %i[a4 b4 c4 d4 f4 e3 e2 e5 e6 e7 d3 f5 g6 h7 d5 c6 b7 f3 g2 h1].sort
+        expected_result = %i[c4 e4 f4 g4 h4 d7 d6 d5 d2 d3 a7 b6 c5 e3 g7 f6 e5 a1 b2 c3].sort
         expect(result).to eq(expected_result)
       end
     end
@@ -62,7 +62,7 @@ describe Queen do
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the moves of black queen from e8' do
+      it 'returns all the classified moves of black queen from e8' do
         cell = :e8
         queen = board[cell].piece
         moves = queen.create_moves(board)
@@ -78,12 +78,12 @@ describe Queen do
         'r1k3nr/p1p1bpp1/2n1p1Np/1pBpQb2/3P4/NPPR1q1P/P3PPP1/4KB1R b K - 2 18'
       end
 
-      it 'returns all the moves of white queen from d5' do
-        cell = :d5
+      it 'returns all the classified moves of white queen from e5' do
+        cell = :e5
         queen = board[cell].piece
         moves = queen.create_moves(board)
         result = queen.classify_moves(moves, board)
-        expected_result = { captures: %i[c5 e5 d6 f7 b7], empty: %i[d4 d3 c6 c4 b3 a2 e6] }
+        expected_result = { captures: %i[e6 d5 f5 c7 g7], empty: %i[d6 f6 e4 e3 f4 g3 h2] }
         result[:empty] = result[:empty].sort
         result[:captures] = result[:captures].sort
         expected_result[:empty] = expected_result[:empty].sort
@@ -91,12 +91,12 @@ describe Queen do
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the moves of black queen from c3' do
-        cell = :c3
+      it 'returns all the classified moves of black queen from f3' do
+        cell = :f3
         queen = board[cell].piece
         moves = queen.create_moves(board)
         result = queen.classify_moves(moves, board)
-        expected_result = { captures: %i[b2 d2 c2 e3 a3], empty: %i[b3 d3 b4 a5 d4 c4] }
+        expected_result = { captures: %i[e2 f2 g2 h3 d3], empty: %i[e4 f4 g4 e3 g3 h5] }
         result[:empty] = result[:empty].sort
         result[:captures] = result[:captures].sort
         expected_result[:empty] = expected_result[:empty].sort

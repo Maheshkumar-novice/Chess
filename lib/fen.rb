@@ -43,7 +43,7 @@ class Fen
   end
 
   def create_nil_pieces(value)
-    [nil] * value.to_i
+    [nil] * value
   end
 
   def create_valid_piece(value)

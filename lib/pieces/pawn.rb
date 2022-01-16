@@ -12,9 +12,9 @@ class Pawn < Piece
 
   def classify_moves(moves, board)
     diagonal_moves = pawn_diagonal_moves(board[@current_cell]).select { |move| moves.include?(move) }
-    moves = moves.reject { |move| diagonal_moves.include?(move) }
+    remaining_moves = moves.reject { |move| diagonal_moves.include?(move) }
 
-    { empty: create_empty(moves, board), captures: create_captures(diagonal_moves, board) }
+    { empty: find_empty_moves(remaining_moves, board), captures: find_capture_moves(diagonal_moves, board) }
   end
 
   private

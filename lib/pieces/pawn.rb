@@ -43,20 +43,6 @@ class Pawn < Piece
     step2 ? [step2] : []
   end
 
-  def create_captures(diagonal_moves, board)
-    enemy_color = @color == 'white' ? 'black' : 'white'
-
-    diagonal_moves.each_with_object([]) do |move, result|
-      result << move if board[move].piece&.color == enemy_color
-    end
-  end
-
-  def create_empty(moves, board)
-    moves.each_with_object([]) do |move, result|
-      result << move if board[move].piece.nil?
-    end
-  end
-
   def pawn_diagonal_moves(cell)
     [
       cell.top_right_diagonal,
@@ -64,5 +50,19 @@ class Pawn < Piece
       cell.bottom_right_diagonal,
       cell.bottom_left_diagonal
     ].compact
+  end
+
+  def find_capture_moves(diagonal_moves, board)
+    enemy_color = @color == 'white' ? 'black' : 'white'
+
+    diagonal_moves.each_with_object([]) do |move, result|
+      result << move if board[move].piece&.color == enemy_color
+    end
+  end
+
+  def find_empty_moves(moves, board)
+    moves.each_with_object([]) do |move, result|
+      result << move if board[move].piece.nil?
+    end
   end
 end

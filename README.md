@@ -3,7 +3,7 @@
 - [x] Tests for Cell
 - [x] Update board to standard form
 - [x] Tests
-- [ ] Refactoring
+- [x] Refactoring
 - [ ] Create permanent board printer
 - [ ] Tests
 - [ ] Refactoring

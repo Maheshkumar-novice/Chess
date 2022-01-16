@@ -31,11 +31,11 @@ describe String do
       expect(string.magenta).to eq("\e[35m#{string}\e[0m")
     end
 
-    it 'converts color to cyan color' do
+    it 'converts the string to cyan color' do
       expect(string.cyan).to eq("\e[36m#{string}\e[0m")
     end
 
-    it 'converts color to gray color' do
+    it 'converts the string to gray color' do
       expect(string.gray).to eq("\e[37m#{string}\e[0m")
     end
 

@@ -31,19 +31,19 @@ describe Knight do
         'rnbqk2r/ppppppb1/5n2/6p1/P6p/3PP2P/1PPNBPPR/R1BQK1N1 b Qkq - 2 7'
       end
 
-      it 'returns all the moves of white knight from e2' do
-        cell = :e2
+      it 'returns all the moves of white knight from d2' do
+        cell = :d2
         knight = board[cell].piece
         result = knight.create_moves(board).sort
-        expected_result = %i[d4 f4 c3 c1 g3 g1].sort
+        expected_result = %i[c4 e4 f1 f3 b1 b3].sort
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the moves of black knight from c6' do
-        cell = :c6
+      it 'returns all the moves of black knight from f6' do
+        cell = :f6
         knight = board[cell].piece
         result = knight.create_moves(board).sort
-        expected_result = %i[b4 d4 e5 e7 d8 b8 a5 a7].sort
+        expected_result = %i[e8 g8 h7 h5 e4 g4 d5 d7].sort
         expect(result).to eq(expected_result)
       end
     end
@@ -78,12 +78,12 @@ describe Knight do
         'r1k2bnr/p1p2ppp/1p2p1N1/2Bpqb2/1n1P4/1PPQ4/P3PPPP/RN2KB1R b KQ - 7 12'
       end
 
-      it 'returns all the classified moves of white knight b6' do
-        cell = :b6
+      it 'returns all the classified moves of white knight g6' do
+        cell = :g6
         knight = board[cell].piece
         moves = knight.create_moves(board)
         result = knight.classify_moves(moves, board)
-        expected_result = { captures: %i[a8 c8 d5], empty: %i[d7 c4 a4] }
+        expected_result = { captures: %i[f8 h8 e5], empty: %i[e7 f4 h4] }
         result[:empty] = result[:empty].sort
         result[:captures] = result[:captures].sort
         expected_result[:empty] = expected_result[:empty].sort
@@ -91,12 +91,12 @@ describe Knight do
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the classified moves of black knight g4' do
-        cell = :g4
+      it 'returns all the classified moves of black knight b4' do
+        cell = :b4
         knight = board[cell].piece
         moves = knight.create_moves(board)
         result = knight.classify_moves(moves, board)
-        expected_result = { captures: %i[h2 e3], empty: %i[f6 h6 f2] }
+        expected_result = { captures: %i[d3 a2], empty: %i[c2 a6 c6] }
         result[:empty] = result[:empty].sort
         result[:captures] = result[:captures].sort
         expected_result[:empty] = expected_result[:empty].sort

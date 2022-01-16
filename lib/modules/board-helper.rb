@@ -59,4 +59,10 @@ module BoardHelper
       return marker if color == king_color && name == 'k'
     end
   end
+
+  def revert_moves(source, destination, previous_source_piece, previous_source_cell, previous_destination_piece)
+    @board[source].piece = previous_source_piece
+    @board[destination].piece = previous_destination_piece
+    @board[source].piece.current_cell = previous_source_cell
+  end
 end

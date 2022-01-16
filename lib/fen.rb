@@ -17,14 +17,14 @@ class Fen
   private
 
   def split(fen)
-    splitted = fen.split('/')
-    splitted[-1] = splitted[-1].split[0]
-    splitted
+    rows = fen.split('/')
+    rows[-1] = rows[-1].split[0]
+    rows
   end
 
-  def create_pieces(splitted)
+  def create_pieces(rows)
     pieces = []
-    splitted.each do |row|
+    rows.each do |row|
       row.chars.each do |value|
         pieces += make_piece(value)
       end

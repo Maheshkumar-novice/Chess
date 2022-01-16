@@ -35,7 +35,7 @@ class Fen
   def make_piece(value)
     pieces = []
     if value.match?(/^[1-8]{1}$/)
-      pieces += create_nil_pieces(value)
+      pieces += create_nil_pieces(value.to_i)
     else
       pieces << create_valid_piece(value)
     end

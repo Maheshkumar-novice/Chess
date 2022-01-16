@@ -28,9 +28,11 @@ class Board
   end
 
   def moves_from_source(cell, color)
-    all_moves = @board[cell].piece.create_moves(board)
-    moves_without_same_color = reject_moves_of_same_color_destination(all_moves, color)
-    moves_without_check_moves = reject_moves_that_keep_own_king_in_check(cell, moves_without_same_color, color)
-    @board[cell].piece.classify_moves(moves_without_check_moves, board)
+    piece = @board[cell].piece
+    all_moves = piece.create_moves(board)
+    moves_without_same_color_destination = reject_moves_of_same_color_destination(all_moves, color)
+    moves_without_check_moves = reject_moves_that_keep_own_king_in_check(cell, moves_without_same_color_destination,
+                                                                         color)
+    piece.classify_moves(moves_without_check_moves, board)
   end
 end

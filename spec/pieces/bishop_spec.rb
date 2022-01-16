@@ -31,19 +31,19 @@ describe Bishop do
         'rnbqk2r/ppppppb1/5n2/6p1/P6p/3PP2P/1PPNBPPR/R1BQK1N1 b Qkq - 2 7'
       end
 
-      it 'returns all the moves of white bishop from d2' do
-        cell = :d2
+      it 'returns all the moves of white bishop from e2' do
+        cell = :e2
         bishop = board[cell].piece
         result = bishop.create_moves(board).sort
-        expected_result = %i[a5 b4 c1 c3 e1 e3].sort
+        expected_result = %i[d3 f3 g4 h5 d1 f1].sort
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the moves of black bishop from b7' do
-        cell = :b7
+      it 'returns all the moves of black bishop from g7' do
+        cell = :g7
         bishop = board[cell].piece
         result = bishop.create_moves(board).sort
-        expected_result = %i[a6 a8 c6 c8].sort
+        expected_result = %i[f8 h8 f6 h6].sort
         expect(result).to eq(expected_result)
       end
     end
@@ -78,12 +78,12 @@ describe Bishop do
         'rnk2bnr/p1p2ppp/1p1qp1N1/2Bp1b2/3P4/1PP5/P1Q1PPPP/RN2KB1R b KQ - 1 9'
       end
 
-      it 'returns all the classified moves of white bishop f5' do
-        cell = :f5
+      it 'returns all the classified moves of white bishop c5' do
+        cell = :c5
         bishop = board[cell].piece
         moves = bishop.create_moves(board)
         result = bishop.classify_moves(moves, board)
-        expected_result = { captures: %i[e6 g6], empty: %i[g4 h3] }
+        expected_result = { captures: %i[b6 d6], empty: %i[b4 a3] }
         result[:empty] = result[:empty].sort
         result[:captures] = result[:captures].sort
         expected_result[:empty] = expected_result[:empty].sort
@@ -91,12 +91,12 @@ describe Bishop do
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the classified moves of black bishop c5' do
-        cell = :c5
+      it 'returns all the classified moves of black bishop f5' do
+        cell = :f5
         bishop = board[cell].piece
         moves = bishop.create_moves(board)
         result = bishop.classify_moves(moves, board)
-        expected_result = { captures: %i[b6 f2], empty: %i[d4 e3 b4 a3] }
+        expected_result = { captures: %i[g6 c2], empty: %i[g4 h3 e4 d3] }
         result[:empty] = result[:empty].sort
         result[:captures] = result[:captures].sort
         expected_result[:empty] = expected_result[:empty].sort

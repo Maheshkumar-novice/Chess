@@ -31,35 +31,35 @@ describe Pawn do
         'rnb1kbnr/ppp2ppp/3ppq2/8/8/BPN5/P1PPPPPP/R2QKBNR w KQkq - 0 4'
       end
 
-      it 'returns all the moves of black pawn from e6' do
-        cell = :e6
+      it 'returns all the moves of black pawn from d6' do
+        cell = :d6
         pawn = board[cell].piece
         result = pawn.create_moves(board).sort
-        expected_result = %i[d5 f5 e5].sort
+        expected_result = %i[d5 c5 e5].sort
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the moves of white pawn from g3' do
-        cell = :g3
+      it 'returns all the moves of white pawn from b3' do
+        cell = :b3
         pawn = board[cell].piece
         result = pawn.create_moves(board).sort
-        expected_result = %i[f4 g4 h4].sort
+        expected_result = %i[a4 b4 c4].sort
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the moves of black pawn from c7' do
-        cell = :c7
+      it 'returns all the moves of black pawn from f7' do
+        cell = :f7
         pawn = board[cell].piece
         result = pawn.create_moves(board).sort
-        expected_result = %i[c6 b6 d6].sort
+        expected_result = %i[e6 f6 g6].sort
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the moves of white pawn from f2' do
-        cell = :f2
+      it 'returns all the moves of white pawn from c2' do
+        cell = :c2
         pawn = board[cell].piece
         result = pawn.create_moves(board).sort
-        expected_result = %i[f3 e3 g3].sort
+        expected_result = %i[b3 c3 d3].sort
         expect(result).to eq(expected_result)
       end
     end
@@ -94,21 +94,21 @@ describe Pawn do
         'rnb1kbnr/2p1pppp/1p1q4/p1Pp4/PP6/8/3PPPPP/RNBQKBNR w KQkq a6 0 5'
       end
 
-      it 'returns all the classified moves of white pawn g4' do
-        cell = :g4
+      it 'returns all the classified moves of white pawn b4' do
+        cell = :b4
         bishop = board[cell].piece
         moves = bishop.create_moves(board)
         result = bishop.classify_moves(moves, board)
-        expected_result = { captures: %i[h5], empty: %i[g5] }
+        expected_result = { captures: %i[a5], empty: %i[b5] }
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all the classified moves of black pawn g6' do
-        cell = :g6
+      it 'returns all the classified moves of black pawn b6' do
+        cell = :b6
         bishop = board[cell].piece
         moves = bishop.create_moves(board)
         result = bishop.classify_moves(moves, board)
-        expected_result = { captures: %i[f5], empty: %i[g5] }
+        expected_result = { captures: %i[c5], empty: %i[b5] }
         expect(result).to eq(expected_result)
       end
     end

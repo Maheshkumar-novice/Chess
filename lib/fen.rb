@@ -47,13 +47,14 @@ class Fen
   end
 
   def create_valid_piece(value)
-    piece = piece(value)
+    piece_symbol = value.downcase.to_sym
+    piece = piece(piece_symbol)
     piece.name = value
     piece.color = piece_color(value)
     piece
   end
 
-  def piece(value)
+  def piece(piece_symbol)
     {
       r: Rook.new,
       b: Bishop.new,
@@ -61,7 +62,7 @@ class Fen
       k: King.new,
       q: Queen.new,
       p: Pawn.new
-    }[value.downcase.to_sym]
+    }[piece_symbol]
   end
 
   def piece_color(value)

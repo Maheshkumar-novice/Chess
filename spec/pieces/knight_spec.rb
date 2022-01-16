@@ -84,10 +84,8 @@ describe Knight do
         moves = knight.create_moves(board)
         result = knight.classify_moves(moves, board)
         expected_result = { captures: %i[f8 h8 e5], empty: %i[e7 f4 h4] }
-        result[:empty] = result[:empty].sort
-        result[:captures] = result[:captures].sort
-        expected_result[:empty] = expected_result[:empty].sort
-        expected_result[:captures] = expected_result[:captures].sort
+        result.each { |k, v| result[k] = v.sort }
+        expected_result.each { |k, v| expected_result[k] = v.sort }
         expect(result).to eq(expected_result)
       end
 
@@ -97,10 +95,8 @@ describe Knight do
         moves = knight.create_moves(board)
         result = knight.classify_moves(moves, board)
         expected_result = { captures: %i[d3 a2], empty: %i[c2 a6 c6] }
-        result[:empty] = result[:empty].sort
-        result[:captures] = result[:captures].sort
-        expected_result[:empty] = expected_result[:empty].sort
-        expected_result[:captures] = expected_result[:captures].sort
+        result.each { |k, v| result[k] = v.sort }
+        expected_result.each { |k, v| expected_result[k] = v.sort }
         expect(result).to eq(expected_result)
       end
     end

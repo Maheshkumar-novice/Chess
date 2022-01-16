@@ -84,10 +84,8 @@ describe Queen do
         moves = queen.create_moves(board)
         result = queen.classify_moves(moves, board)
         expected_result = { captures: %i[e6 d5 f5 c7 g7], empty: %i[d6 f6 e4 e3 f4 g3 h2] }
-        result[:empty] = result[:empty].sort
-        result[:captures] = result[:captures].sort
-        expected_result[:empty] = expected_result[:empty].sort
-        expected_result[:captures] = expected_result[:captures].sort
+        result.each { |k, v| result[k] = v.sort }
+        expected_result.each { |k, v| expected_result[k] = v.sort }
         expect(result).to eq(expected_result)
       end
 
@@ -97,10 +95,8 @@ describe Queen do
         moves = queen.create_moves(board)
         result = queen.classify_moves(moves, board)
         expected_result = { captures: %i[e2 f2 g2 h3 d3], empty: %i[e4 f4 g4 e3 g3 h5] }
-        result[:empty] = result[:empty].sort
-        result[:captures] = result[:captures].sort
-        expected_result[:empty] = expected_result[:empty].sort
-        expected_result[:captures] = expected_result[:captures].sort
+        result.each { |k, v| result[k] = v.sort }
+        expected_result.each { |k, v| expected_result[k] = v.sort }
         expect(result).to eq(expected_result)
       end
     end

@@ -39,27 +39,27 @@ describe Board do
         'rnb1kbnr/ppp2ppp/3ppq2/8/8/BPN5/P1PPPPPP/R2QKBNR w KQkq - 0 4'
       end
 
-      context 'when f3 moves to e5' do
-        it 'moves f3 to e5' do
+      context 'when c3 moves to d5' do
+        it 'moves c3 to d5' do
           chess_board = board.board
-          source = :f3
-          destination = :e5
-          previous_source_piece = chess_board[:f3].piece
+          source = :c3
+          destination = :d5
+          previous_source_piece = chess_board[:c3].piece
           board.make_move(source, destination)
-          expect(chess_board[:f3].piece).to be_nil
-          expect(chess_board[:e5].piece).to eq(previous_source_piece)
+          expect(chess_board[:c3].piece).to be_nil
+          expect(chess_board[:d5].piece).to eq(previous_source_piece)
         end
       end
 
-      context 'when c6 moves to c3' do
-        it 'moves c6 to c3' do
+      context 'when f6 moves to f2' do
+        it 'moves f6 to f2' do
           chess_board = board.board
-          source = :c6
-          destination = :c3
-          previous_source_piece = chess_board[:c6].piece
+          source = :f6
+          destination = :f2
+          previous_source_piece = chess_board[:f6].piece
           board.make_move(source, destination)
-          expect(chess_board[:c6].piece).to be_nil
-          expect(chess_board[:c3].piece).to eq(previous_source_piece)
+          expect(chess_board[:f6].piece).to be_nil
+          expect(chess_board[:f2].piece).to eq(previous_source_piece)
         end
       end
     end
@@ -67,7 +67,7 @@ describe Board do
 
   describe '#moves_from_source' do
     context 'with default fen board' do
-      it 'returns all valid moves of g1' do
+      it 'returns all the valid moves of g1' do
         cell = :g1
         color = 'white'
         result = board.moves_from_source(cell, color)
@@ -77,7 +77,7 @@ describe Board do
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all valid moves of a7' do
+      it 'returns all the valid moves of a7' do
         cell = :a7
         color = 'black'
         result = board.moves_from_source(cell, color)
@@ -87,7 +87,7 @@ describe Board do
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all valid moves of e8' do
+      it 'returns all the valid moves of e8' do
         cell = :e8
         color = 'black'
         result = board.moves_from_source(cell, color)
@@ -102,58 +102,38 @@ describe Board do
       subject(:board) { described_class.new(fen) }
       let(:fen) { 'rnb2b2/pp1N1Ppp/1R1kpn2/B1p1N1q1/1QPP1p1r/P2Kp1B1/PP1P3P/3R4 w - - 0 1' }
 
-      it 'returns all valid moves of b3' do
-        cell = :b3
+      it 'returns all the valid moves of g3' do
+        cell = :g3
         color = 'white'
         result = board.moves_from_source(cell, color)
-        expected_result = { captures: %i[a4 c4], empty: %i[c2 d1] }
+        expected_result = { captures: %i[f4 h4], empty: %i[f2 e1] }
         result.each { |k, v| result[k] = v.sort }
         expected_result.each { |k, v| expected_result[k] = v.sort }
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all valid moves of e6' do
-        cell = :e6
+      it 'returns all the valid moves of d6' do
+        cell = :d6
         color = 'black'
         result = board.moves_from_source(cell, color)
-        expected_result = { captures: [], empty: %i[d7 f7] }
+        expected_result = { captures: [], empty: %i[c7 e7] }
         result.each { |k, v| result[k] = v.sort }
         expected_result.each { |k, v| expected_result[k] = v.sort }
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all valid moves of e7' do
-        cell = :e7
+      it 'returns all the valid moves of d7' do
+        cell = :d7
         color = 'white'
         result = board.moves_from_source(cell, color)
-        expected_result = { captures: %i[g8 c6 c8 f5], empty: [] }
+        expected_result = { captures: %i[b8 c5 f6 f8], empty: [] }
         result.each { |k, v| result[k] = v.sort }
         expected_result.each { |k, v| expected_result[k] = v.sort }
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all valid moves of f5' do
-        cell = :f5
-        color = 'black'
-        result = board.moves_from_source(cell, color)
-        expected_result = { captures: [], empty: [] }
-        result.each { |k, v| result[k] = v.sort }
-        expected_result.each { |k, v| expected_result[k] = v.sort }
-        expect(result).to eq(expected_result)
-      end
-
-      it 'returns all valid moves of g8' do
-        cell = :g8
-        color = 'black'
-        result = board.moves_from_source(cell, color)
-        expected_result = { captures: [], empty: [:f6] }
-        result.each { |k, v| result[k] = v.sort }
-        expected_result.each { |k, v| expected_result[k] = v.sort }
-        expect(result).to eq(expected_result)
-      end
-
-      it 'returns all valid moves of f8' do
-        cell = :f8
+      it 'returns all the valid moves of c5' do
+        cell = :c5
         color = 'black'
         result = board.moves_from_source(cell, color)
         expected_result = { captures: [], empty: [] }
@@ -162,18 +142,18 @@ describe Board do
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all valid moves of g2' do
-        cell = :g2
-        color = 'white'
+      it 'returns all the valid moves of b8' do
+        cell = :b8
+        color = 'black'
         result = board.moves_from_source(cell, color)
-        expected_result = { captures: [], empty: [:g3] }
+        expected_result = { captures: [], empty: [:c6] }
         result.each { |k, v| result[k] = v.sort }
         expected_result.each { |k, v| expected_result[k] = v.sort }
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all valid moves of b5' do
-        cell = :b5
+      it 'returns all the valid moves of c8' do
+        cell = :c8
         color = 'black'
         result = board.moves_from_source(cell, color)
         expected_result = { captures: [], empty: [] }
@@ -182,21 +162,51 @@ describe Board do
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all valid moves of g4' do
-        cell = :g4
+      it 'returns all the valid moves of b2' do
+        cell = :b2
         color = 'white'
         result = board.moves_from_source(cell, color)
-        expected_result = { captures: [:f5], empty: %i[g5 g3 h4 f3] }
+        expected_result = { captures: [], empty: [:b3] }
         result.each { |k, v| result[k] = v.sort }
         expected_result.each { |k, v| expected_result[k] = v.sort }
         expect(result).to eq(expected_result)
       end
 
-      it 'returns all valid moves of e2' do
-        cell = :e2
+      it 'returns all the valid moves of g5' do
+        cell = :g5
+        color = 'black'
+        result = board.moves_from_source(cell, color)
+        expected_result = { captures: [], empty: [] }
+        result.each { |k, v| result[k] = v.sort }
+        expected_result.each { |k, v| expected_result[k] = v.sort }
+        expect(result).to eq(expected_result)
+      end
+
+      it 'returns all the valid moves of b4' do
+        cell = :b4
         color = 'white'
         result = board.moves_from_source(cell, color)
-        expected_result = { captures: [:d3], empty: [] }
+        expected_result = { captures: [:c5], empty: %i[a4 b5 b3 c3] }
+        result.each { |k, v| result[k] = v.sort }
+        expected_result.each { |k, v| expected_result[k] = v.sort }
+        expect(result).to eq(expected_result)
+      end
+
+      it 'returns all the valid moves of d2' do
+        cell = :d2
+        color = 'white'
+        result = board.moves_from_source(cell, color)
+        expected_result = { captures: [:e3], empty: [] }
+        result.each { |k, v| result[k] = v.sort }
+        expected_result.each { |k, v| expected_result[k] = v.sort }
+        expect(result).to eq(expected_result)
+      end
+
+      it 'returns all the valid moves of d3' do
+        cell = :d3
+        color = 'white'
+        result = board.moves_from_source(cell, color)
+        expected_result = { captures: [], empty: %i[c3 e2 c2] }
         result.each { |k, v| result[k] = v.sort }
         expected_result.each { |k, v| expected_result[k] = v.sort }
         expect(result).to eq(expected_result)

@@ -44,13 +44,11 @@ module BoardHelper
 
   def move_leads_to_check?(source, destination, color)
     previous_source_piece = @board[source].piece
-    previouse_source_cell = previous_source_piece.current_cell
+    previous_source_cell = previous_source_piece.current_cell
     previous_destination_piece = @board[destination].piece
     make_move(source, destination)
     king_in_check = @board[find_king_position(color)].piece.in_check?(@board)
-    @board[source].piece = previous_source_piece
-    @board[destination].piece = previous_destination_piece
-    @board[source].piece.current_cell = previouse_source_cell
+    revert_moves(source, destination, previous_source_piece, previous_source_cell, previous_destination_piece)
     king_in_check
   end
 

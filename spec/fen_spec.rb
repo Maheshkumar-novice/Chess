@@ -16,38 +16,38 @@ describe Fen do
         expect(result[16..47]).to eq(pieces_array)
       end
 
-      it 'returns an array with first element as white rook' do
+      it 'returns an array with first element as black rook' do
         result = fen.to_pieces(fen_code)[0]
-        expect(result.name).to eq('R')
-        expect(result.color).to eq('white')
-      end
-
-      it 'returns an array with last element as black rook' do
-        result = fen.to_pieces(fen_code)[-1]
         expect(result.name).to eq('r')
         expect(result.color).to eq('black')
+      end
+
+      it 'returns an array with last element as white rook' do
+        result = fen.to_pieces(fen_code)[-1]
+        expect(result.name).to eq('R')
+        expect(result.color).to eq('white')
       end
     end
 
     context 'when custom fen given' do
       fen_code = 'rnb1kbnr/ppp2ppp/3ppq2/8/8/BPN5/P1PPPPPP/R2QKBNR w KQkq - 0 4'
 
-      it 'returns an array with 22th element as white pawn' do
-        result = fen.to_pieces(fen_code)[22]
+      it 'returns an array with 42th element as white pawn' do
+        result = fen.to_pieces(fen_code)[41]
         expect(result.name).to eq('P')
         expect(result.color).to eq('white')
       end
 
-      it 'returns an array with first element as white rook' do
+      it 'returns an array with first element as black rook' do
         result = fen.to_pieces(fen_code)[0]
-        expect(result.name).to eq('R')
-        expect(result.color).to eq('white')
-      end
-
-      it 'returns an array with last element as black rook' do
-        result = fen.to_pieces(fen_code)[-1]
         expect(result.name).to eq('r')
         expect(result.color).to eq('black')
+      end
+
+      it 'returns an array with last element as white rook' do
+        result = fen.to_pieces(fen_code)[-1]
+        expect(result.name).to eq('R')
+        expect(result.color).to eq('white')
       end
     end
   end

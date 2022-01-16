@@ -4,7 +4,7 @@
 - [x] Update board to standard form
 - [x] Tests
 - [x] Refactoring
-- [ ] Create permanent board printer
+- [x] Create permanent board printer
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Game play testing

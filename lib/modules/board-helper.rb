@@ -1,31 +1,45 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative '../fen'
 require_relative '../cell'
 
 # Board Helper
 module BoardHelper
   private
 
-  def create_board
+  def create_board(fen)
+    pieces = pieces_from_fen(fen)
     board = {}
-    @rows.each do |row|
-      @columns.each do |column|
+    rows.each do |row|
+      columns.each do |column|
         cell_marker = create_cell_marker(row.to_s, column)
-        board[cell_marker] = create_cell(row, column)
+        board[cell_marker] = create_cell(row, column, pieces.shift)
         board[cell_marker].piece.current_cell = cell_marker if board[cell_marker].piece
       end
     end
     board
   end
 
+  def pieces_from_fen(fen)
+    Fen.new.to_pieces(fen)
+  end
+
+  def rows
+    (1..8).to_a.reverse
+  end
+
+  def columns
+    ('a'..'h').to_a
+  end
+
   def create_cell_marker(row, column)
     (column + row).to_sym
   end
 
-  def create_cell(row, column)
+  def create_cell(row, column, piece)
     cell = Cell.new
-    cell.piece = @pieces.shift
+    cell.piece = piece
     cell.create_connections(row, column)
     cell
   end

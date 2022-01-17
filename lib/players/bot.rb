@@ -10,7 +10,7 @@ class Bot < Player
   def input
     row = random_row
     column = random_column
-    (column + row).to_sym
+    (column + row)
   end
 
   private

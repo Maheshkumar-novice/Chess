@@ -14,6 +14,8 @@ class Player
 
   def input; end
 
+  def create_name; end
+
   def valid_name?(name)
     name.match?(/^[\w+\s]{1,#{MAX_NAME_LENGTH}}$/)
   end

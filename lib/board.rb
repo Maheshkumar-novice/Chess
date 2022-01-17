@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './fen'
 require_relative './modules/board-helper'
 require_relative './modules/board-printer'
 
@@ -15,10 +14,7 @@ class Board
   attr_reader :board
 
   def initialize(fen = DEFAULT_FEN)
-    @pieces = Fen.new.to_pieces(fen)
-    @rows = (1..8).to_a.reverse
-    @columns = ('a'..'h').to_a
-    @board = create_board
+    @board = create_board(fen)
   end
 
   def make_move(source, destination)

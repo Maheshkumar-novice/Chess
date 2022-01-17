@@ -60,6 +60,6 @@
 - [ ] Game play testing
 - [ ] Readme Creation
 - [ ] Extra functionalities - Sound, Theme, Settings, Help, Modes, Menu, Autosave, Fen Copy, More UX improvements
-- [ ] To Learn more: Load, Require, Require_Relative,Replit, Bundler, Gem, Go-Su game lib, Design patterns, Social media posts, Sharing with friends, Sharing in Odin, Feedback review
+- [ ] To Learn more: Load, Require, Require_Relative,Replit, Bundler,Reek, Gem, Go-Su game lib, Design patterns, Social media posts, Sharing with friends, Sharing in Odin, Feedback review
 - [ ] Final Review and Reflections
 - [ ] Moving on....!

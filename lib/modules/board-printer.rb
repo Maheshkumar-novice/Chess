@@ -43,12 +43,17 @@ module BoardPrinter
     bg_color == :bg_cyan ? :bg_gray : :bg_cyan
   end
 
-  def print_cell(cell, key, bg_color, source, empty, captures)
-    bg_color = :bg_magenta if source == key
-    bg_color = :bg_red if captures.include?(key)
-    bg_color = :bg_green if empty.include?(key)
+  def print_cell(cell, bg_color)
     piece_symbol = cell.piece&.name.to_s.to_sym
     print colorize_cell(piece_symbol, bg_color)
+  end
+
+  def get_bg_color(key, source, empty, captures, default_bg_color)
+    return :bg_magenta if source == key
+    return :bg_red if captures.include?(key)
+    return :bg_green if empty.include?(key)
+
+    default_bg_color
   end
 
   def colorize_cell(piece_symbol, bg_color)

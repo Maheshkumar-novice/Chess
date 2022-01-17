@@ -11,7 +11,7 @@ module BoardHelper
     board = {}
     @rows.each do |row|
       @columns.each do |column|
-        cell_marker = create_cell_marker(row, column)
+        cell_marker = create_cell_marker(row.to_s, column)
         board[cell_marker] = create_cell(row, column)
         board[cell_marker].piece.current_cell = cell_marker if board[cell_marker].piece
       end
@@ -20,7 +20,7 @@ module BoardHelper
   end
 
   def create_cell_marker(row, column)
-    (column + row.to_s).to_sym
+    (column + row).to_sym
   end
 
   def create_cell(row, column)

@@ -8,7 +8,7 @@
 - [x] Tests
 - [x] Refactoring
 - [x] Game play testing
-- [ ] Create users
+- [x] Create users
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Game play testing

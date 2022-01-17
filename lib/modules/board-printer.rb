@@ -8,9 +8,9 @@ require_relative '../utils/color'
 module BoardPrinter
   include ChessUnicode
 
-  def print_board(empty = [], captures = [])
+  def print_board(source, empty = [], captures = [])
     print_column_info
-    print_board_data(empty, captures)
+    print_board_data(source, empty, captures)
     print_column_info
   end
 
@@ -24,14 +24,14 @@ module BoardPrinter
     puts
   end
 
-  def print_board_data(empty, captures)
+  def print_board_data(source, empty, captures)
     bg_color = :bg_cyan
     row = 9
 
     @board.each do |key, cell|
       print " #{row -= 1} " if key.match?(/a/)
       bg_color = switch_bg(bg_color)
-      print_cell(cell, key, bg_color, empty, captures)
+      print_cell(cell, key, bg_color, source, empty, captures)
       next unless key.match?(/h/)
 
       print " #{row} \n"
@@ -43,7 +43,8 @@ module BoardPrinter
     bg_color == :bg_cyan ? :bg_gray : :bg_cyan
   end
 
-  def print_cell(cell, key, bg_color, empty, captures)
+  def print_cell(cell, key, bg_color, source, empty, captures)
+    bg_color = :bg_magenta if source == key
     bg_color = :bg_red if captures.include?(key)
     bg_color = :bg_green if empty.include?(key)
     piece_symbol = cell.piece&.name.to_s.to_sym

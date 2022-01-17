@@ -6,6 +6,29 @@ require_relative '../lib/board'
 describe Board do
   subject(:board) { described_class.new }
 
+  describe '#initialize' do
+    it 'creates a board of size 64' do
+      chess_board = board.board
+      result = chess_board.size
+      expected_result = 64
+      expect(result).to eq(expected_result)
+    end
+
+    it 'creates a board whose first cell is a8' do
+      first_cell = board.board.first[0]
+      result = first_cell
+      expected_result = :a8
+      expect(result).to eq(expected_result)
+    end
+
+    it 'creates a board whose last cell is h1' do
+      last_cell = board.board.keys.last
+      result = last_cell
+      expected_result = :h1
+      expect(result).to eq(expected_result)
+    end
+  end
+
   describe '#make_move' do
     context 'with default fen board' do
       context 'when a2 moves to a4' do

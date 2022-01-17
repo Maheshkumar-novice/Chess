@@ -25,17 +25,17 @@ module BoardPrinter
   end
 
   def print_board_data(source, empty, captures)
-    bg_color = :bg_cyan
+    default_bg_color = :bg_cyan
     row = 9
 
     @board.each do |key, cell|
       print " #{row -= 1} " if key.match?(/a/)
-      bg_color = switch_bg(bg_color)
-      print_cell(cell, key, bg_color, source, empty, captures)
+      default_bg_color = switch_bg(default_bg_color)
+      print_cell(cell, get_bg_color(key, source, empty, captures, default_bg_color))
       next unless key.match?(/h/)
 
       print " #{row} \n"
-      bg_color = switch_bg(bg_color)
+      default_bg_color = switch_bg(default_bg_color)
     end
   end
 

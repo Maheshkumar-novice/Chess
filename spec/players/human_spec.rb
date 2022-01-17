@@ -14,4 +14,14 @@ describe Human do
       expect(result).to eq(expected_result)
     end
   end
+
+  describe '#create_name' do
+    it 'returns a string of size between 1 and 15' do
+      allow(human).to receive(:print)
+      allow(human).to receive(:gets).and_return('hello')
+      human.create_name
+      result = human.name.size.between?(1, 15)
+      expect(result).to eq true
+    end
+  end
 end

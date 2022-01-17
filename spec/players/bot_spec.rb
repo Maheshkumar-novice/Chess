@@ -12,4 +12,12 @@ describe Bot do
       expect(result).to eq true
     end
   end
+
+  describe '#create_name' do
+    it 'returns a string of size between 1 and 15' do
+      bot.create_name
+      result = bot.name.size.between?(1, 15)
+      expect(result).to eq true
+    end
+  end
 end

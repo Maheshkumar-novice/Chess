@@ -60,14 +60,14 @@ module Check
   end
 
   def any_move_leads_to_check?(pieces_can_check, direction_moves, king_position, board)
-    direction_moves = eliminate_nil_pieces(direction_moves, board)
+    direction_moves = reject_nil_pieces(direction_moves, board)
     direction_moves.any? do |direction_move|
       check?(pieces_can_check, direction_move, king_position, board)
     end
   end
 
-  def eliminate_nil_pieces(moves, board)
-    moves.compact.reject do |move|
+  def reject_nil_pieces(moves, board)
+    moves.reject do |move|
       board[move].piece.nil?
     end
   end

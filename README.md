@@ -5,7 +5,7 @@
 - [x] Tests
 - [x] Refactoring
 - [x] Create permanent board printer
-- [ ] Tests
+- [x] Tests
 - [ ] Refactoring
 - [ ] Game play testing
 - [ ] Create users

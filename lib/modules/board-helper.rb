@@ -48,7 +48,7 @@ module BoardHelper
     previous_destination_piece = @board[destination].piece
     make_move(source, destination)
     king_in_check = @board[find_king_position(color)].piece.in_check?(@board)
-    revert_moves(source, destination, previous_source_piece, previous_source_cell, previous_destination_piece)
+    revert_move(source, destination, previous_source_piece, previous_source_cell, previous_destination_piece)
     king_in_check
   end
 
@@ -60,7 +60,7 @@ module BoardHelper
     end
   end
 
-  def revert_moves(source, destination, previous_source_piece, previous_source_cell, previous_destination_piece)
+  def revert_move(source, destination, previous_source_piece, previous_source_cell, previous_destination_piece)
     @board[source].piece = previous_source_piece
     @board[destination].piece = previous_destination_piece
     @board[source].piece.current_cell = previous_source_cell

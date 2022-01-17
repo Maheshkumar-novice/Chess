@@ -6,6 +6,6 @@ require_relative './player'
 # Human Player
 class Human < Player
   def input
-    gets.chomp.to_sym
+    gets.chomp
   end
 end

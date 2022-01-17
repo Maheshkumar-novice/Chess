@@ -71,14 +71,14 @@ module Check
   end
 
   def check?(pieces_can_check, move, king_position, board)
-    different_colors?(move, king_position, board) && moves_piece_in_pieces_can_check?(pieces_can_check, move, board)
+    different_colors?(move, king_position, board) && move_piece_in_pieces_can_check?(pieces_can_check, move, board)
   end
 
   def different_colors?(move, king_position, board)
     board[move].piece.color != board[king_position].piece.color
   end
 
-  def moves_piece_in_pieces_can_check?(pieces_can_check, move, board)
+  def move_piece_in_pieces_can_check?(pieces_can_check, move, board)
     pieces_can_check.include?(board[move].piece.name.downcase)
   end
 end

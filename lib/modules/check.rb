@@ -42,6 +42,7 @@ module Check
     moves = []
     moves << board[king_position].top_right_diagonal
     moves << board[king_position].top_left_diagonal
+    moves = moves.compact
     any_move_leads_to_check?(%w[p], moves, king_position, board)
   end
 
@@ -49,6 +50,7 @@ module Check
     moves = []
     moves << board[king_position].bottom_right_diagonal
     moves << board[king_position].bottom_left_diagonal
+    moves = moves.compact
     any_move_leads_to_check?(%w[p], moves, king_position, board)
   end
 

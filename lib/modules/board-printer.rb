@@ -47,10 +47,10 @@ module BoardPrinter
     bg_color = :bg_red if captures.include?(key)
     bg_color = :bg_green if empty.include?(key)
     piece_symbol = cell.piece&.name.to_s.to_sym
-    print template(piece_symbol, bg_color)
+    print colorize_cell(piece_symbol, bg_color)
   end
 
-  def template(piece_symbol, bg_color)
+  def colorize_cell(piece_symbol, bg_color)
     piece = character_to_unicode(piece_symbol) unless piece_symbol == :""
     piece = ' ' if piece_symbol == :""
     " #{piece} ".send(bg_color).black

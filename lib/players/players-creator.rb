@@ -14,7 +14,7 @@ class PlayersCreator
   def create_players
     print_modes
     choose_mode
-    create_players_of_mode
+    @players = create_players_of_mode
     create_names
     assign_colors
     create_players_hash
@@ -27,14 +27,14 @@ class PlayersCreator
   end
 
   def create_players_of_mode
-    @players = case @mode
-               when :a
-                 [new_bot_player, new_bot_player]
-               when :b
-                 [new_bot_player, new_human_player]
-               when :c
-                 [new_human_player, new_human_player]
-               end
+    case @mode
+    when :a
+      [new_bot_player, new_bot_player]
+    when :b
+      [new_bot_player, new_human_player]
+    when :c
+      [new_human_player, new_human_player]
+    end
   end
 
   def create_names

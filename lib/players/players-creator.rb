@@ -23,16 +23,15 @@ class PlayersCreator
   def choose_mode
     @mode = mode_input
     @mode = mode_input until valid_mode?
-    @mode = @mode.to_sym
   end
 
   def create_players_of_mode
     case @mode
-    when :a
+    when 'a'
       [new_bot_player, new_bot_player]
-    when :b
+    when 'b'
       [new_bot_player, new_human_player]
-    when :c
+    when 'c'
       [new_human_player, new_human_player]
     end
   end

@@ -21,6 +21,7 @@ class PlayersCreator
   end
 
   def choose_mode
+    @mode = mode_input
     @mode = mode_input until valid_mode?
     @mode = @mode.to_sym
   end

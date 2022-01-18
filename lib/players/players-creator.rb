@@ -20,8 +20,6 @@ class PlayersCreator
     create_players_hash
   end
 
-  private
-
   def print_modes
     puts <<~MODES
       Modes:
@@ -47,11 +45,14 @@ class PlayersCreator
   end
 
   def create_players_of_mode
-    @players = {
-      a: [new_bot_player, new_bot_player],
-      b: [new_bot_player, new_human_player],
-      c: [new_human_player, new_human_player]
-    }[@mode]
+    @players = case @mode
+               when :a
+                 [new_bot_player, new_bot_player]
+               when :b
+                 [new_bot_player, new_human_player]
+               when :c
+                 [new_human_player, new_human_player]
+               end
   end
 
   def new_bot_player

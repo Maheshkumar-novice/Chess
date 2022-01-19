@@ -12,6 +12,7 @@
 - [x] Tests
 - [x] Refactoring(composition, inheritance)
 - [x] Game play testing
+
 - [ ] Game class creation
 - [ ] Tests
 - [ ] Refactoring(nil video sandi metz, solid, null object pattern, tests)

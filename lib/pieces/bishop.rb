@@ -1,15 +1,26 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../piece'
+require_relative './components/move-generator'
+require_relative './components/move-classifier'
 
 # Bishop
-class Bishop < Piece
+class Bishop
+  attr_accessor :name, :color, :current_cell
+
+  def initialize(move_generator: MoveGenerator.new, move_classifier: MoveClassifier.new)
+    @name = nil
+    @color = nil
+    @current_cell = nil
+    @move_generator = move_generator
+    @move_classifier = move_classifier
+  end
+
   def create_moves(board)
-    generate_all_moves_from_directions(%i[top_left_diagonal
-                                          top_right_diagonal
-                                          bottom_right_diagonal
-                                          bottom_left_diagonal],
-                                       @current_cell, board)
+    @move_generator.bishop_moves(@current_cell, board)
+  end
+
+  def classify_moves(moves, board)
+    @move_classifier.classify_moves(color, moves, board)
   end
 end

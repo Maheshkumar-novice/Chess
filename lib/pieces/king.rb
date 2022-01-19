@@ -1,27 +1,32 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../piece'
-require_relative '../modules/check'
+require_relative './components/move-generator'
+require_relative './components/move-classifier'
+require_relative './components/check-finder'
 
 # King
-class King < Piece
-  include Check
+class King
+  attr_accessor :name, :color, :current_cell
+
+  def initialize(move_generator: MoveGenerator.new, move_classifier: MoveClassifier.new, check_finder: CheckFinder.new)
+    @name = nil
+    @color = nil
+    @current_cell = nil
+    @move_generator = move_generator
+    @move_classifier = move_classifier
+    @check_finder = check_finder
+  end
 
   def create_moves(board)
-    generate_single_step_moves_from_directions(%i[row_right
-                                                  row_left
-                                                  column_above
-                                                  column_below
-                                                  top_left_diagonal
-                                                  top_right_diagonal
-                                                  bottom_right_diagonal
-                                                  bottom_left_diagonal], @current_cell, board)
+    @move_generator.king_moves(@current_cell, board)
+  end
+
+  def classify_moves(moves, board)
+    @move_classifier.classify_moves(color, moves, board)
   end
 
   def in_check?(board)
-    check_possibilities.any? do |check_possibility|
-      send(check_possibility, @current_cell, board)
-    end
+    @check_finder.cell_in_check?(@current_cell, board)
   end
 end

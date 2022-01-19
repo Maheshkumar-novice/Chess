@@ -14,7 +14,7 @@
 - [x] Game play testing
 - [ ] Game class creation
 - [ ] Tests
-- [ ] Refactoring(solid, null object pattern, tests)
+- [ ] Refactoring(nil video sandi metz, solid, null object pattern, tests)
 - [ ] Game play testing
 - [ ] MetaData class creatioon
 - [ ] Tests

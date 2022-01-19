@@ -1,20 +1,26 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './modules/board-helper'
-require_relative './modules/board-printer'
+require_relative './utils/board-printer'
+require_relative './cell'
+require_relative './fen'
 
 # Chess board
 class Board
-  include BoardHelper
-  include BoardPrinter
-
   DEFAULT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
   attr_reader :board
 
-  def initialize(fen = DEFAULT_FEN)
+  def initialize(fen = DEFAULT_FEN, printer: BoardPrinter.new)
+    @printer = printer
+    @pieces = Fen.new.to_pieces(fen)
+    @rows = (1..8).to_a.reverse
+    @columns = ('a'..'h').to_a
     @board = create_board(fen)
+  end
+
+  def print
+    @printer.print_board(@board)
   end
 
   def make_move(source, destination)

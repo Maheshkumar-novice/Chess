@@ -1,13 +1,21 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../piece'
+require_relative './components/move-generator'
 
 # Pawn
-class Pawn < Piece
+class Pawn
+  attr_accessor :name, :color, :current_cell
+
+  def initialize(move_generator: MoveGenerator.new)
+    @name = nil
+    @color = nil
+    @current_cell = nil
+    @move_generator = move_generator
+  end
+
   def create_moves(board)
-    return white_pawn_moves(board) if @color == 'white'
-    return black_pawn_moves(board) if @color == 'black'
+    @move_generator.pawn_moves(@current_cell, color, board)
   end
 
   def classify_moves(moves, board)
@@ -18,30 +26,6 @@ class Pawn < Piece
   end
 
   private
-
-  def white_pawn_moves(board)
-    moves = generate_single_step_moves_from_directions(%i[column_above
-                                                          top_left_diagonal
-                                                          top_right_diagonal],
-                                                       @current_cell, board)
-    moves += add_double_step(board, :column_above) if @current_cell.match?(/^[a-h]2$/)
-    moves
-  end
-
-  def black_pawn_moves(board)
-    moves = generate_single_step_moves_from_directions(%i[column_below
-                                                          bottom_left_diagonal
-                                                          bottom_right_diagonal],
-                                                       @current_cell, board)
-    moves += add_double_step(board, :column_below) if @current_cell.match?(/^[a-h]7$/)
-    moves
-  end
-
-  def add_double_step(board, step)
-    step1 = board[@current_cell].send(step)
-    step2 = board[step1].send(step) if !step1.nil? && board[step1].piece.nil?
-    step2 ? [step2] : []
-  end
 
   def pawn_diagonal_moves(cell)
     [

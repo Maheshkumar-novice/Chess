@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../lib/players/name-validator'
+require_relative '../../../lib/players/components/name-validator'
 
 describe NameValidator do
   subject(:name_validator) { described_class.new }

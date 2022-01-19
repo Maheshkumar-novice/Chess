@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './name-creator'
-require_relative './name-validator'
-require_relative './cell-choice-maker'
-require_relative './cell-choice-validator'
+require_relative './components/name-creator'
+require_relative './components/name-validator'
+require_relative './components/cell-choice-maker'
+require_relative './components/cell-choice-validator'
 
 # Human Player
 class Human

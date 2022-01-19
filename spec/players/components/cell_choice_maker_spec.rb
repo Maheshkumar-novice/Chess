@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../lib/players/cell-choice-maker'
+require_relative '../../../lib/players/components/cell-choice-maker'
 
 describe CellChoiceMaker do
   subject(:cell_choice_maker) { described_class.new }

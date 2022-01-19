@@ -19,8 +19,8 @@ class Board
     @board = create_board(fen)
   end
 
-  def print_board
-    @printer.print_board(@board)
+  def print_board(source = [], empty = [], captures = [])
+    @printer.print_board(@board, source, empty, captures)
   end
 
   def make_move(source, destination)

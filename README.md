@@ -10,11 +10,11 @@
 - [x] Game play testing
 - [x] Create users
 - [x] Tests
-- [ ] Refactoring(composition, inheritance)
-- [ ] Game play testing
+- [x] Refactoring(composition, inheritance)
+- [x] Game play testing
 - [ ] Game class creation
 - [ ] Tests
-- [ ] Refactoring(solid, null object pattern)
+- [ ] Refactoring(solid, null object pattern, tests)
 - [ ] Game play testing
 - [ ] MetaData class creatioon
 - [ ] Tests

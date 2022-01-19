@@ -9,12 +9,12 @@
 - [x] Refactoring
 - [x] Game play testing
 - [x] Create users
-- [ ] Tests
-- [ ] Refactoring
+- [x] Tests
+- [ ] Refactoring(composition, inheritance)
 - [ ] Game play testing
 - [ ] Game class creation
 - [ ] Tests
-- [ ] Refactoring
+- [ ] Refactoring(solid, null object pattern)
 - [ ] Game play testing
 - [ ] MetaData class creatioon
 - [ ] Tests

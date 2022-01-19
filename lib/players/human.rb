@@ -25,6 +25,7 @@ class Human
   def make_choice
     cell_choice = @cell_choice_maker.human_choice
     cell_choice = @cell_choice_maker.human_choice until @cell_choice_validator.valid?(cell_choice)
+    cell_choice
   end
 
   def create_name

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../lib/utils/color.rb'
+require_relative '../../lib/utils/color'
 
 describe String do
   describe '#colorize' do

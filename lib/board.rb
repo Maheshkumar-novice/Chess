@@ -19,7 +19,7 @@ class Board
     @board = create_board(fen)
   end
 
-  def print
+  def print_board
     @printer.print_board(@board)
   end
 

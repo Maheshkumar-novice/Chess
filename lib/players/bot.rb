@@ -1,30 +1,25 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './player'
+require_relative './name-creator'
+require_relative './cell-choice-maker'
 
 # Bot Player
-class Bot < Player
-  COLUMNS = ('a'..'h').to_a
-  NAMES = %w[nick fury rick morty].freeze
+class Bot
+  attr_accessor :name, :color
 
-  def input
-    row = random_row
-    column = random_column
-    (column + row)
+  def initialize(name_creator: NameCreator.new, cell_choice_maker: CellChoiceMaker.new)
+    @name = nil
+    @color = nil
+    @name_creator = name_creator
+    @cell_choice_maker = cell_choice_maker
+  end
+
+  def make_choice
+    @cell_choice_maker.bot_choice
   end
 
   def create_name
-    @name = NAMES.sample
-  end
-
-  private
-
-  def random_row
-    rand(1..8).to_s
-  end
-
-  def random_column
-    COLUMNS.sample
+    @name = @name_creator.bot_name
   end
 end

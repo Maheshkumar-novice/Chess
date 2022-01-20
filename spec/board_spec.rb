@@ -2,11 +2,20 @@
 # frozen_string_literal: true
 
 require_relative '../lib/board'
+require_relative '../lib/fen'
 
 describe Board do
-  subject(:board) { described_class.new }
+  let(:fen) { Fen.new }
+  let(:default_fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
+
+  before do
+    fen.process(fen_code)
+  end
 
   describe '#initialize' do
+    let(:fen_code) { default_fen }
+    subject(:board) { described_class.new(fen.pieces, fen.meta_data) }
+
     it 'creates a board of size 64' do
       chess_board = board.board
       result = chess_board.size
@@ -31,6 +40,9 @@ describe Board do
 
   describe '#make_move' do
     context 'with default fen board' do
+      let(:fen_code) { default_fen }
+      subject(:board) { described_class.new(fen.pieces, fen.meta_data) }
+
       context 'when a2 moves to a4' do
         it 'moves a2 to a4' do
           chess_board = board.board
@@ -57,10 +69,8 @@ describe Board do
     end
 
     context 'with custom fen board' do
-      subject(:board) { described_class.new(fen) }
-      let(:fen) do
-        'rnb1kbnr/ppp2ppp/3ppq2/8/8/BPN5/P1PPPPPP/R2QKBNR w KQkq - 0 4'
-      end
+      let(:fen_code) { 'rnb1kbnr/ppp2ppp/3ppq2/8/8/BPN5/P1PPPPPP/R2QKBNR w KQkq - 0 4' }
+      subject(:board) { described_class.new(fen.pieces, fen.meta_data) }
 
       context 'when c3 moves to d5' do
         it 'moves c3 to d5' do
@@ -90,6 +100,9 @@ describe Board do
 
   describe '#moves_from_source' do
     context 'with default fen board' do
+      let(:fen_code) { default_fen }
+      subject(:board) { described_class.new(fen.pieces, fen.meta_data) }
+
       it 'returns all the valid moves of g1' do
         cell = :g1
         color = 'white'
@@ -122,8 +135,8 @@ describe Board do
     end
 
     context 'with custom fen board' do
-      subject(:board) { described_class.new(fen) }
-      let(:fen) { 'rnb2b2/pp1N1Ppp/1R1kpn2/B1p1N1q1/1QPP1p1r/P2Kp1B1/PP1P3P/3R4 w - - 0 1' }
+      let(:fen_code) { 'rnb2b2/pp1N1Ppp/1R1kpn2/B1p1N1q1/1QPP1p1r/P2Kp1B1/PP1P3P/3R4 w - - 0 1' }
+      subject(:board) { described_class.new(fen.pieces, fen.meta_data) }
 
       it 'returns all the valid moves of g3' do
         cell = :g3

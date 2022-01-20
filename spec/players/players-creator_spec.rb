@@ -117,44 +117,4 @@ describe PlayersCreator do
       players_creator.create_names
     end
   end
-
-  describe '#assign_colors' do
-    before do
-      players_creator.instance_variable_set(:@mode, 'b')
-      players = players_creator.create_players_of_mode
-      players_creator.instance_variable_set(:@players, players)
-    end
-
-    it 'adds color for the first player' do
-      players = players_creator.instance_variable_get(:@players)
-      players_creator.assign_colors
-      expect(players[0].color).not_to be_nil
-    end
-
-    it 'adds color for the second player' do
-      players = players_creator.instance_variable_get(:@players)
-      players_creator.assign_colors
-      expect(players[1].color).not_to be_nil
-    end
-  end
-
-  describe '#create_players_hash' do
-    before do
-      players_creator.instance_variable_set(:@mode, 'b')
-      players = players_creator.create_players_of_mode
-      players_creator.instance_variable_set(:@players, players)
-    end
-
-    it 'returns a hash with key :white' do
-      hash = players_creator.create_players_hash
-      result = hash.include?(:white)
-      expect(result).to eq true
-    end
-
-    it 'returns a hash with key :black' do
-      hash = players_creator.create_players_hash
-      result = hash.include?(:black)
-      expect(result).to eq true
-    end
-  end
 end

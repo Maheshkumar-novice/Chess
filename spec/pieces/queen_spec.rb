@@ -2,11 +2,20 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/board'
+require_relative '../../lib/fen'
 
 describe Queen do
+  let(:fen) { Fen.new }
+  let(:default_fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
+
+  before do
+    fen.process(fen_code)
+  end
+
   describe '#create_moves' do
     context 'with default fen board' do
-      let(:board) { Board.new.board }
+      let(:fen_code) { default_fen }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the moves of white queen from e1' do
         cell = :e1
@@ -26,10 +35,8 @@ describe Queen do
     end
 
     context 'with custom fen board' do
-      let(:board) { Board.new(fen).board }
-      let(:fen) do
-        'rnb1kbnr/pp1ppppp/8/5Q2/1Ppq4/4P3/P1PP1PPP/RNB1KBNR w KQkq - 2 5'
-      end
+      let(:fen_code) { 'rnb1kbnr/pp1ppppp/8/5Q2/1Ppq4/4P3/P1PP1PPP/RNB1KBNR w KQkq - 2 5' }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the moves of white queen from f5' do
         cell = :f5
@@ -51,7 +58,8 @@ describe Queen do
 
   describe '#classify_moves' do
     context 'with default fen board' do
-      let(:board) { Board.new.board }
+      let(:fen_code) { default_fen }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the classified moves of white queen from e1' do
         cell = :e1
@@ -73,10 +81,8 @@ describe Queen do
     end
 
     context 'with custom fen board' do
-      let(:board) { Board.new(fen).board }
-      let(:fen) do
-        'r1k3nr/p1p1bpp1/2n1p1Np/1pBpQb2/3P4/NPPR1q1P/P3PPP1/4KB1R b K - 2 18'
-      end
+      let(:fen_code) { 'r1k3nr/p1p1bpp1/2n1p1Np/1pBpQb2/3P4/NPPR1q1P/P3PPP1/4KB1R b K - 2 18' }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the classified moves of white queen from e5' do
         cell = :e5

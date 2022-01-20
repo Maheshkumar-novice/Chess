@@ -2,11 +2,20 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/board'
+require_relative '../../lib/fen'
 
 describe Pawn do
+  let(:fen) { Fen.new }
+  let(:default_fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
+
+  before do
+    fen.process(fen_code)
+  end
+
   describe 'Board#create_moves' do
     context 'with default fen board' do
-      let(:board) { Board.new.board }
+      let(:fen_code) { default_fen }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the moves of white pawn from a2' do
         cell = :a2
@@ -26,10 +35,8 @@ describe Pawn do
     end
 
     context 'with custom fen board' do
-      let(:board) { Board.new(fen).board }
-      let(:fen) do
-        'rnb1kbnr/ppp2ppp/3ppq2/8/8/BPN5/P1PPPPPP/R2QKBNR w KQkq - 0 4'
-      end
+      let(:fen_code) { 'rnb1kbnr/ppp2ppp/3ppq2/8/8/BPN5/P1PPPPPP/R2QKBNR w KQkq - 0 4' }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the moves of black pawn from d6' do
         cell = :d6
@@ -67,7 +74,8 @@ describe Pawn do
 
   describe '#classify_moves' do
     context 'with default fen board' do
-      let(:board) { Board.new.board }
+      let(:fen_code) { default_fen }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the classified moves of white pawn f2' do
         cell = :f2
@@ -89,10 +97,8 @@ describe Pawn do
     end
 
     context 'with custom fen board' do
-      let(:board) { Board.new(fen).board }
-      let(:fen) do
-        'rnb1kbnr/2p1pppp/1p1q4/p1Pp4/PP6/8/3PPPPP/RNBQKBNR w KQkq a6 0 5'
-      end
+      let(:fen_code) { 'rnb1kbnr/2p1pppp/1p1q4/p1Pp4/PP6/8/3PPPPP/RNBQKBNR w KQkq a6 0 5' }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the classified moves of white pawn b4' do
         cell = :b4

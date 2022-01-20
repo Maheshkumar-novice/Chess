@@ -13,14 +13,14 @@
 - [x] Refactoring(composition, inheritance)
 - [x] Game play testing
 
-- [ ] Game class creation
+- [x] Game class creation
 - [ ] Tests
-- [ ] Refactoring(nil video sandi metz, solid, null object pattern, tests)
+- [ ] Refactoring(solid, tests)
 - [ ] Game play testing
 
 - [ ] MetaData class creatioon
 - [ ] Tests
-- [ ] Refactoring
+- [ ] Refactoring(nil video sandi metz, null object pattern)
 - [ ] Game play testing
 
 - [ ] Mates

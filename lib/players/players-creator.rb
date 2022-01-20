@@ -3,9 +3,12 @@
 
 require_relative './bot'
 require_relative './human'
+require_relative '../utils/display'
 
 # Players Creator
 class PlayersCreator
+  include Display
+
   def initialize
     @mode = ''
     @players = []
@@ -16,42 +19,35 @@ class PlayersCreator
     choose_mode
     @players = create_players_of_mode
     create_names
-    assign_colors
-    create_players_hash
+    @players
   end
 
   def choose_mode
     @mode = mode_input
-    @mode = mode_input until valid_mode?
+    until valid_mode?
+      print_error('Enter a valid option!', ending: "\n")
+      @mode = mode_input
+    end
   end
 
   def create_players_of_mode
     case @mode
     when 'a'
-      [new_bot_player, new_bot_player]
+      [new_bot_player, new_bot_player].shuffle
     when 'b'
-      [new_bot_player, new_human_player]
+      [new_bot_player, new_human_player].shuffle
     when 'c'
-      [new_human_player, new_human_player]
+      [new_human_player, new_human_player].shuffle
     end
   end
 
   def create_names
-    @players.each(&:create_name)
-  end
-
-  def assign_colors
-    colors = %w[white black].shuffle
-    @players = @players.shuffle
-    @players[0].color = colors[0]
-    @players[1].color = colors[1]
-  end
-
-  def create_players_hash
-    players = {}
-    players[:white] = @players.select { |player| player.color == 'white' }
-    players[:black] = @players.select { |player| player.color == 'black' }
-    players
+    colors = %w[white black]
+    @players.each_with_index do |player, index|
+      print_info("\nPlayer##{index + 1} name (#{accent(colors[index])}): ", ending: "\n")
+      player.create_name
+      print_info("#{accent(player.name)} (Bot)", ending: "\n") if player.is_a?(Bot)
+    end
   end
 
   private
@@ -61,17 +57,18 @@ class PlayersCreator
   end
 
   def print_modes
-    puts <<~MODES
-      Modes:
+    str = <<~MODES
+      #{print_info(accent('Modes: '))}
         a. Bot vs Bot
         b. Bot vs Human
         c. Human vs Human
 
     MODES
+    print_info(str, ending: "\n")
   end
 
   def mode_input
-    print 'Enter Your Option [a, b, c] > '
+    print_prompt('Enter Your Option [a, b, c] > ')
     gets.chomp
   end
 

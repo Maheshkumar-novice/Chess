@@ -6,6 +6,10 @@ require_relative '../../lib/players/human'
 describe Human do
   subject(:human) { described_class.new }
 
+  before do
+    allow(human).to receive(:print_error)
+  end
+
   describe '#make_choice' do
     let(:cell_choice_maker) { human.instance_variable_get(:@cell_choice_maker) }
 

@@ -14,7 +14,7 @@ class BoardPrinter
   private
 
   def print_column_info
-    column_info = ('a'..'h').to_a.map { |value| "  #{value}" }.join.prepend('  ')
+    column_info = ('a'..'h').to_a.map { |value| "  #{value}".bold.gray }.join.prepend('  ')
     puts <<~COLUMN
       #{column_info}
     COLUMN
@@ -25,12 +25,12 @@ class BoardPrinter
     row = 9
 
     board.each do |key, cell|
-      print " #{row -= 1} " if key.match?(/a/)
+      print " #{row -= 1} ".bold.gray if key.match?(/a/)
       default_bg_color = switch_bg(default_bg_color)
       print_cell(cell, get_bg_color(key, source, empty, captures, default_bg_color))
       next unless key.match?(/h/)
 
-      print " #{row} \n"
+      print " #{row} \n".bold.gray
       default_bg_color = switch_bg(default_bg_color)
     end
   end

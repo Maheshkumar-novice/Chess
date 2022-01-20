@@ -11,14 +11,13 @@ require_relative '../utils/display'
 class Human
   include Display
 
-  attr_accessor :name, :color
+  attr_accessor :name
 
   def initialize(name_creator: NameCreator.new,
                  cell_choice_maker: CellChoiceMaker.new,
                  name_validator: NameValidator.new,
                  cell_choice_validator: CellChoiceValidator.new)
     @name = nil
-    @color = nil
     @name_creator = name_creator
     @cell_choice_maker = cell_choice_maker
     @name_validator = name_validator

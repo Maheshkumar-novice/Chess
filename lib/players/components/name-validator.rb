@@ -3,6 +3,8 @@
 
 # Name Validator
 class NameValidator
+  attr_reader :max_name_length
+
   def initialize
     @max_name_length = 25
   end

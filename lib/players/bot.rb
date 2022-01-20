@@ -6,11 +6,10 @@ require_relative './components/cell-choice-maker'
 
 # Bot Player
 class Bot
-  attr_accessor :name, :color
+  attr_accessor :name
 
   def initialize(name_creator: NameCreator.new, cell_choice_maker: CellChoiceMaker.new)
     @name = nil
-    @color = nil
     @name_creator = name_creator
     @cell_choice_maker = cell_choice_maker
   end

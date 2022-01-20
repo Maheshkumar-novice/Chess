@@ -2,11 +2,20 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/board'
+require_relative '../../lib/fen'
 
 describe King do
+  let(:fen) { Fen.new }
+  let(:default_fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
+
+  before do
+    fen.process(fen_code)
+  end
+
   describe '#create_moves' do
     context 'with default fen board' do
-      let(:board) { Board.new.board }
+      let(:fen_code) { default_fen }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the moves of white king from d1' do
         cell = :d1
@@ -26,10 +35,8 @@ describe King do
     end
 
     context 'with custom fen board' do
-      let(:board) { Board.new(fen).board }
-      let(:fen) do
-        'rnb2bnr/pp1p1ppp/8/3k4/1P1P1P2/2pK4/P1PP2PP/RNB2BNR b - - 1 11'
-      end
+      let(:fen_code) { 'rnb2bnr/pp1p1ppp/8/3k4/1P1P1P2/2pK4/P1PP2PP/RNB2BNR b - - 1 11' }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the moves of white king from d3' do
         cell = :d3
@@ -51,7 +58,8 @@ describe King do
 
   describe '#classify_moves' do
     context 'with default fen board' do
-      let(:board) { Board.new.board }
+      let(:fen_code) { default_fen }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the classified moves of white king d1' do
         cell = :d1
@@ -73,10 +81,8 @@ describe King do
     end
 
     context 'with custom fen board' do
-      let(:board) { Board.new(fen).board }
-      let(:fen) do
-        'r5nr/p1pkbpp1/2n1p1Np/1pBpQb2/3P4/NPPR1q1P/P2KPPP1/5B1R b - - 4 19'
-      end
+      let(:fen_code) { 'r5nr/p1pkbpp1/2n1p1Np/1pBpQb2/3P4/NPPR1q1P/P2KPPP1/5B1R b - - 4 19' }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the classified moves of white king d2' do
         cell = :d2
@@ -103,10 +109,10 @@ describe King do
   end
 
   describe '#in_check?' do
-    let(:board) { Board.new(fen).board }
+    let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
     context 'when e1 in check by  b4' do
-      let(:fen) { 'rnbqk1nr/pppp3p/4pp2/5Pp1/1b6/3P4/PPP1P1PP/RNBQKBNR w KQkq - 0 1' }
+      let(:fen_code) { 'rnbqk1nr/pppp3p/4pp2/5Pp1/1b6/3P4/PPP1P1PP/RNBQKBNR w KQkq - 0 1' }
 
       it 'returns true' do
         result = board[:e1].piece.in_check?(board)
@@ -115,7 +121,7 @@ describe King do
     end
 
     context 'when e8 in check by e6' do
-      let(:fen) { 'rnb1k1nr/pppp3p/4Qp2/3pPPp1/1b6/3P1q2/PPP3PP/RNB1KBNR w KQkq - 0 1' }
+      let(:fen_code) { 'rnb1k1nr/pppp3p/4Qp2/3pPPp1/1b6/3P1q2/PPP3PP/RNB1KBNR w KQkq - 0 1' }
 
       it 'returns true' do
         result = board[:e8].piece.in_check?(board)
@@ -124,7 +130,7 @@ describe King do
     end
 
     context 'when e1 in check by e3' do
-      let(:fen) { 'rnb1k1nr/pppp3p/3Q1p2/2bpPPp1/6B1/3Pq3/PPP3PP/RNB1K1NR w KQkq - 0 1' }
+      let(:fen_code) { 'rnb1k1nr/pppp3p/3Q1p2/2bpPPp1/6B1/3Pq3/PPP3PP/RNB1K1NR w KQkq - 0 1' }
 
       it 'returns true' do
         result = board[:e1].piece.in_check?(board)
@@ -133,7 +139,7 @@ describe King do
     end
 
     context 'when e1 in check by d2' do
-      let(:fen) { 'rnb1k1nr/pppp3p/3Q1p2/2b1PPp1/5qB1/3P4/PPPp2PP/RNB1K1NR w KQkq - 0 1' }
+      let(:fen_code) { 'rnb1k1nr/pppp3p/3Q1p2/2b1PPp1/5qB1/3P4/PPPp2PP/RNB1K1NR w KQkq - 0 1' }
 
       it 'returns true' do
         result = board[:e1].piece.in_check?(board)
@@ -142,7 +148,7 @@ describe King do
     end
 
     context 'when d2 in check by f2' do
-      let(:fen) { 'rnb1k1n1/pppp3p/3Q1p2/2b1PPp1/3p2B1/3P4/PPPK1rPP/RNB3NR w q - 0 1' }
+      let(:fen_code) { 'rnb1k1n1/pppp3p/3Q1p2/2b1PPp1/3p2B1/3P4/PPPK1rPP/RNB3NR w q - 0 1' }
 
       it 'returns true' do
         result = board[:d2].piece.in_check?(board)
@@ -151,7 +157,7 @@ describe King do
     end
 
     context 'when e8 in check by b7' do
-      let(:fen) { 'rnb1k1n1/pppp2Np/3Q1p2/2b1PPp1/3p2B1/3P2r1/PPPK2PP/R1B3NR w q - 0 1' }
+      let(:fen_code) { 'rnb1k1n1/pppp2Np/3Q1p2/2b1PPp1/3p2B1/3P2r1/PPPK2PP/R1B3NR w q - 0 1' }
 
       it 'returns true' do
         result = board[:e8].piece.in_check?(board)
@@ -160,7 +166,7 @@ describe King do
     end
 
     context 'when e8 in check by f7' do
-      let(:fen) { 'rnb1k1n1/pppp1KNp/3Q1p2/2b1PPp1/3p2B1/3P2r1/PPP3PP/R1B3NR w q - 0 1' }
+      let(:fen_code) { 'rnb1k1n1/pppp1KNp/3Q1p2/2b1PPp1/3p2B1/3P2r1/PPP3PP/R1B3NR w q - 0 1' }
 
       it 'returns true' do
         result = board[:e8].piece.in_check?(board)
@@ -169,7 +175,7 @@ describe King do
     end
 
     context 'when f7 in check by e8' do
-      let(:fen) { 'rnb1k1n1/pppp1KNp/3Q1p2/2b1PPp1/3p2B1/3P2r1/PPP3PP/R1B3NR w q - 0 1' }
+      let(:fen_code) { 'rnb1k1n1/pppp1KNp/3Q1p2/2b1PPp1/3p2B1/3P2r1/PPP3PP/R1B3NR w q - 0 1' }
 
       it 'returns true' do
         result = board[:f7].piece.in_check?(board)
@@ -178,7 +184,7 @@ describe King do
     end
 
     context 'when e8 not in check' do
-      let(:fen) { 'rnb1k1nr/pppp3p/3Q1p2/3pPPp1/1b4B1/3P1q2/PPP3PP/RNB1K1NR w KQkq - 0 1' }
+      let(:fen_code) { 'rnb1k1nr/pppp3p/3Q1p2/3pPPp1/1b4B1/3P1q2/PPP3PP/RNB1K1NR w KQkq - 0 1' }
 
       it 'returns false' do
         result = board[:e8].piece.in_check?(board)
@@ -187,7 +193,7 @@ describe King do
     end
 
     context 'when a1 not in check' do
-      let(:fen) { 'rnb1k1nr/pppp3p/3Q1p2/3pPPp1/1b4B1/3P1q2/PPP3PP/KNB2RNR w Kkq - 0 1' }
+      let(:fen_code) { 'rnb1k1nr/pppp3p/3Q1p2/3pPPp1/1b4B1/3P1q2/PPP3PP/KNB2RNR w Kkq - 0 1' }
 
       it 'returns false' do
         result = board[:a1].piece.in_check?(board)
@@ -196,7 +202,7 @@ describe King do
     end
 
     context 'when e2 not in check' do
-      let(:fen) { 'rnb1k1nr/pppp3p/3Q1p2/3pPPp1/qb4B1/3P4/PPP1K1PP/1NB2RNR w kq - 0 1' }
+      let(:fen_code) { 'rnb1k1nr/pppp3p/3Q1p2/3pPPp1/qb4B1/3P4/PPP1K1PP/1NB2RNR w kq - 0 1' }
 
       it 'returns false' do
         result = board[:e2].piece.in_check?(board)
@@ -205,7 +211,7 @@ describe King do
     end
 
     context 'when h6 not in check' do
-      let(:fen) { 'rnb3nr/pppp3p/3Q1p1k/3pPPp1/qb4B1/3P4/PPP1K1PP/1NB2RNR w - - 0 1' }
+      let(:fen_code) { 'rnb3nr/pppp3p/3Q1p1k/3pPPp1/qb4B1/3P4/PPP1K1PP/1NB2RNR w - - 0 1' }
 
       it 'returns false' do
         result = board[:h6].piece.in_check?(board)

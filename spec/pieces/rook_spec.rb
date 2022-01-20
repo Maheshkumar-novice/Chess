@@ -2,11 +2,20 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/board'
+require_relative '../../lib/fen'
 
 describe Rook do
+  let(:fen) { Fen.new }
+  let(:default_fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
+
+  before do
+    fen.process(fen_code)
+  end
+
   describe '#create_moves' do
     context 'with default fen board' do
-      let(:board) { Board.new.board }
+      let(:fen_code) { default_fen }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the moves of white rook from a1' do
         cell = :a1
@@ -26,10 +35,8 @@ describe Rook do
     end
 
     context 'with custom fen board' do
-      let(:board) { Board.new(fen).board }
-      let(:fen) do
-        'rnbqk2r/ppppppb1/5n2/6p1/P6p/3PP2P/1PPNBPPR/R1BQK1N1 b Qkq - 2 7'
-      end
+      let(:fen_code) { 'rnbqk2r/ppppppb1/5n2/6p1/P6p/3PP2P/1PPNBPPR/R1BQK1N1 b Qkq - 2 7' }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the moves of white rook from a1' do
         cell = :a1
@@ -51,7 +58,8 @@ describe Rook do
 
   describe '#classify_moves' do
     context 'with default fen board' do
-      let(:board) { Board.new.board }
+      let(:fen_code) { default_fen }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the classified moves of white rook h1' do
         cell = :h1
@@ -73,10 +81,8 @@ describe Rook do
     end
 
     context 'with custom fen board' do
-      let(:board) { Board.new(fen).board }
-      let(:fen) do
-        'rnb1kbn1/2p1ppp1/1p6/pPP2r1p/P2pPQ2/3R2qP/3P1PP1/1NB1KBNR b Kq - 4 11'
-      end
+      let(:fen_code) { 'rnb1kbn1/2p1ppp1/1p6/pPP2r1p/P2pPQ2/3R2qP/3P1PP1/1NB1KBNR b Kq - 4 11' }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the classified moves of white rook d3' do
         cell = :d3

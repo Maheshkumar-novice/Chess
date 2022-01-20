@@ -10,16 +10,31 @@ require_relative './pieces/pawn'
 
 # FEN Operations
 class Fen
-  def to_pieces(fen)
-    create_pieces(split(fen))
+  attr_reader :pieces, :current_color, :meta_data
+
+  def initialize
+    @pieces = nil
+    @current_color = nil
+    @meta_data = nil
+  end
+
+  def process(fen)
+    rows = split(fen)
+    meta_data_row = rows[-1].split[1..-1]
+    @pieces = to_pieces(rows)
+    @current_color = parse_color(meta_data_row[0])
+    @meta_data = parse_remaining_meta_data(meta_data_row[1..-1])
   end
 
   private
 
   def split(fen)
-    rows = fen.split('/')
+    fen.split('/')
+  end
+
+  def to_pieces(rows)
     rows[-1] = rows[-1].split[0]
-    rows
+    create_pieces(rows)
   end
 
   def create_pieces(rows)
@@ -69,5 +84,20 @@ class Fen
     return 'white' if value.match?(/^[[:upper:]]{1}$/)
 
     'black'
+  end
+
+  def parse_color(value)
+    return 'white' if value == 'w'
+
+    'black'
+  end
+
+  def parse_remaining_meta_data(meta_data)
+    {
+      castling: meta_data[0],
+      en_passant: meta_data[1],
+      half_move_clock: meta_data[2],
+      full_move_number: meta_data[3]
+    }
   end
 end

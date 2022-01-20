@@ -16,7 +16,7 @@ meta_data = fen_processor.meta_data
 board = Board.new(pieces, meta_data)
 
 players = PlayersCreator.new.create_players
-players.rotate if current_color == 'black'
+players.rotate! if current_color == 'black'
 
 game = Game.new(board, players, current_color)
 game.play

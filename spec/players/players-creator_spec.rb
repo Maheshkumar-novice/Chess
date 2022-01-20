@@ -6,6 +6,12 @@ require_relative '../../lib/players/players-creator'
 describe PlayersCreator do
   subject(:players_creator) { described_class.new }
 
+  before do
+    allow(players_creator).to receive(:print_error)
+    allow(players_creator).to receive(:print_info)
+    allow(players_creator).to receive(:accent)
+  end
+
   describe '#choose_mode' do
     context 'when user enters a valid mode' do
       before do

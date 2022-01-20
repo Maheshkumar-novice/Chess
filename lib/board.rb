@@ -3,20 +3,18 @@
 
 require_relative './utils/board-printer'
 require_relative './cell'
-require_relative './fen'
 
 # Chess board
 class Board
-  DEFAULT_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
-
   attr_reader :board
 
-  def initialize(fen = DEFAULT_FEN, printer: BoardPrinter.new)
+  def initialize(pieces, meta_data, printer: BoardPrinter.new)
+    @pieces = pieces
+    @meta_data = meta_data
     @printer = printer
-    @pieces = Fen.new.to_pieces(fen)
     @rows = (1..8).to_a.reverse
     @columns = ('a'..'h').to_a
-    @board = create_board(fen)
+    @board = create_board
   end
 
   def print_board(source = [], empty = [], captures = [])
@@ -40,7 +38,7 @@ class Board
 
   private
 
-  def create_board(_fen)
+  def create_board
     board = {}
     @rows.each do |row|
       @columns.each do |column|

@@ -13,7 +13,7 @@ class CellChoiceMaker
   end
 
   def bot_choice
-    @rows.sample + @columns.sample
+    @columns.sample + @rows.sample
   end
 
   def human_choice

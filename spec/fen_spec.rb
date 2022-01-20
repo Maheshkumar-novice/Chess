@@ -6,48 +6,46 @@ require_relative '../lib/fen'
 describe Fen do
   subject(:fen) { described_class.new }
 
-  describe '#to_pieces' do
+  describe '#process' do
+    before do
+      fen.process(fen_code)
+    end
+
     context 'when default fen given' do
-      fen_code = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+      let(:fen_code) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
 
-      it 'returns an array of board pieces with 32 nils in correct places' do
-        pieces_array = [nil] * 32
-        result = fen.to_pieces(fen_code)
-        expect(result[16..47]).to eq(pieces_array)
+      it 'creates 64 pieces' do
+        result = fen.pieces.size
+        expect(result).to eq(64)
       end
 
-      it 'returns an array with first element as black rook' do
-        result = fen.to_pieces(fen_code)[0]
-        expect(result.name).to eq('r')
-        expect(result.color).to eq('black')
+      it 'creates current_color' do
+        result = fen.current_color
+        expect(result).to eq('white')
       end
 
-      it 'returns an array with last element as white rook' do
-        result = fen.to_pieces(fen_code)[-1]
-        expect(result.name).to eq('R')
-        expect(result.color).to eq('white')
+      it 'creates 4 meta_data' do
+        result = fen.meta_data.size
+        expect(result).to eq(4)
       end
     end
 
     context 'when custom fen given' do
-      fen_code = 'rnb1kbnr/ppp2ppp/3ppq2/8/8/BPN5/P1PPPPPP/R2QKBNR w KQkq - 0 4'
+      let(:fen_code) { 'rnb1kbnr/ppp2ppp/3ppq2/8/8/BPN5/P1PPPPPP/R2QKBNR b KQkq - 0 4' }
 
-      it 'returns an array with 42th element as white pawn' do
-        result = fen.to_pieces(fen_code)[41]
-        expect(result.name).to eq('P')
-        expect(result.color).to eq('white')
+      it 'creates 64 pieces' do
+        result = fen.pieces.size
+        expect(result).to eq(64)
       end
 
-      it 'returns an array with first element as black rook' do
-        result = fen.to_pieces(fen_code)[0]
-        expect(result.name).to eq('r')
-        expect(result.color).to eq('black')
+      it 'creates current_color' do
+        result = fen.current_color
+        expect(result).to eq('black')
       end
 
-      it 'returns an array with last element as white rook' do
-        result = fen.to_pieces(fen_code)[-1]
-        expect(result.name).to eq('R')
-        expect(result.color).to eq('white')
+      it 'creates 4 meta_data' do
+        result = fen.meta_data.size
+        expect(result).to eq(4)
       end
     end
   end

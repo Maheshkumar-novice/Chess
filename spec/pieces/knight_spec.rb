@@ -2,11 +2,20 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/board'
+require_relative '../../lib/fen'
 
 describe Knight do
+  let(:fen) { Fen.new }
+  let(:default_fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
+
+  before do
+    fen.process(fen_code)
+  end
+
   describe '#create_moves' do
     context 'with default fen board' do
-      let(:board) { Board.new.board }
+      let(:fen_code) { default_fen }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the moves of white knight from b1' do
         cell = :b1
@@ -26,10 +35,8 @@ describe Knight do
     end
 
     context 'with custom fen board' do
-      let(:board) { Board.new(fen).board }
-      let(:fen) do
-        'rnbqk2r/ppppppb1/5n2/6p1/P6p/3PP2P/1PPNBPPR/R1BQK1N1 b Qkq - 2 7'
-      end
+      let(:fen_code) { 'rnbqk2r/ppppppb1/5n2/6p1/P6p/3PP2P/1PPNBPPR/R1BQK1N1 b Qkq - 2 7' }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the moves of white knight from d2' do
         cell = :d2
@@ -51,7 +58,8 @@ describe Knight do
 
   describe '#classify_moves' do
     context 'with default fen board' do
-      let(:board) { Board.new.board }
+      let(:fen_code) { default_fen }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the classified moves of white knight b1' do
         cell = :b1
@@ -73,10 +81,8 @@ describe Knight do
     end
 
     context 'with custom fen board' do
-      let(:board) { Board.new(fen).board }
-      let(:fen) do
-        'r1k2bnr/p1p2ppp/1p2p1N1/2Bpqb2/1n1P4/1PPQ4/P3PPPP/RN2KB1R b KQ - 7 12'
-      end
+      let(:fen_code) { 'r1k2bnr/p1p2ppp/1p2p1N1/2Bpqb2/1n1P4/1PPQ4/P3PPPP/RN2KB1R b KQ - 7 12' }
+      let(:board) { Board.new(fen.pieces, fen.meta_data).board }
 
       it 'returns all the classified moves of white knight g6' do
         cell = :g6

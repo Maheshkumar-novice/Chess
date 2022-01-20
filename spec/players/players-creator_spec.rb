@@ -62,15 +62,9 @@ describe PlayersCreator do
         players_creator.instance_variable_set(:@mode, 'a')
       end
 
-      it 'returns first player as bot' do
+      it 'returns two bots' do
         players = players_creator.create_players_of_mode
-        result = players[0].is_a?(Bot)
-        expect(result).to eq true
-      end
-
-      it 'returns second player as bot' do
-        players = players_creator.create_players_of_mode
-        result = players[1].is_a?(Bot)
+        result = players.all? { |player| player.is_a?(Bot) }
         expect(result).to eq true
       end
     end
@@ -80,15 +74,11 @@ describe PlayersCreator do
         players_creator.instance_variable_set(:@mode, 'b')
       end
 
-      it 'returns first player as bot' do
+      it 'returns a bot and a human' do
         players = players_creator.create_players_of_mode
-        result = players[0].is_a?(Bot)
-        expect(result).to eq true
-      end
-
-      it 'returns second player as human' do
-        players = players_creator.create_players_of_mode
-        result = players[1].is_a?(Human)
+        result_bot = players.any? { |player| player.is_a?(Bot) }
+        result_human = players.any? { |player| player.is_a?(Human) }
+        result = result_bot && result_human
         expect(result).to eq true
       end
     end
@@ -98,15 +88,9 @@ describe PlayersCreator do
         players_creator.instance_variable_set(:@mode, 'c')
       end
 
-      it 'returns first player as human' do
+      it 'returns two humans' do
         players = players_creator.create_players_of_mode
-        result = players[0].is_a?(Human)
-        expect(result).to eq true
-      end
-
-      it 'returns second player as human' do
-        players = players_creator.create_players_of_mode
-        result = players[1].is_a?(Human)
+        result = players.all? { |player| player.is_a?(Human) }
         expect(result).to eq true
       end
     end

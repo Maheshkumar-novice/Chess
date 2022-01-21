@@ -14,6 +14,7 @@ class Game
     @current_color = current_color
     @source_choice = nil
     @destination_choice = nil
+    @moves = { empty: [], captures: [] }
   end
 
   def play
@@ -21,7 +22,7 @@ class Game
       print_board
       print_current_player_info
       sleep_if_bot
-      make_move
+      move_making_steps
       switch_current_color
       switch_players
     end
@@ -29,57 +30,59 @@ class Game
 
   private
 
-  def make_move
-    loop do
-      @source_choice = source_input
-      moves = @board.moves_from_source(@source_choice, @current_color)
-      next print_error_if_human('No legal moves found from the selected source!') if moves.values.flatten.size.zero?
+  def move_making_steps
+    create_source_choice
+    print_board
+    create_destination_choice
+    @board.make_move(@source_choice, @destination_choice)
+    print_board
+  end
 
-      print_board(@source_choice, moves[:empty], moves[:captures])
-      @destination_choice = destination_input(moves)
-      @board.make_move(@source_choice, @destination_choice)
-      print_board(@source_choice, moves[:empty], moves[:captures])
-      break
+  def create_source_choice
+    loop do
+      source_input
+      @moves = @board.moves_from_source(@source_choice, @current_color)
+      return unless @moves.values.flatten.empty?
+
+      print_error_if_human('No legal moves found from the selected source!')
     end
   end
 
   def source_input
     loop do
       print_info_if_human("\nSource:")
-      source = @current_player.make_choice
+      @source_choice = @current_player.make_choice.to_sym
 
-      return source.to_sym if valid_source?(source)
+      return if valid_source?
 
       print_error_if_human('Enter a valid source coordinate!')
     end
   end
 
-  def destination_input(moves)
+  def valid_source?
+    return false unless same_color?
+
+    true
+  end
+
+  def same_color?
+    @board.board[@source_choice].piece&.color == @current_color
+  end
+
+  def create_destination_choice
     print_current_player_info
     loop do
       print_info_if_human("\nDestination:")
-      destination = @current_player.make_choice
+      @destination_choice = @current_player.make_choice.to_sym
 
-      return destination.to_sym if valid_destination?(destination, moves)
+      return if valid_destination?
 
       print_error_if_human('Enter a valid move from the selected source!')
     end
   end
 
-  def valid_source?(source)
-    return false unless source.match?(/^[a-h][1-8]$/)
-    return false unless same_color?(source.to_sym)
-
-    true
-  end
-
-  def same_color?(source)
-    @board.board[source].piece&.color == @current_color
-  end
-
-  def valid_destination?(destination, moves)
-    return false unless destination.match?(/^[a-h][1-8]$/)
-    return false unless moves.values.flatten.include?(destination.to_sym)
+  def valid_destination?
+    return false unless @moves.values.flatten.include?(@destination_choice)
 
     true
   end
@@ -92,9 +95,9 @@ class Game
     @current_player, @other_player = @other_player, @current_player
   end
 
-  def print_board(source = nil, empty = [], captures = [])
+  def print_board
     clear_screen
-    @board.print_board(source, empty, captures)
+    @board.print_board(@source_choice, @moves[:empty], @moves[:captures])
   end
 
   def print_current_player_info

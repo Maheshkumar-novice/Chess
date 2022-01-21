@@ -76,8 +76,8 @@ describe PlayersCreator do
 
       it 'returns a bot and a human' do
         players = players_creator.create_players_of_mode
-        result_bot = players.any? { |player| player.is_a?(Bot) }
-        result_human = players.any? { |player| player.is_a?(Human) }
+        result_bot = players[0].is_a?(Bot)
+        result_human = players[1].is_a?(Human)
         result = result_bot && result_human
         expect(result).to eq true
       end
@@ -86,6 +86,20 @@ describe PlayersCreator do
     context 'when the mode is c' do
       before do
         players_creator.instance_variable_set(:@mode, 'c')
+      end
+
+      it 'returns a human and a bot' do
+        players = players_creator.create_players_of_mode
+        result_human = players[0].is_a?(Human)
+        result_bot = players[1].is_a?(Bot)
+        result = result_bot && result_human
+        expect(result).to eq true
+      end
+    end
+
+    context 'when the mode is d' do
+      before do
+        players_creator.instance_variable_set(:@mode, 'd')
       end
 
       it 'returns two humans' do

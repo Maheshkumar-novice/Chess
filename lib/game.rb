@@ -112,7 +112,7 @@ class Game
   private
 
   def print_board
-    clear_screen
+    system('clear')
     @board.print_board(@source_choice, @moves[:empty], @moves[:captures])
   end
 
@@ -128,10 +128,6 @@ class Game
   def print_info_if_human(str)
     print_info_if(str, condition: @current_player.is_a?(Human),
                        ending: "\n")
-  end
-
-  def clear_screen
-    system('clear')
   end
 
   def sleep_if_bot

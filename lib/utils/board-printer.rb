@@ -46,7 +46,7 @@ class BoardPrinter
   end
 
   def printable_piece(piece)
-    return ' ' if piece.nil?
+    return ' ' if piece.empty?
 
     symbol_to_unicode(piece.to_sym)
   end

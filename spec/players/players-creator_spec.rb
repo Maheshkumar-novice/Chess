@@ -12,50 +12,6 @@ describe PlayersCreator do
     allow(players_creator).to receive(:accent)
   end
 
-  describe '#choose_mode' do
-    context 'when user enters a valid mode' do
-      before do
-        valid_mode = 'a'
-        allow(players_creator).to receive(:print)
-        allow(players_creator).to receive(:mode_input).and_return(valid_mode)
-      end
-
-      it 'calls mode_input once' do
-        expect(players_creator).to receive(:mode_input).once
-        players_creator.choose_mode
-      end
-    end
-
-    context 'when user enters an invalid mode once than a valid mode' do
-      before do
-        invalid_mode = 'ab'
-        valid_mode = 'a'
-        allow(players_creator).to receive(:print)
-        allow(players_creator).to receive(:mode_input).and_return(invalid_mode, valid_mode)
-      end
-
-      it 'calls mode_input twice' do
-        expect(players_creator).to receive(:mode_input).twice
-        players_creator.choose_mode
-      end
-    end
-
-    context 'when user enters an invalid mode twice than a valid mode' do
-      before do
-        invalid_mode1 = 'ab'
-        invalid_mode2 = ''
-        valid_mode = 'a'
-        allow(players_creator).to receive(:print)
-        allow(players_creator).to receive(:mode_input).and_return(invalid_mode1, invalid_mode2, valid_mode)
-      end
-
-      it 'calls mode_input three times' do
-        expect(players_creator).to receive(:mode_input).exactly(3).times
-        players_creator.choose_mode
-      end
-    end
-  end
-
   describe '#create_players_of_mode' do
     context 'when the mode is a' do
       before do

@@ -25,22 +25,23 @@ class Human
   end
 
   def make_choice
-    cell_choice = @cell_choice_maker.human_choice
-    until @cell_choice_validator.valid?(cell_choice)
-      print_error('Enter a valid cell coordinate!', ending: "\n")
+    loop do
       cell_choice = @cell_choice_maker.human_choice
+      return cell_choice if @cell_choice_validator.valid?(cell_choice)
+
+      print_error('Enter a valid cell coordinate!', ending: "\n")
     end
-    cell_choice
   end
 
   def create_name
-    @name = @name_creator.human_name
-    until @name_validator.valid?(@name)
+    loop do
+      @name = @name_creator.human_name
+      return if @name_validator.valid?(@name)
+
       print_error(
         "Enter a valid name! (Min. Length 1, Max. Length #{@name_validator.max_name_length}, No special characters)",
         ending: "\n"
       )
-      @name = @name_creator.human_name
     end
   end
 end

@@ -11,11 +11,13 @@ class PlayersCreator
   include Display
 
   def initialize(mode_chooser: ModeChooser.new)
-    @mode = mode_chooser.choose_mode
+    @mode_chooser = mode_chooser
+    @mode = nil
     @players = []
   end
 
   def create_players
+    @mode = @mode_chooser.choose_mode
     @players = create_players_of_mode
     create_names
     @players

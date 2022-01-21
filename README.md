@@ -15,17 +15,17 @@
 
 - [x] Game class creation
 - [x] Tests
-- [ ] Refactoring(solid, tests)
+- [ ] Refactoring(solid)
 - [ ] Game play testing
 
 - [ ] MetaData class creatioon
 - [ ] Tests
-- [ ] Refactoring(nil video sandi metz, null object pattern)
+- [ ] Refactoring(tests)
 - [ ] Game play testing
 
 - [ ] Mates
 - [ ] Tests
-- [ ] Refactoring
+- [ ] Refactoring(nil video sandi metz, null object pattern)
 - [ ] Game play testing
 
 - [ ] En Passant

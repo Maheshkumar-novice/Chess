@@ -40,13 +40,13 @@ class Pawn
     enemy_color = @color == 'white' ? 'black' : 'white'
 
     diagonal_moves.each_with_object([]) do |move, result|
-      result << move if board[move].piece&.color == enemy_color
+      result << move if board[move].piece_color == enemy_color
     end
   end
 
   def find_empty_moves(moves, board)
     moves.each_with_object([]) do |move, result|
-      result << move if board[move].piece.nil?
+      result << move unless board[move].occupied?
     end
   end
 end

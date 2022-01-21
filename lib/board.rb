@@ -67,7 +67,7 @@ class Board
 
   def reject_moves_of_same_color_destination(moves, color)
     moves.reject do |move|
-      @board[move].piece&.color == color
+      @board[move].piece_color == color
     end
   end
 
@@ -89,8 +89,8 @@ class Board
 
   def find_king_position(king_color)
     @board.each do |marker, cell|
-      color = cell.piece&.color
-      name = cell.piece&.name.to_s.downcase
+      color = cell.piece_color
+      name = cell.piece_name.downcase
       return marker if color == king_color && name == 'k'
     end
   end

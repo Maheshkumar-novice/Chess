@@ -19,6 +19,18 @@ class Cell
     create_diagonal_connections(row, column)
   end
 
+  def piece_name
+    piece&.name
+  end
+
+  def piece_color
+    piece&.color
+  end
+
+  def occupied?
+    !piece.nil?
+  end
+
   private
 
   def create_row_connections(row, column)

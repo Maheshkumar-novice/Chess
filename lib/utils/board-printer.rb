@@ -40,7 +40,7 @@ class BoardPrinter
   end
 
   def print_cell(cell, bg_color)
-    piece = cell.piece&.name
+    piece = cell.piece_name
     piece = printable_piece(piece)
     print colorize_cell(piece, bg_color)
   end

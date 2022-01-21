@@ -23,10 +23,11 @@ class PlayersCreator
   end
 
   def choose_mode
-    @mode = mode_input
-    until valid_mode?
-      print_error('Enter a valid option!', ending: "\n")
+    loop do
       @mode = mode_input
+      return if valid_mode?
+
+      print_error('Enter a valid option!', ending: "\n")
     end
   end
 

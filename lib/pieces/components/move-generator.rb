@@ -101,12 +101,12 @@ class MoveGenerator
 
   def add_double_step(cell, board, step)
     step1 = board[cell].send(step)
-    step2 = board[step1].send(step) if !step1.nil? && board[step1].piece.nil?
+    step2 = board[step1].send(step) if !step1.nil? && !board[step1].occupied?
     step2 ? [step2] : []
   end
 
   def generate_moves_recursively(cell, direction, board, moves = [])
-    if board[cell].send(direction).nil? || !board[cell].piece.nil?
+    if board[cell].send(direction).nil? || board[cell].occupied?
       moves << cell
       return moves
     end

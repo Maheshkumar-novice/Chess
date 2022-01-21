@@ -14,7 +14,7 @@
 - [x] Game play testing
 
 - [x] Game class creation
-- [ ] Tests
+- [x] Tests
 - [ ] Refactoring(solid, tests)
 - [ ] Game play testing
 

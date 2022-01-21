@@ -44,23 +44,26 @@ class Game
   end
 
   def source_input
-    print_info_if_human("\nSource:")
-    source = @current_player.make_choice
-    until valid_source?(source)
-      print_error_if_human('Enter a valid source coordinate!')
+    loop do
+      print_info_if_human("\nSource:")
       source = @current_player.make_choice
+
+      return source.to_sym if valid_source?(source)
+
+      print_error_if_human('Enter a valid source coordinate!')
     end
-    source.to_sym
   end
 
   def destination_input(moves)
-    print_info_if_human('Destination:')
-    destination = @current_player.make_choice
-    until valid_destination?(destination, moves)
-      print_error_if_human('Enter a valid move from the selected source!')
+    print_current_player_info
+    loop do
+      print_info_if_human("\nDestination:")
       destination = @current_player.make_choice
+
+      return destination.to_sym if valid_destination?(destination, moves)
+
+      print_error_if_human('Enter a valid move from the selected source!')
     end
-    destination.to_sym
   end
 
   def valid_source?(source)

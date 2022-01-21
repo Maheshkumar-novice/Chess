@@ -68,7 +68,7 @@ class Game
   end
 
   def same_color?
-    @board.board[@source_choice].piece&.color == @current_color
+    @board.board[@source_choice].piece_color == @current_color
   end
 
   def create_moves

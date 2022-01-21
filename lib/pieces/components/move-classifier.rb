@@ -11,8 +11,8 @@ class MoveClassifier
       empty: []
     }
     moves.each_with_object(result) do |move, classified|
-      classified[:empty] << move if board[move].piece.nil?
-      classified[:captures] << move if board[move].piece&.color == enemy_color
+      classified[:empty] << move unless board[move].occupied?
+      classified[:captures] << move if board[move].piece_color == enemy_color
     end
   end
 end

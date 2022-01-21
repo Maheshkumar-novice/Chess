@@ -20,11 +20,11 @@ class Cell
   end
 
   def piece_name
-    piece&.name
+    piece ? piece.name : ''
   end
 
   def piece_color
-    piece&.color
+    piece ? piece.color : ''
   end
 
   def occupied?

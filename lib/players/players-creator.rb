@@ -33,11 +33,13 @@ class PlayersCreator
   def create_players_of_mode
     case @mode
     when 'a'
-      [new_bot_player, new_bot_player].shuffle
+      [new_bot_player, new_bot_player]
     when 'b'
-      [new_bot_player, new_human_player].shuffle
+      [new_bot_player, new_human_player]
     when 'c'
-      [new_human_player, new_human_player].shuffle
+      [new_human_player, new_bot_player]
+    when 'd'
+      [new_human_player, new_human_player]
     end
   end
 
@@ -53,7 +55,7 @@ class PlayersCreator
   private
 
   def valid_mode?
-    @mode.match?(/^[abc]{1}$/)
+    @mode.match?(/^[a-d]{1}$/)
   end
 
   def print_modes
@@ -61,14 +63,16 @@ class PlayersCreator
       #{print_info(accent('Modes: '))}
         a. Bot vs Bot
         b. Bot vs Human
-        c. Human vs Human
+        c. Human vs Bot
+        d. Human vs Human
 
+      #{print_info("\n* First player gets the #{accent('white')} color", ending: "\n")}
     MODES
     print_info(str, ending: "\n")
   end
 
   def mode_input
-    print_prompt('Enter Your Option [a, b, c] > ')
+    print_prompt('Enter Your Option [a, b, c, d] > ')
     gets.chomp
   end
 

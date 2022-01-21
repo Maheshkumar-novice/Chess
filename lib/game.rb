@@ -31,6 +31,7 @@ class Game
   private
 
   def move_making_steps
+    print_check_status
     create_source_choice
     print_board
     print_current_player_info
@@ -118,6 +119,10 @@ class Game
   def print_board
     system('clear')
     @board.print_board(@source_choice, @moves[:empty], @moves[:captures])
+  end
+
+  def print_check_status
+    print_info("Is your king in check? #{accent(@board.king_in_check?(@current_color).to_s)}", ending: "\n")
   end
 
   def print_current_player_info

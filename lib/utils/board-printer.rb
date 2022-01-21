@@ -5,7 +5,7 @@ require_relative './color'
 
 # Board Printer
 class BoardPrinter
-  def print_board(board, source = [], empty = [], captures = [])
+  def print_board(board, source = nil, empty = [], captures = [])
     print_column_info
     print_board_data(board, source, empty, captures)
     print_column_info

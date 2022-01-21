@@ -17,7 +17,7 @@ class Board
     @board = create_board
   end
 
-  def print_board(source = [], empty = [], captures = [])
+  def print_board(source = nil, empty = [], captures = [])
     @printer.print_board(@board, source, empty, captures)
   end
 

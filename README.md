@@ -18,14 +18,14 @@
 - [ ] Refactoring(solid)
 - [ ] Game play testing
 
-- [ ] MetaData class creatioon
-- [ ] Tests
-- [ ] Refactoring(tests)
-- [ ] Game play testing
-
 - [ ] Mates
 - [ ] Tests
 - [ ] Refactoring(nil video sandi metz, null object pattern)
+- [ ] Game play testing
+
+- [ ] MetaData class creatioon
+- [ ] Tests
+- [ ] Refactoring(tests)
 - [ ] Game play testing
 
 - [ ] En Passant

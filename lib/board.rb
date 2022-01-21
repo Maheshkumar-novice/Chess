@@ -36,6 +36,10 @@ class Board
     piece.classify_moves(moves_without_check_moves, board)
   end
 
+  def king_in_check?(color)
+    @board[find_king_position(color)].piece.in_check?(@board)
+  end
+
   private
 
   def create_board
@@ -78,7 +82,7 @@ class Board
     previous_source_cell = previous_source_piece.current_cell
     previous_destination_piece = @board[destination].piece
     make_move(source, destination)
-    king_in_check = @board[find_king_position(color)].piece.in_check?(@board)
+    king_in_check = king_in_check?(color)
     revert_move(source, destination, previous_source_piece, previous_source_cell, previous_destination_piece)
     king_in_check
   end

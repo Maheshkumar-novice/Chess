@@ -28,6 +28,8 @@ class Game
     end
   end
 
+  private
+
   def move_making_steps
     create_source_choice
     print_board
@@ -58,23 +60,6 @@ class Game
     end
   end
 
-  def create_destination_choice
-    loop do
-      print_info_if_human("\nDestination:")
-      @destination_choice = @current_player.make_choice.to_sym
-
-      return if valid_destination?
-
-      print_error_if_human('Enter a valid move from the selected source!')
-    end
-  end
-
-  def make_move
-    @board.make_move(@source_choice, @destination_choice)
-  end
-
-  private
-
   def valid_source?
     return false unless same_color?
 
@@ -93,6 +78,17 @@ class Game
     @moves.values.flatten.empty?
   end
 
+  def create_destination_choice
+    loop do
+      print_info_if_human("\nDestination:")
+      @destination_choice = @current_player.make_choice.to_sym
+
+      return if valid_destination?
+
+      print_error_if_human('Enter a valid move from the selected source!')
+    end
+  end
+
   def valid_destination?
     return false unless moves_include_destination?
 
@@ -103,12 +99,20 @@ class Game
     @moves.values.flatten.include?(@destination_choice)
   end
 
+  def make_move
+    @board.make_move(@source_choice, @destination_choice)
+  end
+
   def switch_current_color
     @current_color = @current_color == 'white' ? 'black' : 'white'
   end
 
   def switch_players
     @current_player, @other_player = @other_player, @current_player
+  end
+
+  def sleep_if_bot
+    sleep(1) if @current_player.is_a?(Bot)
   end
 
   def print_board
@@ -128,9 +132,5 @@ class Game
   def print_info_if_human(str)
     print_info_if(str, condition: @current_player.is_a?(Human),
                        ending: "\n")
-  end
-
-  def sleep_if_bot
-    sleep(1) if @current_player.is_a?(Bot)
   end
 end

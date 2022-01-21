@@ -46,7 +46,7 @@ class CheckFinder
   end
 
   def pawn_check?(king_position, board)
-    color = board[king_position].piece.color
+    color = board[king_position].piece_color
     return black_pawn_check?(king_position, board) if color == 'white'
     return white_pawn_check?(king_position, board) if color == 'black'
   end
@@ -87,8 +87,8 @@ class CheckFinder
   end
 
   def reject_nil_pieces(moves, board)
-    moves.reject do |move|
-      board[move].piece.nil?
+    moves.select do |move|
+      board[move].occupied?
     end
   end
 
@@ -97,10 +97,10 @@ class CheckFinder
   end
 
   def different_colors?(move, king_position, board)
-    board[move].piece.color != board[king_position].piece.color
+    board[move].piece_color != board[king_position].piece_color
   end
 
   def move_piece_in_pieces_can_check?(pieces_can_check, move, board)
-    pieces_can_check.include?(board[move].piece.name.downcase)
+    pieces_can_check.include?(board[move].piece_name.downcase)
   end
 end

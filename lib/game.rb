@@ -28,21 +28,20 @@ class Game
     end
   end
 
-  private
-
   def move_making_steps
     create_source_choice
     print_board
+    print_current_player_info
     create_destination_choice
-    @board.make_move(@source_choice, @destination_choice)
+    make_move
     print_board
   end
 
   def create_source_choice
     loop do
       source_input
-      @moves = @board.moves_from_source(@source_choice, @current_color)
-      return unless @moves.values.flatten.empty?
+      create_moves
+      return unless moves_empty?
 
       print_error_if_human('No legal moves found from the selected source!')
     end
@@ -69,8 +68,15 @@ class Game
     @board.board[@source_choice].piece&.color == @current_color
   end
 
+  def create_moves
+    @moves = @board.moves_from_source(@source_choice, @current_color)
+  end
+
+  def moves_empty?
+    @moves.values.flatten.empty?
+  end
+
   def create_destination_choice
-    print_current_player_info
     loop do
       print_info_if_human("\nDestination:")
       @destination_choice = @current_player.make_choice.to_sym
@@ -82,9 +88,17 @@ class Game
   end
 
   def valid_destination?
-    return false unless @moves.values.flatten.include?(@destination_choice)
+    return false unless moves_include_destination?
 
     true
+  end
+
+  def moves_include_destination?
+    @moves.values.flatten.include?(@destination_choice)
+  end
+
+  def make_move
+    @board.make_move(@source_choice, @destination_choice)
   end
 
   def switch_current_color
@@ -94,6 +108,8 @@ class Game
   def switch_players
     @current_player, @other_player = @other_player, @current_player
   end
+
+  private
 
   def print_board
     clear_screen

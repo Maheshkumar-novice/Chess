@@ -13,7 +13,8 @@ module GameUtils
   end
 
   def print_check_status
-    print_info("Is your king in check? #{accent(@board.king_in_check?(@current_color).to_s)}", ending: "\n")
+    print_info_if("Is your king in check? #{accent(@board.king_in_check?(@current_color).to_s)}",
+                  condition: @current_player.is_a?(Human), ending: "\n")
   end
 
   def print_current_player_info

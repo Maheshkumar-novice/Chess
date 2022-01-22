@@ -31,6 +31,10 @@ class Cell
     !piece.nil?
   end
 
+  def to_s
+    piece ? piece.unicode : ' '
+  end
+
   private
 
   def create_row_connections(row, column)

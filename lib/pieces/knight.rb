@@ -23,4 +23,8 @@ class Knight
   def classify_moves(moves, board)
     @move_classifier.classify_moves(color, moves, board)
   end
+
+  def unicode
+    @color == 'white' ? "\u2658" : "\u265E"
+  end
 end

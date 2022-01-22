@@ -7,7 +7,7 @@ require_relative './components/mode-chooser'
 require_relative '../utils/display'
 
 # Players Creator
-class PlayersCreator
+class PlayerCreator
   include Display
 
   def initialize(mode_chooser: ModeChooser.new)

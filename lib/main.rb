@@ -4,7 +4,7 @@
 require_relative './game'
 require_relative './fen'
 require_relative './board'
-require_relative './players/players-creator'
+require_relative './players/player-creator'
 
 fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 fen_processor = Fen.new
@@ -15,7 +15,7 @@ meta_data = fen_processor.meta_data
 
 board = Board.new(pieces, meta_data)
 
-players = PlayersCreator.new.create_players
+players = PlayerCreator.new.create_players
 players.rotate! if current_color == 'black'
 
 game = Game.new(board, players, current_color)

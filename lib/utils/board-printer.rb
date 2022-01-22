@@ -40,30 +40,7 @@ class BoardPrinter
   end
 
   def print_cell(cell, bg_color)
-    piece = cell.piece_name
-    piece = printable_piece(piece)
-    print colorize_cell(piece, bg_color)
-  end
-
-  def printable_piece(piece)
-    return ' ' if piece.empty?
-
-    symbol_to_unicode(piece.to_sym)
-  end
-
-  def colorize_cell(piece, bg_color)
-    " #{piece} ".send(bg_color).black
-  end
-
-  def symbol_to_unicode(piece_symbol)
-    {
-      r: "\u265C", R: "\u2656",
-      n: "\u265E", N: "\u2658",
-      b: "\u265D", B: "\u2657",
-      q: "\u265B", Q: "\u2655",
-      k: "\u265A", K: "\u2654",
-      p: "\u265F", P: "\u2659"
-    }[piece_symbol]
+    print " #{cell} ".send(bg_color).black
   end
 
   def get_bg_color(key, source, empty, captures, default_bg_color)

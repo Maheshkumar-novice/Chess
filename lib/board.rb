@@ -15,6 +15,7 @@ class Board
     @rows = (1..8).to_a.reverse
     @columns = ('a'..'h').to_a
     @board = create_board
+    @moves = nil
   end
 
   def print_board(source = nil, empty = [], captures = [])
@@ -27,13 +28,12 @@ class Board
     @board[source].piece = nil
   end
 
-  def moves_from_source(cell, color)
-    piece = @board[cell].piece
-    all_moves = piece.create_moves(board)
-    moves_without_same_color_destination = reject_moves_of_same_color_destination(all_moves, color)
-    moves_without_check_moves = reject_moves_that_keep_own_king_in_check(cell, moves_without_same_color_destination,
-                                                                         color)
-    piece.classify_moves(moves_without_check_moves, board)
+  def moves_from_source(source, color)
+    piece = @board[source].piece
+    @moves = piece.create_moves(@board)
+    reject_moves_of_same_color_destination(color)
+    reject_moves_that_keep_own_king_in_check(source, color)
+    piece.classify_moves(@moves, @board)
   end
 
   def king_in_check?(color)
@@ -65,16 +65,12 @@ class Board
     cell
   end
 
-  def reject_moves_of_same_color_destination(moves, color)
-    moves.reject do |move|
-      @board[move].piece_color == color
-    end
+  def reject_moves_of_same_color_destination(color)
+    @moves.reject! { |move| @board[move].piece_color == color }
   end
 
-  def reject_moves_that_keep_own_king_in_check(source, destinations, color)
-    destinations.reject do |destination|
-      move_leads_to_check?(source, destination, color)
-    end
+  def reject_moves_that_keep_own_king_in_check(source, color)
+    @moves.reject! { |move| move_leads_to_check?(source, move, color) }
   end
 
   def move_leads_to_check?(source, destination, color)
@@ -87,17 +83,17 @@ class Board
     king_in_check
   end
 
+  def revert_move(source, destination, previous_source_piece, previous_source_cell, previous_destination_piece)
+    @board[source].piece = previous_source_piece
+    @board[destination].piece = previous_destination_piece
+    @board[source].piece.current_cell = previous_source_cell
+  end
+
   def find_king_position(king_color)
     @board.each do |marker, cell|
       color = cell.piece_color
       name = cell.piece_name.downcase
       return marker if color == king_color && name == 'k'
     end
-  end
-
-  def revert_move(source, destination, previous_source_piece, previous_source_cell, previous_destination_piece)
-    @board[source].piece = previous_source_piece
-    @board[destination].piece = previous_destination_piece
-    @board[source].piece.current_cell = previous_source_cell
   end
 end

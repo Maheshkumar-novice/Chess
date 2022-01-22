@@ -2,16 +2,18 @@
 # frozen_string_literal: true
 
 require_relative './utils/board-printer'
+require_relative './utils/cell-creator'
 require_relative './cell'
 
 # Chess board
 class Board
   attr_reader :board
 
-  def initialize(pieces, meta_data, printer: BoardPrinter.new)
+  def initialize(pieces, meta_data, printer: BoardPrinter.new, cell_creator: CellCreator.new)
     @pieces = pieces
     @meta_data = meta_data
     @printer = printer
+    @cell_creator = cell_creator
     @rows = (1..8).to_a.reverse
     @columns = ('a'..'h').to_a
     @board = create_board
@@ -46,23 +48,12 @@ class Board
     board = {}
     @rows.each do |row|
       @columns.each do |column|
-        cell_marker = create_cell_marker(row.to_s, column)
-        board[cell_marker] = create_cell(row, column, @pieces.shift)
-        board[cell_marker].piece.current_cell = cell_marker if board[cell_marker].piece
+        cell_marker = @cell_creator.cell_marker(row, column)
+        board[cell_marker] = @cell_creator.create_cell(row, column, @pieces.shift)
+        board[cell_marker].piece.current_cell = cell_marker if board[cell_marker].occupied?
       end
     end
     board
-  end
-
-  def create_cell_marker(row, column)
-    (column + row).to_sym
-  end
-
-  def create_cell(row, column, piece)
-    cell = Cell.new
-    cell.piece = piece
-    cell.create_connections(row, column)
-    cell
   end
 
   def reject_moves_of_same_color_destination(color)

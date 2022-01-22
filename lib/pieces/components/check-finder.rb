@@ -9,10 +9,10 @@ class CheckFinder
     @move_generator = move_generator
   end
 
-  def cell_in_check?(cell, board)
-    check_possibilities.any? do |check_possibility|
-      send(check_possibility, cell, board)
-    end
+  def cell_in_check?(king_position, board)
+    @king_position = king_position
+    @board = board
+    check_possibilities.any? { |check_possibility| send(check_possibility) }
   end
 
   private
@@ -21,86 +21,62 @@ class CheckFinder
     %i[horizontal_check? vertical_check? diagonal_check? knight_check? pawn_check? king_check?]
   end
 
-  def horizontal_check?(king_position, board)
-    horizontal_moves = @move_generator.generate_all_moves_from_directions(%i[row_right row_left], king_position, board)
-    any_move_leads_to_check?(%w[r q], horizontal_moves, king_position, board)
+  def horizontal_check?
+    any_move_leads_to_check?(%w[r q], @move_generator.horizontal_moves(@king_position, @board))
   end
 
-  def vertical_check?(king_position, board)
-    vertical_moves = @move_generator.generate_all_moves_from_directions(%i[column_above column_below], king_position,
-                                                                        board)
-    any_move_leads_to_check?(%w[r q], vertical_moves, king_position, board)
+  def vertical_check?
+    any_move_leads_to_check?(%w[r q], @move_generator.vertical_moves(@king_position, @board))
   end
 
-  def diagonal_check?(king_position, board)
-    diagonal_moves = @move_generator.generate_all_moves_from_directions(%i[top_left_diagonal
-                                                                           top_right_diagonal
-                                                                           bottom_right_diagonal
-                                                                           bottom_left_diagonal], king_position, board)
-    any_move_leads_to_check?(%w[b q], diagonal_moves, king_position, board)
+  def diagonal_check?
+    any_move_leads_to_check?(%w[b q], @move_generator.diagonal_moves(@king_position, @board))
   end
 
-  def knight_check?(king_position, board)
-    knight_moves = @move_generator.knight_moves(king_position, board)
-    any_move_leads_to_check?(%w[n], knight_moves, king_position, board)
+  def knight_check?
+    any_move_leads_to_check?(%w[n], @move_generator.knight_moves(@king_position, @board))
   end
 
-  def pawn_check?(king_position, board)
-    color = board[king_position].piece_color
-    return black_pawn_check?(king_position, board) if color == 'white'
-    return white_pawn_check?(king_position, board) if color == 'black'
+  def pawn_check?
+    moves = black_pawn_moves if king_cell.piece_color == 'white'
+    moves = white_pawn_moves if king_cell.piece_color == 'black'
+
+    any_move_leads_to_check?(%w[p], moves)
   end
 
-  def black_pawn_check?(king_position, board)
-    moves = []
-    moves << board[king_position].top_right_diagonal
-    moves << board[king_position].top_left_diagonal
-    moves = moves.compact
-    any_move_leads_to_check?(%w[p], moves, king_position, board)
+  def black_pawn_moves
+    [].push(king_cell.top_right_diagonal, king_cell.top_left_diagonal).compact
   end
 
-  def white_pawn_check?(king_position, board)
-    moves = []
-    moves << board[king_position].bottom_right_diagonal
-    moves << board[king_position].bottom_left_diagonal
-    moves = moves.compact
-    any_move_leads_to_check?(%w[p], moves, king_position, board)
+  def white_pawn_moves
+    [].push(king_cell.bottom_right_diagonal, king_cell.bottom_left_diagonal).compact
   end
 
-  def king_check?(king_position, board)
-    king_moves = @move_generator.generate_single_step_moves_from_directions(%i[row_right
-                                                                               row_left
-                                                                               column_above
-                                                                               column_below
-                                                                               top_left_diagonal
-                                                                               top_right_diagonal
-                                                                               bottom_right_diagonal
-                                                                               bottom_left_diagonal], king_position, board)
-    any_move_leads_to_check?(%w[k], king_moves, king_position, board)
+  def king_check?
+    any_move_leads_to_check?(%w[k], @move_generator.king_moves(@king_position, @board))
   end
 
-  def any_move_leads_to_check?(pieces_can_check, direction_moves, king_position, board)
-    direction_moves = reject_nil_pieces(direction_moves, board)
-    direction_moves.any? do |direction_move|
-      check?(pieces_can_check, direction_move, king_position, board)
-    end
+  def any_move_leads_to_check?(pieces_can_check, moves)
+    occupied_moves(moves).any? { |move| leads_to_check?(pieces_can_check, move) }
   end
 
-  def reject_nil_pieces(moves, board)
-    moves.select do |move|
-      board[move].occupied?
-    end
+  def occupied_moves(moves)
+    moves.select { |move| @board[move].occupied? }
   end
 
-  def check?(pieces_can_check, move, king_position, board)
-    different_colors?(move, king_position, board) && move_piece_in_pieces_can_check?(pieces_can_check, move, board)
+  def leads_to_check?(pieces_can_check, move)
+    enemy?(move) && piece_in_move_can_check?(pieces_can_check, move)
   end
 
-  def different_colors?(move, king_position, board)
-    board[move].piece_color != board[king_position].piece_color
+  def enemy?(move)
+    @board[move].piece_color != king_cell.piece_color
   end
 
-  def move_piece_in_pieces_can_check?(pieces_can_check, move, board)
-    pieces_can_check.include?(board[move].piece_name.downcase)
+  def piece_in_move_can_check?(pieces_can_check, move)
+    pieces_can_check.include?(@board[move].piece_name.downcase)
+  end
+
+  def king_cell
+    @board[@king_position]
   end
 end

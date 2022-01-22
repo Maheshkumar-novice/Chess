@@ -21,7 +21,7 @@ class Rook
   end
 
   def classify_moves(moves, board)
-    @move_classifier.classify_moves(color, moves, board)
+    @move_classifier.classify_moves(@color, moves, board)
   end
 
   def unicode

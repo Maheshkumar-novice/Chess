@@ -45,11 +45,11 @@ class CheckFinder
   end
 
   def black_pawn_moves
-    [].push(king_cell.top_right_diagonal, king_cell.top_left_diagonal).compact
+    [king_cell.top_right_diagonal, king_cell.top_left_diagonal].compact
   end
 
   def white_pawn_moves
-    [].push(king_cell.bottom_right_diagonal, king_cell.bottom_left_diagonal).compact
+    [king_cell.bottom_right_diagonal, king_cell.bottom_left_diagonal].compact
   end
 
   def king_check?

@@ -7,11 +7,12 @@ require_relative './components/move-generator'
 class Pawn
   attr_accessor :name, :color, :current_cell
 
-  def initialize(move_generator: MoveGenerator.new)
+  def initialize(move_generator: MoveGenerator.new, move_classifier: MoveClassifier.new)
     @name = nil
     @color = nil
     @current_cell = nil
     @move_generator = move_generator
+    @move_classifier = move_classifier
   end
 
   def create_moves(board)
@@ -19,29 +20,10 @@ class Pawn
   end
 
   def classify_moves(moves, board)
-    diagonal_moves = diagonal_moves(board[@current_cell]).select { |move| moves.include?(move) }
-    remaining_moves = moves.reject { |move| diagonal_moves.include?(move) }
-
-    { empty: empty(remaining_moves, board), captures: captures(diagonal_moves, board) }
+    @move_classifier.classify_pawn_moves(moves, board, @current_cell, @color)
   end
 
   def unicode
     @color == 'white' ? "\u2659" : "\u265F"
-  end
-
-  private
-
-  def diagonal_moves(cell)
-    [cell.top_right_diagonal, cell.top_left_diagonal, cell.bottom_right_diagonal, cell.bottom_left_diagonal].compact
-  end
-
-  def captures(diagonal_moves, board)
-    enemy_color = @color == 'white' ? 'black' : 'white'
-
-    diagonal_moves.each_with_object([]) { |move, result| result << move if board[move].piece_color == enemy_color }
-  end
-
-  def empty(moves, board)
-    moves.each_with_object([]) { |move, result| result << move if board[move].empty? }
   end
 end

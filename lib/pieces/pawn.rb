@@ -19,10 +19,10 @@ class Pawn
   end
 
   def classify_moves(moves, board)
-    diagonal_moves = pawn_diagonal_moves(board[@current_cell]).select { |move| moves.include?(move) }
+    diagonal_moves = diagonal_moves(board[@current_cell]).select { |move| moves.include?(move) }
     remaining_moves = moves.reject { |move| diagonal_moves.include?(move) }
 
-    { empty: find_empty_moves(remaining_moves, board), captures: find_capture_moves(diagonal_moves, board) }
+    { empty: empty(remaining_moves, board), captures: captures(diagonal_moves, board) }
   end
 
   def unicode
@@ -31,26 +31,17 @@ class Pawn
 
   private
 
-  def pawn_diagonal_moves(cell)
-    [
-      cell.top_right_diagonal,
-      cell.top_left_diagonal,
-      cell.bottom_right_diagonal,
-      cell.bottom_left_diagonal
-    ].compact
+  def diagonal_moves(cell)
+    [cell.top_right_diagonal, cell.top_left_diagonal, cell.bottom_right_diagonal, cell.bottom_left_diagonal].compact
   end
 
-  def find_capture_moves(diagonal_moves, board)
+  def captures(diagonal_moves, board)
     enemy_color = @color == 'white' ? 'black' : 'white'
 
-    diagonal_moves.each_with_object([]) do |move, result|
-      result << move if board[move].piece_color == enemy_color
-    end
+    diagonal_moves.each_with_object([]) { |move, result| result << move if board[move].piece_color == enemy_color }
   end
 
-  def find_empty_moves(moves, board)
-    moves.each_with_object([]) do |move, result|
-      result << move unless board[move].occupied?
-    end
+  def empty(moves, board)
+    moves.each_with_object([]) { |move, result| result << move if board[move].empty? }
   end
 end

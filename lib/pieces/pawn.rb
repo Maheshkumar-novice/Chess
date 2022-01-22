@@ -25,6 +25,10 @@ class Pawn
     { empty: find_empty_moves(remaining_moves, board), captures: find_capture_moves(diagonal_moves, board) }
   end
 
+  def unicode
+    @color == 'white' ? "\u2659" : "\u265F"
+  end
+
   private
 
   def pawn_diagonal_moves(cell)

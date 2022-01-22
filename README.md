@@ -72,6 +72,6 @@
 
 - [ ] Readme Creation
 - [ ] Extra functionalities - Sound, Theme, Settings, Help, Modes, Menu, Autosave, Fen Copy, More UX improvements
-- [ ] To Learn more: RDocs, Releases,Versions, Tags, Load, Require, Require_Relative,Replit, Bundler,Reek, Gem, Go-Su game lib, Design patterns, Social media posts(Thinking), cheat sheet of ruby repo go through, Sharing with friends, Sharing in Odin, Feedback review
+- [ ] To Learn more: Include, Extend, RDocs, Releases,Versions, Tags, Load, Require, Require_Relative,Replit, Bundler,Reek, Gem, Go-Su game lib, Design patterns, Social media posts(Thinking), cheat sheet of ruby repo go through, Sharing with friends, Sharing in Odin, Feedback review
 - [ ] Final Review and Reflections
 - [ ] Moving on....!

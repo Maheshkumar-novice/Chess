@@ -27,8 +27,12 @@ class Cell
     piece ? piece.color : ''
   end
 
+  def empty?
+    piece.nil?
+  end
+
   def occupied?
-    !piece.nil?
+    !empty?
   end
 
   def to_s

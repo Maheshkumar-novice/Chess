@@ -23,4 +23,8 @@ class Queen
   def classify_moves(moves, board)
     @move_classifier.classify_moves(color, moves, board)
   end
+
+  def unicode
+    @color == 'white' ? "\u2655" : "\u265B"
+  end
 end

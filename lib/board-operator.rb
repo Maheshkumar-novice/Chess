@@ -1,60 +1,34 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './utils/board-printer'
-require_relative './utils/cell-creator'
-require_relative './cell'
-
 # Chess board
-class Board
+class BoardOperator
   attr_reader :board
 
-  def initialize(pieces, meta_data, printer: BoardPrinter.new, cell_creator: CellCreator.new)
-    @pieces = pieces
+  def initialize(board, meta_data)
+    @board = board
     @meta_data = meta_data
-    @printer = printer
-    @cell_creator = cell_creator
-    @rows = (1..8).to_a.reverse
-    @columns = ('a'..'h').to_a
-    @board = create_board
     @moves = nil
-  end
-
-  def print_board(source = nil, empty = [], captures = [])
-    @printer.print_board(@board, source, empty, captures)
   end
 
   def make_move(source, destination)
     @board[destination].piece = @board[source].piece
-    @board[destination].piece.current_cell = destination
+    @board[destination].update_current_cell_of_piece(destination)
     @board[source].piece = nil
   end
 
   def moves_from_source(source, color)
-    piece = @board[source].piece
-    @moves = piece.create_moves(@board)
+    @moves = @board[source].create_moves(@board)
     reject_moves_of_same_color_destination(color)
     reject_moves_that_keep_own_king_in_check(source, color)
-    piece.classify_moves(@moves, @board)
+    @board[source].classify_moves(@moves, @board)
   end
 
   def king_in_check?(color)
-    @board[find_king_position(color)].piece.in_check?(@board)
+    @board[find_king_position(color)].in_check?(@board)
   end
 
   private
-
-  def create_board
-    board = {}
-    @rows.each do |row|
-      @columns.each do |column|
-        cell_marker = @cell_creator.cell_marker(row, column)
-        board[cell_marker] = @cell_creator.create_cell(row, column, @pieces.shift)
-        board[cell_marker].piece.current_cell = cell_marker if board[cell_marker].occupied?
-      end
-    end
-    board
-  end
 
   def reject_moves_of_same_color_destination(color)
     @moves.reject! { |move| @board[move].piece_color == color }
@@ -77,14 +51,16 @@ class Board
   def revert_move(source, destination, previous_source_piece, previous_source_cell, previous_destination_piece)
     @board[source].piece = previous_source_piece
     @board[destination].piece = previous_destination_piece
-    @board[source].piece.current_cell = previous_source_cell
+    @board[source].update_current_cell_of_piece(previous_source_cell)
   end
 
   def find_king_position(king_color)
     @board.each do |marker, cell|
+      next if cell.empty?
+
       color = cell.piece_color
-      name = cell.piece_name.downcase
-      return marker if color == king_color && name == 'k'
+      name = cell.piece_name
+      return marker if color == king_color && name.match?(/k/i)
     end
   end
 end

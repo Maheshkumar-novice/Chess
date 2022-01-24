@@ -1,8 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'forwardable'
+
 # Chess board - Cell
 class Cell
+  extend Forwardable
+
+  def_delegators :piece, :create_moves, :classify_moves, :in_check?
+
   attr_accessor :piece,
                 :row_right,
                 :row_left,

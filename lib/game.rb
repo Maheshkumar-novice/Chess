@@ -3,17 +3,19 @@
 
 require_relative './utils/display'
 require_relative './utils/game-utils'
+require_relative './utils/board-printer'
 
 # Game
 class Game
   include Display
   include GameUtils
 
-  def initialize(board, players, current_color)
+  def initialize(board, players, current_color, printer: BoardPrinter.new)
     @board = board
     @current_player = players[0]
     @other_player = players[1]
     @current_color = current_color
+    @printer = printer
     @source_choice = nil
     @destination_choice = nil
     @moves = { empty: [], captures: [] }

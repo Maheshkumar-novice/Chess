@@ -25,12 +25,24 @@ class Cell
     create_diagonal_connections(row, column)
   end
 
+  def diagonals
+    [top_right_diagonal, top_left_diagonal, bottom_right_diagonal, bottom_left_diagonal]
+  end
+
+  def update_current_cell_of_piece(destination)
+    piece.current_cell = destination
+  end
+
+  def enemy?(enemy_color)
+    piece&.enemy?(enemy_color)
+  end
+
   def piece_name
-    piece ? piece.name : ''
+    piece&.name
   end
 
   def piece_color
-    piece ? piece.color : ''
+    piece&.color
   end
 
   def empty?
@@ -42,7 +54,7 @@ class Cell
   end
 
   def to_s
-    piece ? piece.unicode : ' '
+    piece&.unicode
   end
 
   private

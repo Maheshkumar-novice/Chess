@@ -2,9 +2,12 @@
 # frozen_string_literal: true
 
 require_relative './components/move-generator'
+require_relative './components/piece-helper'
 
 # Pawn
 class Pawn
+  include PieceHelper
+
   attr_accessor :name, :color, :current_cell
 
   def initialize(move_generator: MoveGenerator.new, move_classifier: MoveClassifier.new)

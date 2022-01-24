@@ -4,9 +4,12 @@
 require_relative './components/move-generator'
 require_relative './components/move-classifier'
 require_relative './components/check-finder'
+require_relative './components/piece-helper'
 
 # King
 class King
+  include PieceHelper
+
   attr_accessor :name, :color, :current_cell
 
   def initialize(move_generator: MoveGenerator.new, move_classifier: MoveClassifier.new, check_finder: CheckFinder.new)

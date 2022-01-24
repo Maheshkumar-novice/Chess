@@ -38,9 +38,9 @@ class BoardPrinter
   end
 
   def print_board_data
-    @board.each do |key, cell|
+    @board.each_key do |key|
       print_row_no(condition: key.match?(/a/))
-      print_cell(cell, get_bg_color(key))
+      print_cell(printable_cell(key), get_bg_color(key))
       switch_bg
       next unless key.match?(/h/)
 
@@ -61,6 +61,12 @@ class BoardPrinter
 
   def print_cell(cell, bg_color)
     print " #{cell} ".send(bg_color).black
+  end
+
+  def printable_cell(key)
+    return ' ' if @board[key].empty?
+
+    @board[key]
   end
 
   def get_bg_color(key)

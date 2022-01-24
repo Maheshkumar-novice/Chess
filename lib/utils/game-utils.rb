@@ -9,7 +9,7 @@ module GameUtils
 
   def print_board
     system('clear')
-    @board.print_board(@source_choice, @moves[:empty], @moves[:captures])
+    @printer.print_board(@board.board, @source_choice, @moves[:empty], @moves[:captures])
   end
 
   def print_check_status

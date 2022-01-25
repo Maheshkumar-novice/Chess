@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Piece Helper Module
+# Helper methods for Piece
 module PieceHelper
   def color?(color)
     @color == color

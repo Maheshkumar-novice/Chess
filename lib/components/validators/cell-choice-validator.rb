@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Cell Choice Validator
+# Validates the given cell choice
 class CellChoiceValidator
   def valid?(cell_choice)
     cell_choice.match?(/^[a-h][1-8]$/)

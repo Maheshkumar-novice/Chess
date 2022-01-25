@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Chess board - Cell
+# Represents the board cell
 class Cell
   extend Forwardable
 

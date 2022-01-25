@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Moves Creator
+# Creates possible moves from cell depending on the context
 class MoveCreator
   def horizontal_moves(cell, board)
     all_moves(%i[row_right row_left], cell, board)

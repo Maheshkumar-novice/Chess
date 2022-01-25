@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Mode Creator
+# Creates game mode
 class ModeCreator
   include StringColorFormatter
 

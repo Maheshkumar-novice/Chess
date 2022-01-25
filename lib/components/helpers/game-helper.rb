@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Game Helper
+# Helper methods for Game
 module GameHelper
   def sleep_if_bot
     sleep(1) if @current_player.is_a?(Bot)

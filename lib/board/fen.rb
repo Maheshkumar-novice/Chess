@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# FEN Operations
+# Operates on FEN code
 class Fen
   attr_reader :pieces, :current_color, :meta_data
 

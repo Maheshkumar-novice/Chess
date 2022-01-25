@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Human Player
+# Represents player Human
 class Human
   include StringColorFormatter
 

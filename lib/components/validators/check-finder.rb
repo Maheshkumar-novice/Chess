@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Check Finder
+# Finds the check status of the cell
 class CheckFinder
   def initialize(move_creator: MoveCreator.new)
     @move_creator = move_creator

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Queen
+# Represents chess piece Queen
 class Queen
   include PieceHelper
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Bot Player
+# Represents player Bot
 class Bot
   attr_accessor :name
 

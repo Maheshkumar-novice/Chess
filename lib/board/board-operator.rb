@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Chess board
+# Performs board operations
 class BoardOperator
   attr_reader :board
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Game
+# Controls game play
 class Game
   include StringColorFormatter
   include GameHelper

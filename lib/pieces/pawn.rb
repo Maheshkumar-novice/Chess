@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Pawn
+# Represents chess piece Pawn
 class Pawn
   include PieceHelper
 

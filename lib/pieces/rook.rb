@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Rook
+# Represents chess piece Rook
 class Rook
   include PieceHelper
 

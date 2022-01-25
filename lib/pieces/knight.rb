@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Knight
+# Represents chess piece Knight
 class Knight
   include PieceHelper
 

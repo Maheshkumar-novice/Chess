@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# String Color Formatter
+# Methods for coloring the given string in a standard way
 module StringColorFormatter
   def print_info(str, ending: '')
     print (str + ending).yellow

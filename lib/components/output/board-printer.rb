@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Board Printer
+# Prints the board in the terminal
 class BoardPrinter
   LIGHT_BG = :bg_gray
   DARK_BG = :bg_cyan

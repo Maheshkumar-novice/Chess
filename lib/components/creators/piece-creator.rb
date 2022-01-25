@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Piece Creator
+# Creates pieces from array of strings from fen
 class PieceCreator
   def create_pieces(rows)
     rows.each_with_object([]) { |row, pieces| row.each_char { |value| pieces.concat(make_piece(value)) } }

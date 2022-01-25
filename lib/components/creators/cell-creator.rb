@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Cell Creator
+# Creates board cell
 class CellCreator
   def create_cell(row, column, piece)
     cell = Cell.new

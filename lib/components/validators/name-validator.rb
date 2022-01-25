@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Name Validator
+# Validates the given name
 class NameValidator
   attr_reader :max_name_length
 

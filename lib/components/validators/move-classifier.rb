@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Move Classifier
+# Classifies the given moves as empty & captures
 class MoveClassifier
   def initialize
     @enemy_color = nil

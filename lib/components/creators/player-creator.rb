@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Players Creator
+# Creates players depending on the mode
 class PlayerCreator
   include StringColorFormatter
 

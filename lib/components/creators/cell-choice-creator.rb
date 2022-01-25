@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Cell Choice Creator
+# Creates cell choice
 class CellChoiceCreator
   include StringColorFormatter
 

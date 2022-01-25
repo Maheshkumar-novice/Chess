@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# King
+# Represents chess piece King
 class King
   include PieceHelper
 

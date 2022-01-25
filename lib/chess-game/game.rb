@@ -1,10 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../components/output/board-printer'
-require_relative '../components/output/string-color-formatter'
-require_relative '../components/helpers/game-helper'
-
 # Game
 class Game
   include StringColorFormatter

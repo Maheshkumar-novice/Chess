@@ -1,11 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../components/creators/move-creator'
-require_relative '../components/validators/move-classifier'
-require_relative '../components/validators/check-finder'
-require_relative '../components/helpers/piece-helper'
-
 # King
 class King
   include PieceHelper

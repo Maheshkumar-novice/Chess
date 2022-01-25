@@ -1,11 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../players/bot'
-require_relative '../../players/human'
-require_relative '../output/string-color-formatter'
-require_relative './mode-creator'
-
 # Players Creator
 class PlayerCreator
   include StringColorFormatter

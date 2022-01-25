@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './color'
-
 # Board Printer
 class BoardPrinter
   LIGHT_BG = :bg_gray

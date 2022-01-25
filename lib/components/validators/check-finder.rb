@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../creators/move-creator'
-
 # Check Finder
 class CheckFinder
   def initialize(move_creator: MoveCreator.new)

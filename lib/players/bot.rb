@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../components/creators/name-creator'
-require_relative '../components/creators/cell-choice-creator'
-
 # Bot Player
 class Bot
   attr_accessor :name

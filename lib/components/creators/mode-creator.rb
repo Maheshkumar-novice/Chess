@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../output/string-color-formatter'
-
 # Mode Creator
 class ModeCreator
   include StringColorFormatter

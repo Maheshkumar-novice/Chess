@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './cell-creator'
-
 # Board Creator Class
 class BoardCreator
   def initialize(cell_creator: CellCreator.new)

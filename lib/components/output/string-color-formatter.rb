@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './color'
-
 # String Color Formatter
 module StringColorFormatter
   def print_info(str, ending: '')

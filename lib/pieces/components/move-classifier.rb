@@ -40,11 +40,11 @@ class MoveClassifier
     cell.diagonals.compact
   end
 
-  def captures(board)
-    @diagonal_moves.each_with_object([]) { |move, result| result << move if board[move].enemy?(@enemy_color) }
-  end
-
   def empty(board)
     @moves_without_diagonal_moves.each_with_object([]) { |move, result| result << move if board[move].empty? }
+  end
+
+  def captures(board)
+    @diagonal_moves.each_with_object([]) { |move, result| result << move if board[move].enemy?(@enemy_color) }
   end
 end

@@ -11,23 +11,17 @@ require_relative '../pieces/pawn'
 # Piece Creator
 class PieceCreator
   def create_pieces(rows)
-    pieces = []
-    rows.each do |row|
-      row.chars.each do |value|
-        pieces.concat(make_piece(value))
-      end
+    rows.each_with_object([]) do |row, pieces|
+      row.each_char { |value| pieces.concat(make_piece(value)) }
     end
-    pieces
   end
 
+  private
+
   def make_piece(value)
-    pieces = []
-    if value.match?(/^[1-8]{1}$/)
-      pieces += create_nil_pieces(value.to_i)
-    else
-      pieces << create_valid_piece(value)
-    end
-    pieces
+    return create_nil_pieces(value.to_i) if value.match?(/^[1-8]{1}$/)
+
+    [create_valid_piece(value)]
   end
 
   def create_nil_pieces(value)

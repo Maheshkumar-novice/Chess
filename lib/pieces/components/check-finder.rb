@@ -37,6 +37,10 @@ class CheckFinder
     any_move_leads_to_check?(%w[n N], @move_generator.knight_moves(@king_position, @board))
   end
 
+  def king_check?
+    any_move_leads_to_check?(%w[k K], @move_generator.king_moves(@king_position, @board))
+  end
+
   def pawn_check?
     moves = black_pawn_moves if king_cell.piece_color == 'white'
     moves = white_pawn_moves if king_cell.piece_color == 'black'
@@ -50,10 +54,6 @@ class CheckFinder
 
   def white_pawn_moves
     [king_cell.bottom_right_diagonal, king_cell.bottom_left_diagonal].compact
-  end
-
-  def king_check?
-    any_move_leads_to_check?(%w[k K], @move_generator.king_moves(@king_position, @board))
   end
 
   def any_move_leads_to_check?(pieces_can_check, moves)

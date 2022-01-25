@@ -8,6 +8,7 @@ class Cell
   extend Forwardable
 
   def_delegators :piece, :create_moves, :classify_moves, :in_check?
+  def_delegator :piece, :current_cell=, :update_current_cell_of_piece
 
   attr_accessor :piece,
                 :row_right,

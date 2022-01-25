@@ -10,8 +10,7 @@ class BoardCreator
   end
 
   def create_board(pieces)
-    board = {}
-    @rows.each do |row|
+    @rows.each_with_object({}) do |row, board|
       @columns.each do |column|
         cell_marker = @cell_creator.cell_marker(row, column)
         board[cell_marker] = @cell_creator.create_cell(row, column, pieces.shift)
@@ -21,6 +20,5 @@ class BoardCreator
         board[cell_marker].update_current_cell_of_piece(cell_marker)
       end
     end
-    board
   end
 end

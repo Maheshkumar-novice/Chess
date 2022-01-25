@@ -3,7 +3,7 @@
 
 # Piece Helper Module
 module PieceHelper
-  def enemy?(enemy_color)
+  def enemy_color?(enemy_color)
     @color == enemy_color
   end
 end

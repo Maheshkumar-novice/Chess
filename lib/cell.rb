@@ -33,8 +33,8 @@ class Cell
     piece.current_cell = destination
   end
 
-  def enemy?(enemy_color)
-    piece&.enemy?(enemy_color)
+  def enemy_color?(enemy_color)
+    piece&.enemy_color?(enemy_color)
   end
 
   def piece_name

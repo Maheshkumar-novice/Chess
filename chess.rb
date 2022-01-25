@@ -10,5 +10,6 @@ Dir['./lib/components/helpers/*.rb'].sort.each { |file| require file }
 Dir['./lib/board/*.rb'].sort.each { |file| require file }
 Dir['./lib/pieces/piece.rb'].sort.each { |file| require file }
 Dir['./lib/pieces/*.rb'].sort.each { |file| require file }
+Dir['./lib/players/player.rb'].sort.each { |file| require file }
 Dir['./lib/players/*.rb'].sort.each { |file| require file }
 Dir['./lib/chess-game/*.rb'].sort.each { |file| require file }

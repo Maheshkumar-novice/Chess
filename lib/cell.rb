@@ -29,8 +29,12 @@ class Cell
     [top_right_diagonal, top_left_diagonal, bottom_right_diagonal, bottom_left_diagonal]
   end
 
-  def update_current_cell_of_piece(destination)
-    piece.current_cell = destination
+  def update_current_cell_of_piece(cell_marker)
+    piece.current_cell = cell_marker
+  end
+
+  def update_piece_to(piece)
+    self.piece = piece
   end
 
   def color?(color)

@@ -39,7 +39,7 @@ class BoardOperator
   end
 
   def move_leads_to_check?(source, destination, color)
-    store_current_data(source, destination)
+    store_current_move_state(source, destination)
     make_move(source, destination)
     king_in_check = king_in_check?(color)
     revert_move(source, destination)
@@ -50,7 +50,7 @@ class BoardOperator
     @board.find { |_, cell| cell.piece_color == king_color && cell.piece_name.match?(/k/i) }.first
   end
 
-  def store_current_data(source, destination)
+  def store_current_move_state(source, destination)
     @previous_source_piece = @board[source].piece
     @previous_source_cell = @previous_source_piece.current_cell
     @previous_destination_piece = @board[destination].piece

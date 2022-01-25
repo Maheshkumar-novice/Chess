@@ -20,14 +20,10 @@ class PlayerCreator
 
   def create_players_of_mode
     case @mode
-    when 'a'
-      [new_bot_player, new_bot_player]
-    when 'b'
-      [new_bot_player, new_human_player]
-    when 'c'
-      [new_human_player, new_bot_player]
-    when 'd'
-      [new_human_player, new_human_player]
+    when 'a' then [new_bot_player, new_bot_player]
+    when 'b' then [new_bot_player, new_human_player]
+    when 'c' then [new_human_player, new_bot_player]
+    when 'd' then [new_human_player, new_human_player]
     end
   end
 

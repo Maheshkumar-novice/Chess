@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './components/name-creator'
-require_relative './components/cell-choice-maker'
+require_relative '../components/creators/name-creator'
+require_relative '../components/creators/cell-choice-creator'
 
 # Bot Player
 class Bot
   attr_accessor :name
 
-  def initialize(name_creator: NameCreator.new, cell_choice_maker: CellChoiceMaker.new)
+  def initialize(name_creator: NameCreator.new, cell_choice_maker: CellChoiceCreator.new)
     @name = nil
     @name_creator = name_creator
     @cell_choice_maker = cell_choice_maker

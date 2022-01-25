@@ -31,7 +31,7 @@ class BoardOperator
   private
 
   def reject_moves_of_same_color_destination(color)
-    @moves.reject! { |move| @board[move].piece_color == color }
+    @moves.reject! { |move| @board[move].color?(color) }
   end
 
   def reject_moves_that_keep_own_king_in_check(source, color)

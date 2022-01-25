@@ -2,17 +2,9 @@
 # frozen_string_literal: true
 
 # Represents chess piece King
-class King
-  include PieceHelper
-
-  attr_accessor :name, :color, :current_cell
-
+class King < Piece
   def initialize(move_creator: MoveCreator.new, move_classifier: MoveClassifier.new, check_finder: CheckFinder.new)
-    @name = nil
-    @color = nil
-    @current_cell = nil
-    @move_creator = move_creator
-    @move_classifier = move_classifier
+    super(move_creator, move_classifier)
     @check_finder = check_finder
   end
 

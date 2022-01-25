@@ -2,17 +2,9 @@
 # frozen_string_literal: true
 
 # Represents chess piece Rook
-class Rook
-  include PieceHelper
-
-  attr_accessor :name, :color, :current_cell
-
+class Rook < Piece
   def initialize(move_creator: MoveCreator.new, move_classifier: MoveClassifier.new)
-    @name = nil
-    @color = nil
-    @current_cell = nil
-    @move_creator = move_creator
-    @move_classifier = move_classifier
+    super(move_creator, move_classifier)
   end
 
   def create_moves(board)

@@ -11,9 +11,7 @@ require_relative '../pieces/pawn'
 # Piece Creator
 class PieceCreator
   def create_pieces(rows)
-    rows.each_with_object([]) do |row, pieces|
-      row.each_char { |value| pieces.concat(make_piece(value)) }
-    end
+    rows.each_with_object([]) { |row, pieces| row.each_char { |value| pieces.concat(make_piece(value)) } }
   end
 
   private

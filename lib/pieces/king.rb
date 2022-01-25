@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './components/move-generator'
-require_relative './components/move-classifier'
-require_relative './components/check-finder'
-require_relative './components/piece-helper'
+require_relative '../components/creators/move-creator'
+require_relative '../components/validators/move-classifier'
+require_relative '../components/validators/check-finder'
+require_relative '../components/helpers/piece-helper'
 
 # King
 class King
@@ -12,17 +12,17 @@ class King
 
   attr_accessor :name, :color, :current_cell
 
-  def initialize(move_generator: MoveGenerator.new, move_classifier: MoveClassifier.new, check_finder: CheckFinder.new)
+  def initialize(move_creator: MoveCreator.new, move_classifier: MoveClassifier.new, check_finder: CheckFinder.new)
     @name = nil
     @color = nil
     @current_cell = nil
-    @move_generator = move_generator
+    @move_creator = move_creator
     @move_classifier = move_classifier
     @check_finder = check_finder
   end
 
   def create_moves(board)
-    @move_generator.king_moves(@current_cell, board)
+    @move_creator.king_moves(@current_cell, board)
   end
 
   def classify_moves(moves, board)

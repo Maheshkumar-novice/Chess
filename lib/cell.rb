@@ -42,6 +42,10 @@ class Cell
     piece&.color
   end
 
+  def color?(color)
+    piece&.color?(color)
+  end
+
   def empty?
     piece.nil?
   end

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Board Creator Class
+# Creats chess board from pieces
 class BoardCreator
   def initialize(cell_creator: CellCreator.new)
     @cell_creator = cell_creator

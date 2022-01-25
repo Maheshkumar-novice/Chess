@@ -69,7 +69,7 @@ class CheckFinder
   end
 
   def enemy?(move)
-    @board[move].piece_color != king_cell.piece_color
+    king_cell.piece_color != @board[move].piece_color
   end
 
   def piece_in_move_can_check?(pieces_can_check, move)

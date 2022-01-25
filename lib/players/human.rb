@@ -2,25 +2,21 @@
 # frozen_string_literal: true
 
 # Represents player Human
-class Human
+class Human < Player
   include StringColorFormatter
 
-  attr_accessor :name
-
   def initialize(name_creator: NameCreator.new,
-                 cell_choice_maker: CellChoiceCreator.new,
+                 cell_choice_creator: CellChoiceCreator.new,
                  name_validator: NameValidator.new,
                  cell_choice_validator: CellChoiceValidator.new)
-    @name = nil
-    @name_creator = name_creator
-    @cell_choice_maker = cell_choice_maker
+    super(name_creator, cell_choice_creator)
     @name_validator = name_validator
     @cell_choice_validator = cell_choice_validator
   end
 
   def make_choice
     loop do
-      cell_choice = @cell_choice_maker.human_choice
+      cell_choice = @cell_choice_creator.human_choice
       return cell_choice if @cell_choice_validator.valid?(cell_choice)
 
       print_error('Enter a valid cell coordinate!', ending: "\n")

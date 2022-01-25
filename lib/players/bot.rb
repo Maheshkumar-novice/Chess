@@ -2,17 +2,13 @@
 # frozen_string_literal: true
 
 # Represents player Bot
-class Bot
-  attr_accessor :name
-
-  def initialize(name_creator: NameCreator.new, cell_choice_maker: CellChoiceCreator.new)
-    @name = nil
-    @name_creator = name_creator
-    @cell_choice_maker = cell_choice_maker
+class Bot < Player
+  def initialize(name_creator: NameCreator.new, cell_choice_creator: CellChoiceCreator.new)
+    super(name_creator, cell_choice_creator)
   end
 
   def make_choice
-    @cell_choice_maker.bot_choice
+    @cell_choice_creator.bot_choice
   end
 
   def create_name

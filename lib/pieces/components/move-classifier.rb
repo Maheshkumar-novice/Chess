@@ -15,7 +15,7 @@ class MoveClassifier
     result = { empty: [], captures: [] }
     moves.each_with_object(result) do |move, classified|
       classified[:empty] << move if board[move].empty?
-      classified[:captures] << move if board[move].enemy_color?(@enemy_color)
+      classified[:captures] << move if board[move].color?(@enemy_color)
     end
   end
 
@@ -45,6 +45,6 @@ class MoveClassifier
   end
 
   def captures(board)
-    @diagonal_moves.each_with_object([]) { |move, result| result << move if board[move].enemy_color?(@enemy_color) }
+    @diagonal_moves.each_with_object([]) { |move, result| result << move if board[move].color?(@enemy_color) }
   end
 end

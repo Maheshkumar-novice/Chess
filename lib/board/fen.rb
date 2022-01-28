@@ -20,8 +20,6 @@ class Fen
     @meta_data = parse_remaining_meta_data(meta_data_row[1..-1])
   end
 
-  private
-
   def split(fen)
     fen.split('/')
   end

@@ -119,6 +119,21 @@ describe Cell do
     end
   end
 
+  describe '#diagonals' do
+    before { cell.create_connections(3, 'h') }
+
+    it 'returns 4 diagonals' do
+      result = cell.diagonals.size
+      expect(result).to eq(4)
+    end
+
+    it 'returns correct diagonals' do
+      result = cell.diagonals
+      expected_result = [:g4, nil, nil, :g2]
+      expect(result).to eq(expected_result)
+    end
+  end
+
   describe '#update_piece_to' do
     it 'updates the piece' do
       cell.update_piece_to(piece)

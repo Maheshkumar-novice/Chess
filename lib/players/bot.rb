@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative './player'
+require_relative '../components/creators/name-creator'
+require_relative '../components/creators/cell-choice-creator'
+
 # Represents player Bot
 class Bot < Player
   def initialize(name_creator: NameCreator.new, cell_choice_creator: CellChoiceCreator.new)

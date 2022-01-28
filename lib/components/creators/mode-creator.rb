@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative '../output/string-color-formatter'
+
 # Creates game mode
 class ModeCreator
   include StringColorFormatter

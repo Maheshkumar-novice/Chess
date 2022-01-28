@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative './piece'
+require_relative '../components/creators/move-creator'
+require_relative '../components/validators/move-classifier'
+
 # Represents chess piece Queen
 class Queen < Piece
   def initialize(move_creator: MoveCreator.new, move_classifier: MoveClassifier.new)

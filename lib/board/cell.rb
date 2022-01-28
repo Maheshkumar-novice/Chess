@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'forwardable'
+
 # Represents the board cell
 class Cell
   extend Forwardable

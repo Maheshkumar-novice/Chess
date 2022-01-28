@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative '../components/creators/piece-creator'
+
 # Operates on FEN code
 class Fen
   attr_reader :pieces, :current_color, :meta_data

@@ -1,6 +1,12 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative './player'
+require_relative '../components/creators/name-creator'
+require_relative '../components/creators/cell-choice-creator'
+require_relative '../components/validators/name-validator'
+require_relative '../components/validators/cell-choice-validator'
+
 # Represents player Human
 class Human < Player
   include StringColorFormatter

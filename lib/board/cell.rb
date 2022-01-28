@@ -27,7 +27,7 @@ class Cell
   end
 
   def diagonals
-    [top_right_diagonal, top_left_diagonal, bottom_right_diagonal, bottom_left_diagonal]
+    [top_left_diagonal, top_right_diagonal, bottom_right_diagonal, bottom_left_diagonal]
   end
 
   def update_piece_to(piece)

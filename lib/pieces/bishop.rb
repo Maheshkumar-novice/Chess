@@ -15,10 +15,6 @@ class Bishop < Piece
     @move_creator.bishop_moves(@current_cell, board)
   end
 
-  def classify_moves(moves, board)
-    @move_classifier.classify_moves(@color, moves, board)
-  end
-
   def unicode
     @color == 'white' ? "\u2657" : "\u265D"
   end

@@ -15,10 +15,6 @@ class Queen < Piece
     @move_creator.queen_moves(@current_cell, board)
   end
 
-  def classify_moves(moves, board)
-    @move_classifier.classify_moves(@color, moves, board)
-  end
-
   def unicode
     @color == 'white' ? "\u2655" : "\u265B"
   end

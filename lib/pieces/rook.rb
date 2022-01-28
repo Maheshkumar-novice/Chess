@@ -15,10 +15,6 @@ class Rook < Piece
     @move_creator.rook_moves(@current_cell, board)
   end
 
-  def classify_moves(moves, board)
-    @move_classifier.classify_moves(@color, moves, board)
-  end
-
   def unicode
     @color == 'white' ? "\u2656" : "\u265C"
   end

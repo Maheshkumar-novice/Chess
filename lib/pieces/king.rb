@@ -17,10 +17,6 @@ class King < Piece
     @move_creator.king_moves(@current_cell, board)
   end
 
-  def classify_moves(moves, board)
-    @move_classifier.classify_moves(@color, moves, board)
-  end
-
   def in_check?(board)
     @check_finder.cell_in_check?(@current_cell, board)
   end

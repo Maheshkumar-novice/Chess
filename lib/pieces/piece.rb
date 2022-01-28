@@ -13,6 +13,10 @@ class Piece
     @move_classifier = move_classifier
   end
 
+  def classify_moves(moves, board)
+    @move_classifier.classify_moves(@color, moves, board)
+  end
+
   def color?(color)
     @color == color
   end

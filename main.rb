@@ -1,7 +1,11 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './chess'
+require_relative './lib/components/creators/board-creator'
+require_relative './lib/components/creators/player-creator'
+require_relative './lib/board/board-operator'
+require_relative './lib/board/fen'
+require_relative './lib/chess-game/game'
 
 fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 fen_processor = Fen.new

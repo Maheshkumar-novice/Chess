@@ -6,6 +6,7 @@ require_relative '../components/creators/name-creator'
 require_relative '../components/creators/cell-choice-creator'
 require_relative '../components/validators/name-validator'
 require_relative '../components/validators/cell-choice-validator'
+require_relative '../components/output/string-color-formatter'
 
 # Represents player Human
 class Human < Player

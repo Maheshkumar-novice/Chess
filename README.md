@@ -19,8 +19,8 @@
 - [x] Refactoring(solid, demeter)
 - [x] Game play testing
 
-- [ ] Mates
-- [ ] Tests
+- [x] Mates
+- [x] Tests
 - [ ] Refactoring(nil video sandi metz, null object pattern)
 - [ ] Game play testing
 

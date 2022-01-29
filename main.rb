@@ -7,7 +7,10 @@ require_relative './lib/board/board-operator'
 require_relative './lib/board/fen'
 require_relative './lib/chess-game/game'
 
-fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+cli_arg = ARGV.join(' ')
+fen = !cli_arg.empty? || 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+ARGV.clear
+
 fen_processor = Fen.new
 fen_processor.process(fen)
 pieces = fen_processor.pieces

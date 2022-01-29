@@ -7,7 +7,7 @@ require_relative '../../board/cell'
 class CellCreator
   def create_cell(row, column, piece)
     cell = Cell.new
-    cell.piece = piece
+    cell.update_piece_to(piece)
     cell.create_connections(row, column)
     cell
   end

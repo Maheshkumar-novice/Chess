@@ -653,4 +653,130 @@ describe BoardOperator do
       end
     end
   end
+
+  describe '#checkmate?' do
+    let(:board) { board_creator.create_board(fen_processor.pieces) }
+    let(:meta_data) { fen_processor.meta_data }
+    subject(:board_operator) { described_class.new(board, meta_data) }
+
+    context 'when white king is in checkmate' do
+      let(:fen) { 'rnb1kbnr/pppp1ppp/4p3/8/6Pq/5P2/PPPPP2P/RNBQKBNR w KQkq - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.checkmate?('white')
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when white king is not in checkmate' do
+      let(:fen) { 'rnb1kbnr/pppp1ppp/4p3/8/7q/5P2/PPPPP1PP/RNBQKBNR w KQkq - 0 1' }
+
+      it 'returns false' do
+        result = board_operator.checkmate?('white')
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when black king is in checkmate' do
+      let(:fen) { 'rnb3nr/pp3ppp/4p3/1k2Q1b1/5P1q/RP1N1B2/P1PPPBPP/4K1NR w K - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.checkmate?('black')
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when black king is not in checkmate' do
+      let(:fen) { 'rnb3nr/pp3ppp/4pb2/1k2Q3/5P1q/RP1N1B2/P1PPPBPP/4K1NR w K - 0 1' }
+
+      it 'returns false' do
+        result = board_operator.checkmate?('black')
+        expect(result).to eq(false)
+      end
+    end
+  end
+
+  describe '#stalemate?' do
+    let(:board) { board_creator.create_board(fen_processor.pieces) }
+    let(:meta_data) { fen_processor.meta_data }
+    subject(:board_operator) { described_class.new(board, meta_data) }
+
+    context 'when white king is in stalemate' do
+      let(:fen) { '2P4K/p7/8/1k6/4brq1/8/8/8 w - - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.stalemate?('white')
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when white king is not in stalemate' do
+      let(:fen) { '2P4K/p7/8/1k6/4brq1/8/8/2Q5 w - - 0 1' }
+
+      it 'returns false' do
+        result = board_operator.stalemate?('white')
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when black king is in stalemate' do
+      let(:fen) { '2P4K/8/7R/k7/6R1/8/8/1Q6 w - - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.stalemate?('black')
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when black king is not in stalemate' do
+      let(:fen) { '2P4K/1p6/7R/k7/6R1/8/8/1Q6 w - - 0 1' }
+
+      it 'returns false' do
+        result = board_operator.stalemate?('black')
+        expect(result).to eq(false)
+      end
+    end
+  end
+
+  describe '#color_has_no_legal_moves?' do
+    let(:board) { board_creator.create_board(fen_processor.pieces) }
+    let(:meta_data) { fen_processor.meta_data }
+    subject(:board_operator) { described_class.new(board, meta_data) }
+
+    context 'when white has no legal moves' do
+      let(:fen) { '2P4K/p7/8/1k6/4brq1/8/8/8 w - - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.color_has_no_legal_moves?('white')
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when white has legal moves' do
+      let(:fen) { '2P4K/1p6/7R/k7/6R1/8/8/1Q6 w - - 0 1' }
+
+      it 'returns false' do
+        result = board_operator.color_has_no_legal_moves?('white')
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when black has no legal moves' do
+      let(:fen) { '2P4K/8/7R/k7/6R1/8/8/1Qp5 w - - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.color_has_no_legal_moves?('black')
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when black has legal moves' do
+      let(:fen) { '2P4K/8/7R/k7/6R1/8/1r6/1Qp5 w - - 0 1' }
+
+      it 'returns false' do
+        result = board_operator.color_has_no_legal_moves?('black')
+        expect(result).to eq(false)
+      end
+    end
+  end
 end

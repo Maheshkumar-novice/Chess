@@ -28,6 +28,28 @@ class BoardOperator
     @board[find_king_position(color)].in_check?(@board)
   end
 
+  def game_over?(color)
+    checkmate?(color) || stalemate?(color)
+  end
+
+  def checkmate?(color)
+    king_in_check?(color) && color_has_no_legal_moves?(color)
+  end
+
+  def stalemate?(color)
+    !king_in_check?(color) && color_has_no_legal_moves?(color)
+  end
+
+  def color_has_no_legal_moves?(color)
+    @board.each_key do |marker|
+      next unless @board[marker].color?(color)
+
+      moves = moves_from_source(marker, color)
+      return false unless moves.values.all?(&:empty?)
+    end
+    true
+  end
+
   private
 
   def remove_allies(color)

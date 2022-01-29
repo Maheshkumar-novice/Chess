@@ -17,7 +17,7 @@
 - [x] Game class creation
 - [x] Tests
 - [x] Refactoring(solid, demeter)
-- [] Game play testing
+- [x] Game play testing
 
 - [ ] Mates
 - [ ] Tests

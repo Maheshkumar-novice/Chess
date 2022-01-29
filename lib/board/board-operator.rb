@@ -28,10 +28,6 @@ class BoardOperator
     @board[find_king_position(color)].in_check?(@board)
   end
 
-  def game_over?(color)
-    checkmate?(color) || stalemate?(color)
-  end
-
   def checkmate?(color)
     king_in_check?(color) && color_has_no_legal_moves?(color)
   end

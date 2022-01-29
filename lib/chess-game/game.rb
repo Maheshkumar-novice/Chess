@@ -23,7 +23,7 @@ class Game
 
   def play
     loop do
-      break if @board.game_over?(@current_color)
+      break if game_over?
 
       print_board
       print_current_player_info
@@ -32,6 +32,10 @@ class Game
       switch_current_color
       switch_players
     end
+  end
+
+  def game_over?
+    @board.checkmate?(@current_color) || @board.stalemate?(@current_color)
   end
 
   private

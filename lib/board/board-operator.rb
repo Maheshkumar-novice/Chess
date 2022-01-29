@@ -50,8 +50,6 @@ class BoardOperator
     true
   end
 
-  private
-
   def remove_allies(color)
     @moves.reject! { |move| @board[move].color?(color) }
   end
@@ -60,16 +58,18 @@ class BoardOperator
     @moves.reject! { |move| move_leads_to_check?(source, move, color) }
   end
 
+  def find_king_position(king_color)
+    @board.find { |_, cell| cell.piece_color == king_color && cell.piece_name.match?(/k/i) }.first
+  end
+
+  private
+
   def move_leads_to_check?(source, destination, color)
     store_current_move_state(source, destination)
     make_move(source, destination)
     king_in_check = king_in_check?(color)
     revert_move(source, destination)
     king_in_check
-  end
-
-  def find_king_position(king_color)
-    @board.find { |_, cell| cell.piece_color == king_color && cell.piece_name.match?(/k/i) }.first
   end
 
   def store_current_move_state(source, destination)

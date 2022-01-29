@@ -15,8 +15,6 @@ class CheckFinder
     check_possibilities.any? { |check_possibility| send(check_possibility) }
   end
 
-  private
-
   def check_possibilities
     %i[horizontal_check? vertical_check? diagonal_check? knight_check? pawn_check? king_check?]
   end
@@ -47,6 +45,8 @@ class CheckFinder
 
     any_move_leads_to_check?(%w[p P], moves)
   end
+
+  private
 
   def black_pawn_moves
     [king_cell.top_right_diagonal, king_cell.top_left_diagonal].compact

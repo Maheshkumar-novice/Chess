@@ -14,13 +14,13 @@ class PieceCreator
     rows.each_with_object([]) { |row, pieces| row.each_char { |value| pieces.concat(make_piece(value)) } }
   end
 
-  private
-
   def make_piece(value)
     return create_nil_pieces(value.to_i) if value.match?(/^[1-8]{1}$/)
 
     [create_valid_piece(value)]
   end
+
+  private
 
   def create_nil_pieces(value)
     [nil] * value

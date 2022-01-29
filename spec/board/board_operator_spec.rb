@@ -779,4 +779,94 @@ describe BoardOperator do
       end
     end
   end
+
+  describe '#remove_allies' do
+    let(:board) { board_creator.create_board(fen_processor.pieces) }
+    let(:meta_data) { fen_processor.meta_data }
+    subject(:board_operator) { described_class.new(board, meta_data) }
+
+    context 'for white color' do
+      let(:fen) { '1nb2b1k/2qpp1rp/rp2P3/1p1Q1Pp1/2P1n3/p1B1p2P/PP1N1PPR/R3KBN1 w Q - 0 1' }
+
+      before { board_operator.instance_variable_set(:@moves, %i[c6 d6 e6 c5 d5 e5 c4 d4 e4]) }
+
+      it 'removes allies' do
+        board_operator.remove_allies('white')
+        result = board_operator.instance_variable_get(:@moves)
+        expected_result = %i[c6 d6 c5 e5 d4 e4]
+        expect(result).to eq(expected_result)
+      end
+    end
+
+    context 'for black color' do
+      let(:fen) { '1nb2b1k/2qpp1rp/rp2P3/1p1Q1Pp1/2P1n3/p1B1p2P/PP1N1PPR/R3KBN1 w Q - 0 1' }
+
+      before { board_operator.instance_variable_set(:@moves, %i[c8 d8 e8 c7 d7 e7 c6 d6 e6]) }
+
+      it 'removes allies' do
+        board_operator.remove_allies('black')
+        result = board_operator.instance_variable_get(:@moves)
+        expected_result = %i[d8 e8 c6 d6 e6]
+        expect(result).to eq(expected_result)
+      end
+    end
+  end
+
+  describe '#remove_moves_that_leads_to_check' do
+    let(:board) { board_creator.create_board(fen_processor.pieces) }
+    let(:meta_data) { fen_processor.meta_data }
+    subject(:board_operator) { described_class.new(board, meta_data) }
+
+    context 'for white color' do
+      let(:fen) { '1nb4k/2qpp1rp/rp2P3/1p1Q1Pp1/1bP1n3/p3p2P/PPBN1PPR/R3KBN1 w Q - 0 1' }
+
+      before { board_operator.instance_variable_set(:@moves, %i[e4 f3 b1 b3]) }
+
+      it 'removes moves that leads to check' do
+        board_operator.remove_moves_that_leads_to_check(:d2, 'white')
+        result = board_operator.instance_variable_get(:@moves)
+        expected_result = []
+        expect(result).to eq(expected_result)
+      end
+    end
+
+    context 'for black color' do
+      let(:fen) { '1nb2r1k/3pp3/rp2P2q/1p1Q1pp1/1bP1n2R/p3p2P/PPBN1PP1/R3KBN1 w Q - 0 1' }
+
+      before { board_operator.instance_variable_set(:@moves, %i[h7 h5 h4 g6 f6 e6 g7]) }
+
+      it 'removes moves that leads to check' do
+        board_operator.remove_moves_that_leads_to_check(:h6, 'black')
+        result = board_operator.instance_variable_get(:@moves)
+        expected_result = %i[h7 h5 h4]
+        expect(result).to eq(expected_result)
+      end
+    end
+  end
+
+  describe '#find_king_position' do
+    let(:board) { board_creator.create_board(fen_processor.pieces) }
+    let(:meta_data) { fen_processor.meta_data }
+    subject(:board_operator) { described_class.new(board, meta_data) }
+
+    context 'for white color' do
+      let(:fen) { '1nb4k/2qpp1rp/rp2P3/1p1Q1Pp1/1bP1n3/p3p2P/PPBN1PPR/R3KBN1 w Q - 0 1' }
+
+      it 'finds king position' do
+        result = board_operator.find_king_position('white')
+        expected_result = :e1
+        expect(result).to eq(expected_result)
+      end
+    end
+
+    context 'for black color' do
+      let(:fen) { '1nb2r1k/3pp3/rp2P2q/1p1Q1pp1/1bP1n2R/p3p2P/PPBN1PP1/R3KBN1 w Q - 0 1' }
+
+      it 'finds king position' do
+        result = board_operator.find_king_position('black')
+        expected_result = :h8
+        expect(result).to eq(expected_result)
+      end
+    end
+  end
 end

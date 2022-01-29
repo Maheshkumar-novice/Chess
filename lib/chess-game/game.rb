@@ -23,6 +23,8 @@ class Game
 
   def play
     loop do
+      break if @board.game_over?(@current_color)
+
       print_board
       print_current_player_info
       sleep_if_bot

@@ -21,6 +21,10 @@ class ModeCreator
     end
   end
 
+  def valid_mode?
+    @mode.match?(/^[a-d]{1}$/)
+  end
+
   private
 
   def print_modes
@@ -39,9 +43,5 @@ class ModeCreator
   def mode_input
     print_prompt('Enter Your Option [a, b, c, d] > ')
     gets.chomp
-  end
-
-  def valid_mode?
-    @mode.match?(/^[a-d]{1}$/)
   end
 end

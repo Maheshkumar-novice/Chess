@@ -73,7 +73,7 @@
 - [ ] Game play testing
 
 #
-- [ ] Manual Draw and Resignation
+- [x] Manual Draw and Resignation
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Game play testing

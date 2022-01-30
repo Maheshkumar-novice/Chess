@@ -1,11 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative './lib/components/output/info'
 require_relative './lib/components/creators/board-creator'
 require_relative './lib/components/creators/player-creator'
 require_relative './lib/board/board-operator'
 require_relative './lib/board/fen'
 require_relative './lib/chess-game/game'
+
+Info.new.title
 
 cli_arg = ARGV.join(' ')
 fen = !cli_arg.empty? || 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'

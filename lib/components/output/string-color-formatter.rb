@@ -6,7 +6,7 @@ require_relative './color'
 # Methods for coloring the given string in a standard way
 module StringColorFormatter
   def print_info(str, ending: '')
-    print (str + ending).yellow
+    print (str + ending).green
   end
 
   def print_info_if(str, condition: true, ending: '')
@@ -26,6 +26,6 @@ module StringColorFormatter
   end
 
   def accent(str)
-    str.magenta.bold
+    str.yellow.bold
   end
 end

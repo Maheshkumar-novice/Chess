@@ -26,7 +26,7 @@ class Human < Player
       cell_choice = @cell_choice_creator.human_choice
       return cell_choice if @cell_choice_validator.valid?(cell_choice)
 
-      print_error('Enter a valid cell coordinate!', ending: "\n")
+      print_error('Enter a valid choice!', ending: "\n")
     end
   end
 

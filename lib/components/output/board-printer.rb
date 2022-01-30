@@ -5,6 +5,9 @@
 class BoardPrinter
   LIGHT_BG = :bg_gray
   DARK_BG = :bg_cyan
+  SOURCE_BG = :bg_magenta
+  EMPTY_BG = :bg_green
+  CAPTURE_BG = :bg_red
 
   def initialize
     @board = nil
@@ -68,9 +71,9 @@ class BoardPrinter
   end
 
   def get_bg_color(key)
-    return :bg_magenta if @source == key
-    return :bg_red if @captures.include?(key)
-    return :bg_green if @empty.include?(key)
+    return SOURCE_BG if @source == key
+    return CAPTURE_BG if @captures.include?(key)
+    return EMPTY_BG if @empty.include?(key)
 
     @default_bg_color
   end

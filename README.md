@@ -1,6 +1,5 @@
 # Check List
 
-#
 - [x] Planning
 - [x] Movements & Captures
 - [x] Checks

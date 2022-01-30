@@ -5,6 +5,7 @@ require_relative './result'
 require_relative './command'
 require_relative './game-helper'
 require_relative '../components/output/board-printer'
+require_relative '../components/output/info'
 
 # Controls the game play
 class Game
@@ -19,6 +20,7 @@ class Game
     @result = Result.new
     @command = Command.new
     @printer = BoardPrinter.new
+    @info = Info.new
     @source_choice = nil
     @destination_choice = nil
     @moves = { empty: [], captures: [] }

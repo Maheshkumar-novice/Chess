@@ -1,8 +1,10 @@
 # Check List
 
 #
-I forgot to include the works I done before the following, because I forgot those....:)
-- [x] Planning, Basic Code
+- [x] Planning
+- [x] Movements & Captures
+- [x] Checks
+- [x] Tests
 
 #
 - [x] Refactoring

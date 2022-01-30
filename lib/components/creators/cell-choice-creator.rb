@@ -17,7 +17,7 @@ class CellChoiceCreator
   end
 
   def human_choice
-    print_prompt('Enter The Cell Coordinate (i.e. a1) > ')
+    print_prompt('Enter Your Choice > ')
     gets.chomp
   end
 end

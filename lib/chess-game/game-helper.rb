@@ -12,6 +12,8 @@ module GameHelper
   end
 
   def print_data(additional_info: '')
+    system('clear')
+    @info.title
     print_board
     print_info_if_human(additional_info)
     print_current_player_info
@@ -27,7 +29,6 @@ module GameHelper
   end
 
   def print_board
-    system('clear')
     @printer.print_board(@board_operator.board, @source_choice, @moves[:empty], @moves[:captures])
   end
 

@@ -2,18 +2,15 @@
 # frozen_string_literal: true
 
 require_relative '../components/output/board-printer'
-require_relative '../components/output/string-color-formatter'
 require_relative '../components/helpers/game-helper'
 
 # Controls game play
 class Game
-  include StringColorFormatter
   include GameHelper
 
-  def initialize(board, players, current_color, printer: BoardPrinter.new)
-    @board = board
-    @current_player = players[0]
-    @other_player = players[1]
+  def initialize(board_operator, players, current_color, printer: BoardPrinter.new)
+    @board_operator = board_operator
+    @current_player, @other_player = players
     @current_color = current_color
     @printer = printer
     @source_choice = nil
@@ -35,10 +32,8 @@ class Game
   end
 
   def game_over?
-    @board.checkmate?(@current_color) || @board.stalemate?(@current_color)
+    @board_operator.checkmate?(@current_color) || @board_operator.stalemate?(@current_color)
   end
-
-  private
 
   def move_making_steps
     print_check_status
@@ -60,58 +55,18 @@ class Game
     end
   end
 
-  def source_input
-    loop do
-      print_info_if_human("\nSource:")
-      @source_choice = @current_player.make_choice.to_sym
-
-      return if valid_source?
-
-      print_error_if_human('Enter a valid source coordinate!')
-    end
-  end
-
-  def valid_source?
-    return false unless same_color?
-
-    true
-  end
-
-  def same_color?
-    @board.board[@source_choice].piece_color == @current_color
-  end
-
-  def create_moves
-    @moves = @board.moves_from_source(@source_choice, @current_color)
-  end
-
-  def moves_empty?
-    @moves.values.flatten.empty?
-  end
-
   def create_destination_choice
     loop do
       print_info_if_human("\nDestination:")
       @destination_choice = @current_player.make_choice.to_sym
-
       return if valid_destination?
 
       print_error_if_human('Enter a valid move from the selected source!')
     end
   end
 
-  def valid_destination?
-    return false unless moves_include_destination?
-
-    true
-  end
-
-  def moves_include_destination?
-    @moves.values.flatten.include?(@destination_choice)
-  end
-
   def make_move
-    @board.make_move(@source_choice, @destination_choice)
+    @board_operator.make_move(@source_choice, @destination_choice)
   end
 
   def switch_current_color

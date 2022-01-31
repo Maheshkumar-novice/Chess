@@ -7,30 +7,33 @@ require_relative '../components/output/string-color-formatter'
 class Command
   include StringColorFormatter
 
+  attr_reader :draw_approval_status
+
   def initialize
-    @draw_proposal = false
+    @draw_proposal_status = false
+    @draw_approval_status = false
   end
 
-  def draw_proposal?
-    @draw_proposal
-  end
+  def propose_draw(player)
+    return unless @draw_proposal_status
 
-  def propose_draw(result, player)
     draw_prompt
-    choice = make_draw_choice(player)
-    update_draw_config(choice, result)
+    update_draw_approval_status(player_choice_for_draw_approval(player))
+    update_draw_proposal_status(false)
   end
 
-  def make_draw_choice(player)
+  def player_choice_for_draw_approval(player)
     return gets.chomp if player.is_a?(Human)
 
     %w[y n].sample
   end
 
-  def update_draw_config(choice, result)
-    return result.update_draw(true) if choice.downcase == 'y'
+  def update_draw_approval_status(choice)
+    @draw_approval_status = choice.downcase == 'y'
+  end
 
-    update_draw_proposal(false)
+  def update_draw_proposal_status(value)
+    @draw_proposal_status = value
   end
 
   def execute(game, result)
@@ -43,7 +46,7 @@ class Command
     loop do
       print_command_prompt
       case gets.chomp
-      when 'draw' then draw_proposal
+      when 'draw' then create_draw_proposal
       when 'resign' then resign(result, game)
       when 'save' then save(game)
       when 'exit' then break
@@ -52,17 +55,14 @@ class Command
     end
   end
 
-  def draw_proposal
-    print_info('Draw will be proposed after the completion of this move.')
-    update_draw_proposal(true)
-  end
-
-  def update_draw_proposal(value)
-    @draw_proposal = value
+  def create_draw_proposal
+    print_info('Draw will be proposed after the completion of your current move.')
+    update_draw_proposal_status(true)
   end
 
   def resign(result, game)
-    result.announce_player_resignation(game)
+    result.update_resign(true)
+    result.announce(game)
     exit 0
   end
 
@@ -73,8 +73,8 @@ class Command
   private
 
   def show_commands
-    text = "\nCommands: #{accent('draw, resign, save, exit')} (from command mode)"
-    print_info(text, ending: "\n")
+    text = "Commands: #{accent('draw, resign, save, exit')} (from command mode)"
+    print_info(text, ending: "\n", starting: "\n")
   end
 
   def draw_prompt
@@ -82,7 +82,7 @@ class Command
   end
 
   def print_intro
-    print_info("\nCommand Mode: ", ending: "\n")
+    print_info('Command Mode: ', ending: "\n", starting: "\n")
   end
 
   def print_command_prompt

@@ -87,18 +87,6 @@ class Game
     end
   end
 
-  def valid_source?
-    @board_operator.board[@source_choice].color?(@current_color)
-  end
-
-  def create_moves_for_source
-    @moves = @board_operator.moves_from_source(@source_choice, @current_color)
-  end
-
-  def moves_empty?
-    @moves.values.all?(&:empty?)
-  end
-
   def create_destination_choice
     pre_destination_print
     make_destination
@@ -111,10 +99,6 @@ class Game
 
       print_error_if_human('Enter a valid move from the selected source!')
     end
-  end
-
-  def valid_destination?
-    @moves.values.flatten.include?(@destination_choice)
   end
 
   def make_move

@@ -7,6 +7,22 @@ require_relative '../components/output/string-color-formatter'
 module GameHelper
   include StringColorFormatter
 
+  def valid_source?
+    @board_operator.board[@source_choice].color?(@current_color)
+  end
+
+  def create_moves_for_source
+    @moves = @board_operator.moves_from_source(@source_choice, @current_color)
+  end
+
+  def moves_empty?
+    @moves.values.all?(&:empty?)
+  end
+
+  def valid_destination?
+    @moves.values.flatten.include?(@destination_choice)
+  end
+
   def update_moves_for_post_move_print
     @moves = { empty: [@destination_choice], captures: [] }
   end

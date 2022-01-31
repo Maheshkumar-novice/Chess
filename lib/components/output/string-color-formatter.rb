@@ -5,24 +5,24 @@ require_relative './color'
 
 # Methods for coloring the given string in a standard way
 module StringColorFormatter
-  def print_info(str, ending: '')
-    print (str + ending).green
+  def print_info(str, ending: '', starting: '')
+    print (starting + str + ending).green
   end
 
-  def print_info_if(str, condition: true, ending: '')
-    print_info(str, ending: ending) if condition
+  def print_prompt(str, ending: '', starting: '')
+    print (starting + str + ending).cyan
   end
 
-  def print_prompt(str, ending: '')
-    print (str + ending).cyan
+  def print_error(str, ending: '', starting: '')
+    print (starting + str + ending).red
   end
 
-  def print_error(str, ending: '')
-    print (str + ending).red
+  def print_info_if(str, condition: true, ending: '', starting: '')
+    print_info(str, ending: ending, starting: starting) if condition
   end
 
-  def print_error_if(str, condition: true, ending: '')
-    print_error(str, ending: ending) if condition
+  def print_error_if(str, condition: true, ending: '', starting: '')
+    print_error(str, ending: ending, starting: starting) if condition
   end
 
   def accent(str)

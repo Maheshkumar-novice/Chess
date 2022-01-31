@@ -7,6 +7,10 @@ require_relative '../components/output/string-color-formatter'
 module GameHelper
   include StringColorFormatter
 
+  def update_moves_for_post_move_print
+    @moves = { empty: [@destination_choice], captures: [] }
+  end
+
   def sleep_if_bot
     sleep(1) if @current_player.is_a?(Bot)
   end

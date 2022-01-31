@@ -121,6 +121,7 @@ class Game
     @board_operator.make_move(@source_choice, @destination_choice)
     switch_current_color
     switch_players
+    update_moves_for_post_move_print
   end
 
   def switch_current_color

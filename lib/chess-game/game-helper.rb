@@ -12,7 +12,7 @@ module GameHelper
   end
 
   def create_moves_for_source
-    @moves = @board_operator.moves_from_source(@source_choice, @current_color)
+    @board_operator.moves_from_source(@source_choice, @current_color)
   end
 
   def moves_empty?

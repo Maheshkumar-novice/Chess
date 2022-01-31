@@ -70,7 +70,7 @@ class Game
   def make_source
     loop do
       source_choice_input
-      create_moves_for_source
+      @moves = create_moves_for_source
       return unless moves_empty?
 
       print_error_if_human('No valid moves found!')

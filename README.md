@@ -108,7 +108,9 @@
 #
 - [ ] To Do After:
   - [ ] Include
-  - [ ] Exclude
+  - [ ] Explore ruby 3
+  - [ ] Extend
+  - [ ] Prepend
   - [ ] RDocs
   - [ ] Releases
   - [ ] Versions

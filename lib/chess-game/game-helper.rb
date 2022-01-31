@@ -20,12 +20,27 @@ module GameHelper
     print_check_status
   end
 
+  def pre_source_print
+    sleep_if_bot
+    print_data(additional_info: source_input_text)
+  end
+
+  def pre_destination_print
+    print_data(additional_info: destination_input_text)
+  end
+
   def source_input_text
-    "\nSource #{accent('(e.g. a1)')} / Command Mode #{accent('(cmd)')} : \n"
+    <<~SOURCE
+
+      Source #{accent('(e.g. a1)')} / Command Mode #{accent('(cmd)')}:
+    SOURCE
   end
 
   def destination_input_text
-    "\nDestination(e.g. a1): \n"
+    <<~DESTINATION
+
+      Destination(e.g. a1):
+    DESTINATION
   end
 
   def print_board

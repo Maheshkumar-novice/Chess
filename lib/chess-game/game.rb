@@ -27,39 +27,63 @@ class Game
   end
 
   def play
-    loop do
-      print_data
-      draw_proposal
-      update_mate_results
-      break if @result.any?
-
-      make_source
-      make_destination
-      make_move
-    end
+    game_loop
     announce_result
   end
 
-  def draw_proposal
-    @command.propose_draw(@result, @current_player) if @command.draw_proposal?
+  def game_loop
+    loop do
+      print_data
+      update_result
+      return if game_over?
+
+      create_source_choice
+      create_destination_choice
+      make_move
+    end
   end
 
-  def update_mate_results
-    @result.update_mates(@board_operator, @current_color)
+  def update_result
+    update_draw
+    update_mates
+  end
+
+  def update_draw
+    @command.propose_draw(@current_player)
+    @result.update_draw(@command.draw_approval_status)
+  end
+
+  def update_mates
+    @result.update_checkmate(@board_operator.checkmate?(@current_color))
+    @result.update_stalemate(@board_operator.stalemate?(@current_color))
+  end
+
+  def game_over?
+    @result.any?
+  end
+
+  def create_source_choice
+    pre_source_print
+    make_source
   end
 
   def make_source
-    sleep_if_bot
-    print_data(additional_info: source_input_text)
+    loop do
+      source_choice_input
+      create_moves_for_source
+      return unless moves_empty?
+
+      print_error_if_human('No valid moves found!')
+    end
+  end
+
+  def source_choice_input
     loop do
       @source_choice = @current_player.make_choice.to_sym
       next @command.execute(self, @result) if @source_choice == :cmd
-      next print_error_if_human('Enter a valid choice!') unless valid_source?
+      return if valid_source?
 
-      create_moves
-      break unless moves_empty?
-
-      print_error_if_human('No valid moves found!')
+      print_error_if_human('Enter a valid choice!')
     end
   end
 
@@ -67,7 +91,7 @@ class Game
     @board_operator.board[@source_choice].color?(@current_color)
   end
 
-  def create_moves
+  def create_moves_for_source
     @moves = @board_operator.moves_from_source(@source_choice, @current_color)
   end
 
@@ -75,11 +99,15 @@ class Game
     @moves.values.all?(&:empty?)
   end
 
+  def create_destination_choice
+    pre_destination_print
+    make_destination
+  end
+
   def make_destination
-    print_data(additional_info: destination_input_text)
     loop do
       @destination_choice = @current_player.make_choice.to_sym
-      break if valid_destination?
+      return if valid_destination?
 
       print_error_if_human('Enter a valid move from the selected source!')
     end

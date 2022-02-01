@@ -41,6 +41,8 @@ class Result
     announce_player_resignation(game) if @resign
   end
 
+  private
+
   def announce_draw
     print_info("It's a Draw! :(", ending: "\n", starting: "\n")
   end

@@ -31,7 +31,7 @@ class Result
   end
 
   def any?
-    [@draw, @checkmate, @stalemate].any?
+    [@draw, @checkmate, @stalemate, @resign].any?
   end
 
   def announce(game)

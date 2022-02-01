@@ -7,6 +7,8 @@ require_relative '../components/output/string-color-formatter'
 module GameHelper
   include StringColorFormatter
 
+  private
+
   def valid_source?
     @board_operator.board[@source_choice].color?(@current_color)
   end

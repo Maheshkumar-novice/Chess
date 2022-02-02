@@ -9,6 +9,7 @@ describe Command do
   let(:player) { double('Player') }
   let(:game) { double('Game') }
   let(:result) { double('Result') }
+  let(:color) { 'whtie' }
 
   describe '#propose_draw' do
     context 'when draw proposal status is false' do
@@ -18,7 +19,7 @@ describe Command do
 
       it 'doesn\'t call draw_prompt' do
         expect(command).not_to receive(:draw_prompt)
-        command.propose_draw(player)
+        command.propose_draw(player, color)
       end
     end
 
@@ -28,11 +29,12 @@ describe Command do
         allow(command).to receive(:update_draw_approval_status)
         allow(command).to receive(:update_draw_proposal_status)
         allow(command).to receive(:player_choice_for_draw_approval)
+        allow(command).to receive(:update_draw_proposer_color)
       end
 
       it 'calls draw_prompt' do
         expect(command).to receive(:draw_prompt)
-        command.propose_draw(player)
+        command.propose_draw(player, color)
       end
     end
   end

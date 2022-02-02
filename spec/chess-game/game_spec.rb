@@ -106,9 +106,8 @@ describe Game do
     before do
       allow(game).to receive(:source_choice_input)
       allow(game).to receive(:create_moves_for_source)
+      allow(game).to receive(:human?).and_return(true)
     end
-
-    let(:error_message) { 'No valid moves found!' }
 
     context 'when moves are not empty' do
       before do
@@ -117,7 +116,7 @@ describe Game do
       end
 
       it 'not shows error' do
-        expect(game).not_to receive(:print_error_if_human).with(error_message)
+        expect(game).not_to receive(:print_error)
         game.make_source
       end
     end
@@ -130,7 +129,7 @@ describe Game do
       end
 
       it 'it shows error once' do
-        expect(game).to receive(:print_error_if_human).with(error_message)
+        expect(game).to receive(:print_error)
         game.make_source
       end
     end
@@ -143,13 +142,15 @@ describe Game do
       end
 
       it 'it shows error twice' do
-        expect(game).to receive(:print_error_if_human).with(error_message).twice
+        expect(game).to receive(:print_error).twice
         game.make_source
       end
     end
   end
 
   describe '#source_choice_input' do
+    before { allow(game).to receive(:human?).and_return(true) }
+
     context 'for command input' do
       let(:command) { game.instance_variable_get(:@command) }
 
@@ -167,15 +168,13 @@ describe Game do
     context 'for source cell input' do
       before { allow(current_player).to receive(:make_choice).and_return('') }
 
-      let(:error_message) { 'Enter a valid choice!' }
-
       context 'when valid source choice made' do
         before do
           allow(game).to receive(:valid_source?).and_return(true)
         end
 
         it 'not shows error' do
-          expect(game).not_to receive(:print_error_if_human).with(error_message)
+          expect(game).not_to receive(:print_error)
           game.source_choice_input
         end
       end
@@ -186,7 +185,7 @@ describe Game do
         end
 
         it 'shows error once' do
-          expect(game).to receive(:print_error_if_human).with(error_message)
+          expect(game).to receive(:print_error)
           game.source_choice_input
         end
       end
@@ -197,7 +196,7 @@ describe Game do
         end
 
         it 'shows error twice' do
-          expect(game).to receive(:print_error_if_human).with(error_message).twice
+          expect(game).to receive(:print_error).twice
           game.source_choice_input
         end
       end
@@ -205,7 +204,7 @@ describe Game do
   end
 
   describe '#make_destination' do
-    let(:error_message) { 'Enter a valid move from the selected source!' }
+    before { allow(game).to receive(:human?).and_return(true) }
 
     context 'when valid destination choice made' do
       before do
@@ -214,7 +213,7 @@ describe Game do
       end
 
       it 'not shows error' do
-        expect(game).not_to receive(:print_error_if_human).with(error_message)
+        expect(game).not_to receive(:print_error)
         game.make_destination
       end
     end
@@ -226,7 +225,7 @@ describe Game do
       end
 
       it 'shows error once' do
-        expect(game).to receive(:print_error_if_human).with(error_message)
+        expect(game).to receive(:print_error)
         game.make_destination
       end
     end
@@ -238,7 +237,7 @@ describe Game do
       end
 
       it 'shows error twice' do
-        expect(game).to receive(:print_error_if_human).with(error_message).twice
+        expect(game).to receive(:print_error).twice
         game.make_destination
       end
     end

@@ -2,24 +2,29 @@
 # frozen_string_literal: true
 
 require_relative '../components/output/string-color-formatter'
+require_relative '../file/file-creator'
 
 # Command Handler
 class Command
   include StringColorFormatter
 
-  attr_reader :draw_approval_status
+  attr_reader :draw_approval_status, :draw_proposal_status, :draw_proposer_color
 
   def initialize
+    @file_creator = FileCreator.new
     @draw_proposal_status = false
+    @draw_proposer_color = nil
     @draw_approval_status = false
   end
 
-  def propose_draw(player)
+  def propose_draw(player, color)
     return unless @draw_proposal_status
+    return if @draw_proposer_color == color
 
     draw_prompt
     update_draw_approval_status(player_choice_for_draw_approval(player))
     update_draw_proposal_status(false)
+    update_draw_proposer_color(nil)
   end
 
   def player_choice_for_draw_approval(player)
@@ -36,7 +41,12 @@ class Command
     @draw_proposal_status = value
   end
 
+  def update_draw_proposer_color(value)
+    @draw_proposer_color = value
+  end
+
   def execute(game, result)
+    print_intro
     show_commands
     execute_command(game, result)
     print_spacing
@@ -46,18 +56,18 @@ class Command
     loop do
       print_command_prompt
       case gets.chomp
-      when 'draw' then create_draw_proposal
+      when 'draw' then create_draw_proposal(game)
       when 'resign' then resign(result, game)
       when 'save' then save(game)
       when 'exit' then break
       end
-      print_spacing
     end
   end
 
-  def create_draw_proposal
-    print_info('Draw will be proposed after the completion of your current move.')
+  def create_draw_proposal(game)
+    print_info('Draw will be proposed after the completion of your current move.', ending: "\n")
     update_draw_proposal_status(true)
+    update_draw_proposer_color(game.current_color)
   end
 
   def resign(result, game)
@@ -66,8 +76,9 @@ class Command
     exit 0
   end
 
-  def save(_game)
-    print 'Saved...'
+  def save(game)
+    @file_creator.save(game)
+    print_file_created
   end
 
   private
@@ -82,14 +93,19 @@ class Command
   end
 
   def print_intro
-    print_info('Command Mode: ', ending: "\n", starting: "\n")
+    print_info('Command Mode: ', starting: "\n")
   end
 
   def print_command_prompt
     print_prompt('Command > ')
   end
 
+  def print_file_created
+    text = "File saved as #{accent(@file_creator.last_created_file_name)} successfully!"
+    print_info(text, ending: "\n")
+  end
+
   def print_spacing
-    puts "\n\n"
+    print "\n"
   end
 end

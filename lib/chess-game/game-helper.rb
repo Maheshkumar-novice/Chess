@@ -2,10 +2,12 @@
 # frozen_string_literal: true
 
 require_relative '../components/output/string-color-formatter'
+require_relative '../components/output/title'
 
 # Helper methods for Game
 module GameHelper
   include StringColorFormatter
+  include Title
 
   private
 
@@ -30,16 +32,21 @@ module GameHelper
   end
 
   def sleep_if_bot
-    sleep(1) if @current_player.is_a?(Bot)
+    sleep(1) unless human?
   end
 
   def print_data(additional_info: '')
     system('clear')
-    @info.title
+    title
     print_board
-    print_info_if_human(additional_info)
     print_current_player_info
     print_check_status
+    print_draw_proposal_status
+    print_info(additional_info, ending: '')
+  end
+
+  def human?
+    @current_player.is_a?(Human)
   end
 
   def pre_source_print
@@ -70,23 +77,26 @@ module GameHelper
   end
 
   def print_check_status
-    text = "Is your king in check? #{accent(@board_operator.king_in_check?(@current_color).to_s)}"
-    condition = @current_player.is_a?(Human)
-    print_info_if(text, condition: condition, ending: "\n\n")
+    value = @board_operator.king_in_check?(@current_color)
+    ending = create_ending(value)
+    print_error('Your king is in check!', ending: ending) if value
   end
 
   def print_current_player_info
     text = "#{accent(@current_player.name)}'s move (#{accent(@current_color)}):"
-    print_info(text, ending: "\n")
+    print_info(text, ending: "\n", starting: "\n")
   end
 
-  def print_error_if_human(str)
-    condition = @current_player.is_a?(Human)
-    print_error_if(str, condition: condition, ending: "\n")
+  def print_draw_proposal_status
+    value = @command.draw_proposer_color
+    text = "Draw proposal activated by #{accent(value.to_s)}"
+    ending = create_ending(value)
+    print_info(text, ending: ending) if value
   end
 
-  def print_info_if_human(str)
-    condition = @current_player.is_a?(Human)
-    print_info_if(str, condition: condition, ending: "\n")
+  def create_ending(value)
+    return '' unless value
+
+    "\n"
   end
 end

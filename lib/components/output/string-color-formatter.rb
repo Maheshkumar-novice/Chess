@@ -17,14 +17,6 @@ module StringColorFormatter
     print (starting + str + ending).red
   end
 
-  def print_info_if(str, condition: true, ending: '', starting: '')
-    print_info(str, ending: ending, starting: starting) if condition
-  end
-
-  def print_error_if(str, condition: true, ending: '', starting: '')
-    print_error(str, ending: ending, starting: starting) if condition
-  end
-
   def accent(str)
     str.yellow.bold
   end

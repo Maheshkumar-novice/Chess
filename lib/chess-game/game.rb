@@ -5,13 +5,12 @@ require_relative './result'
 require_relative './command'
 require_relative './game-helper'
 require_relative '../components/output/board-printer'
-require_relative '../components/output/info'
 
 # Controls the game play
 class Game
   include GameHelper
 
-  attr_reader :current_player, :other_player
+  attr_reader :current_player, :other_player, :current_color
 
   def initialize(board_operator, players, current_color)
     @board_operator = board_operator
@@ -20,7 +19,6 @@ class Game
     @result = Result.new
     @command = Command.new
     @printer = BoardPrinter.new
-    @info = Info.new
     @source_choice = nil
     @destination_choice = nil
     @moves = { empty: [], captures: [] }
@@ -49,7 +47,7 @@ class Game
   end
 
   def update_draw
-    @command.propose_draw(@current_player)
+    @command.propose_draw(@current_player, @current_color)
     @result.update_draw(@command.draw_approval_status)
   end
 
@@ -73,17 +71,19 @@ class Game
       @moves = create_moves_for_source
       return unless moves_empty?
 
-      print_error_if_human('No valid moves found!')
+      print_error('No valid moves found!', ending: "\n") if human?
     end
   end
 
   def source_choice_input
     loop do
-      @source_choice = @current_player.make_choice.to_sym
-      next @command.execute(self, @result) if @source_choice == :cmd
+      choice = @current_player.make_choice.to_sym
+      next @command.execute(self, @result) if choice == :cmd
+
+      @source_choice = choice
       return if valid_source?
 
-      print_error_if_human('Enter a valid choice!')
+      print_error('Enter a valid choice!', ending: "\n") if human?
     end
   end
 
@@ -97,7 +97,7 @@ class Game
       @destination_choice = @current_player.make_choice.to_sym
       return if valid_destination?
 
-      print_error_if_human('Enter a valid move from the selected source!')
+      print_error('Enter a valid move from the selected source!', ending: "\n") if human?
     end
   end
 

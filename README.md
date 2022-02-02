@@ -37,6 +37,18 @@
 - [ ] Game play testing
 
 #
+- [x] Manual Draw and Resignation
+- [x] Tests
+- [ ] Refactoring
+- [ ] Game play testing
+
+#
+- [x] Load and Save
+- [ ] Tests
+- [ ] Refactoring
+- [ ] Game play testing
+
+#
 - [ ] MetaData class creatioon
 - [ ] Tests
 - [ ] Refactoring(tests)
@@ -71,19 +83,6 @@
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Game play testing
-
-#
-- [x] Manual Draw and Resignation
-- [ ] Tests
-- [ ] Refactoring
-- [ ] Game play testing
-
-#
-- [ ] Load and Save
-- [ ] Tests
-- [ ] Refactoring
-- [ ] Game play testing
-- [ ] Vigorous testing
 
 #
 - [ ] Make it pretty

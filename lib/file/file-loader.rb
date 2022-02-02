@@ -2,10 +2,13 @@
 # frozen_string_literal: true
 
 require 'psych'
+require_relative '../components/output/string-color-formatter'
 
 # File Loader Class
 class FileLoader
   SAVE_DIR = 'saved_games'
+
+  include StringColorFormatter
 
   def initialize
     @files = nil
@@ -39,7 +42,7 @@ class FileLoader
   end
 
   def user_input
-    print 'Enter number of the file to load > '
+    print_prompt('Enter number of the file to load >', ending: ' ')
     @user_input = gets.chomp
   end
 
@@ -60,9 +63,10 @@ class FileLoader
   end
 
   def print_files
-    puts 'Available Saves: '
+    print_info('Available Saves:', starting: "\n", ending: "\n")
     @files_hash.each do |key, value|
-      puts "#{key}: #{value}"
+      puts "#{accent(key)}: #{value}"
     end
+    puts
   end
 end

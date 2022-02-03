@@ -9,6 +9,14 @@ module GameHelper
   include StringColorFormatter
   include Title
 
+  def current_player_name
+    @current_player.name
+  end
+
+  def other_player_name
+    @other_player.name
+  end
+
   private
 
   def valid_source?

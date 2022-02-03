@@ -61,7 +61,7 @@ class Game
   end
 
   def create_source_choice
-    pre_source_print
+    pre_source_input_print
     make_source
   end
 
@@ -88,7 +88,7 @@ class Game
   end
 
   def create_destination_choice
-    pre_destination_print
+    pre_destination_input_print
     make_destination
   end
 

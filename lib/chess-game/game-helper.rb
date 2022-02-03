@@ -57,12 +57,12 @@ module GameHelper
     @current_player.is_a?(Human)
   end
 
-  def pre_source_print
+  def pre_source_input_print
     sleep_if_bot
     print_data(additional_info: source_input_text)
   end
 
-  def pre_destination_print
+  def pre_destination_input_print
     print_data(additional_info: destination_input_text)
   end
 

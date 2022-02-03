@@ -6,22 +6,19 @@ require_relative '../../lib/file/file-creator'
 describe FileCreator do
   subject(:file_creator) { described_class.new }
   let(:game) { double('Game') }
-  let(:time) { double('Time') }
 
   describe '#create_file_name' do
     before do
       allow(game).to receive(:current_player_name).and_return('dexter')
       allow(game).to receive(:other_player_name).and_return('mahi')
-      allow(time).to receive(:strftime).and_return('20-2-2022-1-1-1')
-      file_creator.instance_variable_set(:@time, time)
     end
 
     it 'creates file name' do
       file_creator.create_file_name(game)
       save_dir = FileCreator::SAVE_DIR
       result = file_creator.instance_variable_get(:@file_name)
-      expected_result = "#{save_dir}/dexter-vs-mahi-20-2-2022-1-1-1.yml"
-      expect(result).to eq(expected_result)
+      expected_result = result.match?(%r{#{save_dir}/.+\.yml})
+      expect(expected_result).to eq(true)
     end
   end
 

@@ -39,7 +39,7 @@
 #
 - [x] Manual Draw and Resignation
 - [x] Tests
-- [ ] Refactoring
+- [x] Refactoring
 - [ ] Game play testing
 
 #

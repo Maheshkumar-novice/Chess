@@ -48,9 +48,9 @@ class Result
   end
 
   def announce_checkmate(game)
-    current_player = game.current_player
-    other_player = game.other_player
-    text = "#{accent(current_player.name)} Checkmated by #{accent(other_player.name)} :P"
+    current_player_name = game.current_player_name
+    other_player_name = game.other_player_name
+    text = "#{accent(current_player_name)} Checkmated by #{accent(other_player_name)} :P"
     print_info(text, ending: "\n", starting: "\n")
   end
 

@@ -20,4 +20,12 @@ module StringColorFormatter
   def accent(str)
     str.yellow.bold
   end
+
+  def gray_bold(str)
+    str.gray.bold
+  end
+
+  def color_cell(str, bg_color)
+    str.send(bg_color).black
+  end
 end

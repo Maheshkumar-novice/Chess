@@ -10,7 +10,7 @@ require_relative '../components/output/board-printer'
 class Game
   include GameHelper
 
-  attr_reader :current_player, :other_player, :current_color
+  attr_reader :current_color
 
   def initialize(board_operator, players, current_color)
     @board_operator = board_operator

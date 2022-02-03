@@ -33,7 +33,7 @@
 #
 - [x] Mates
 - [x] Tests
-- [ ] Refactoring(nil video sandi metz, null object pattern)
+- [x] Refactoring(nil video sandi metz, null object pattern)
 - [ ] Game play testing
 
 #

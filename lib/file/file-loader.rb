@@ -24,6 +24,10 @@ class FileLoader
     load_file
   end
 
+  def create_saved_games_dir
+    Dir.mkdir(SAVE_DIR)
+  end
+
   def saved_games_empty?
     Dir.empty?(SAVE_DIR)
   end
@@ -32,6 +36,10 @@ class FileLoader
     @files = Dir.glob("#{SAVE_DIR}/*.yml")
     create_hash_of_files
     print_files
+  end
+
+  def create_hash_of_files
+    @files_hash = @files.map.with_index(1) { |file, index| [index.to_s, file] }.to_h
   end
 
   def load_file
@@ -47,14 +55,6 @@ class FileLoader
 
   def yaml_load
     Psych.load_file(@files_hash[@user_input])
-  end
-
-  def create_saved_games_dir
-    Dir.mkdir(SAVE_DIR)
-  end
-
-  def create_hash_of_files
-    @files_hash = @files.map.with_index(1) { |file, index| [index.to_s, file] }.to_h
   end
 
   private

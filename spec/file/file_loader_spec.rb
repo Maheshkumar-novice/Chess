@@ -28,6 +28,7 @@ describe FileLoader do
   describe '#load_file' do
     before do
       allow(file_loader).to receive(:yaml_load)
+      allow(file_loader).to receive(:print_invalid_input)
       file_loader.instance_variable_set(:@files_hash, { '1' => '', '2' => '' })
     end
 

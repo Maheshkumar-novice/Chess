@@ -3,11 +3,11 @@
 
 require_relative '../../../lib/components/creators/move-creator'
 require_relative '../../../lib/components/creators/board-creator'
-require_relative '../../../lib/board/fen'
+require_relative '../../../lib/board/fen-processor'
 
 describe MoveCreator do
   subject(:move_creator) { described_class.new }
-  let(:fen_processor) { Fen.new }
+  let(:fen_processor) { FenProcessor.new }
   let(:board_creator) { BoardCreator.new }
   let(:fen) { '2q1kb1r/pp1p1ppp/n1p1pn2/1r1b2B1/4P3/2PP2RP/PP2P1P1/RN1QKBN1 w Qk - 0 1' }
   let(:board) { board_creator.create_board(fen_processor.pieces) }

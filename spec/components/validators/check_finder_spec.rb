@@ -3,11 +3,11 @@
 
 require_relative '../../../lib/components/validators/check-finder'
 require_relative '../../../lib/components/creators/board-creator'
-require_relative '../../../lib/board/fen'
+require_relative '../../../lib/board/fen-processor'
 
 describe CheckFinder do
   subject(:check_finder) { described_class.new }
-  let(:fen_processor) { Fen.new }
+  let(:fen_processor) { FenProcessor.new }
   let(:board_creator) { BoardCreator.new }
   before { fen_processor.process(fen) }
 

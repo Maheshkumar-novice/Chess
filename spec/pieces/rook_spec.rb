@@ -3,10 +3,10 @@
 
 require_relative '../../lib/pieces/rook'
 require_relative '../../lib/components/creators/board-creator'
-require_relative '../../lib/board/fen'
+require_relative '../../lib/board/fen-processor'
 
 describe Rook do
-  let(:fen_processor) { Fen.new }
+  let(:fen_processor) { FenProcessor.new }
   let(:board_creator) { BoardCreator.new }
   subject(:rook) { described_class.new }
 

@@ -4,7 +4,7 @@
 require_relative '../components/creators/piece-creator'
 
 # Operates on FEN code
-class Fen
+class FenProcessor
   attr_reader :pieces, :current_color, :meta_data
 
   def initialize(piece_creator: PieceCreator.new)

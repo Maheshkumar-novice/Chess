@@ -6,7 +6,7 @@ require_relative './lib/components/output/string-color-formatter'
 require_relative './lib/components/creators/board-creator'
 require_relative './lib/components/creators/player-creator'
 require_relative './lib/board/board-operator'
-require_relative './lib/board/fen'
+require_relative './lib/board/fen-processor'
 require_relative './lib/chess-game/game'
 require_relative './lib/file/file-loader'
 
@@ -18,7 +18,7 @@ class Launcher
   def initialize
     @fen, @pieces, @current_color, @meta_data, @board, @board_operator, @players, @game = nil
     @file_loader = FileLoader.new
-    @fen_processor = Fen.new
+    @fen_processor = FenProcessor.new
     @board_creator = BoardCreator.new
     @player_creator = PlayerCreator.new
   end

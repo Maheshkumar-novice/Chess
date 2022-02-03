@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../lib/board/fen'
+require_relative '../../lib/board/fen-processor'
 
-describe Fen do
+describe FenProcessor do
   subject(:fen_processor) { described_class.new(piece_creator: piece_creator) }
   let(:piece_creator) { double('PieceCreator') }
   let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }

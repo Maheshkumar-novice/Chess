@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 require_relative '../../../lib/components/creators/board-creator'
-require_relative '../../../lib/board/fen'
+require_relative '../../../lib/board/fen-processor'
 
 describe BoardCreator do
   subject(:board_creator) { described_class.new }
-  let(:fen_processor) { Fen.new }
+  let(:fen_processor) { FenProcessor.new }
   let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
   let(:pieces) { fen_processor.pieces }
   before { fen_processor.process(fen) }

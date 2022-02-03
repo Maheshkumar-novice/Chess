@@ -44,7 +44,7 @@
 
 #
 - [x] Load and Save
-- [ ] Tests
+- [x] Tests
 - [ ] Refactoring
 - [ ] Game play testing
 

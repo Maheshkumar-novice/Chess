@@ -158,4 +158,14 @@ describe Command do
       command.resign(result, game)
     end
   end
+
+  describe '#save' do
+    before { allow(command).to receive(:print_file_created_message) }
+
+    it 'sends :save message to yaml_creator' do
+      yaml_creator = command.instance_variable_get(:@yaml_creator)
+      expect(yaml_creator).to receive(:save).with(game)
+      command.save(game)
+    end
+  end
 end

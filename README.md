@@ -85,54 +85,32 @@
 - [ ] Game play testing
 
 #
-- [ ] Make it pretty
 - [ ] Improve Bot player
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Game play testing
 
 #
+- [ ] Help Command maybe?
+- [ ] Fen Copy command
+- [ ] Tests
+- [ ] Refactoring
+- [ ] Game play testing
+
+#
 - [ ] Readme Creation
-- [ ] Wiki Creation
-- [ ] Extra functionalities Some Ideas:
-  - [ ] Theme
-  - [ ] Settings
-  - [ ] Help
-  - [ ] Modes
-  - [ ] Menu 
-  - [ ] Autosave
-  - [ ] Fen Copy
-  - [ ] More UX improvements
 
 #
 - [ ] To Do After:
-  - [ ] Include
-  - [ ] Explore ruby 3
-  - [ ] Extend
-  - [ ] Prepend
-  - [ ] RDocs
-  - [ ] Releases
-  - [ ] Versions
-  - [ ] Tags
-  - [ ] Ruby Version File use
-  - [ ] Load
-  - [ ] Require
-  - [ ] Require_relative
-  - [ ] Replit
-  - [ ] Bundler
+  - [ ] Learn about Include, Extend, Prepend, Require, Load, Require Relative
+  - [ ] Explore ruby 3, RDocs, Ruby Cheatsheet I starred
+  - [ ] Releases, Versions, Tags, Licenses
+  - [ ] Ruby Version File usage?
+  - [ ] Bundler, Gem, Gemfile, Gemfile.lock, Reek, Simplecov, Another codesmell gem that I starred
   - [ ] Meta Programming
-  - [ ] Reek
-  - [ ] Test Coverage gem
-  - [ ] Gem
   - [ ] Go-Su game lib
   - [ ] Design Patterns
-  - [ ] Posts
-  - [ ] Ruby Cheat Sheet go through
-  - [ ] Sharing 
-  - [ ] Feedback
-  - [ ] Reviews
-  - [ ] Other solutions go through
 
 #
-- [ ] Final Review and Reflections
+- [ ] Feedback, Review and Reflections
 - [ ] Moving on....!

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Title
+# Title ASCII text created by TOIlet utility
 module Title
   def title
     puts <<~TITLE

@@ -46,6 +46,8 @@ class FileLoader
     loop do
       @user_input = user_input
       return yaml_load if valid_input?
+
+      print_invalid_input
     end
   end
 
@@ -62,6 +64,10 @@ class FileLoader
   def user_input
     print_prompt('Enter number of the file to load >', ending: ' ')
     gets.chomp
+  end
+
+  def print_invalid_input
+    print_error('Invalid Input! Select a correct number (e.g. 1)', ending: "\n")
   end
 
   def print_files

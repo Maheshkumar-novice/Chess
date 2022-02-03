@@ -11,7 +11,7 @@ class Command
   attr_reader :draw_approval_status, :draw_proposal_status, :draw_proposer_color
 
   def initialize
-    @file_creator = YAMLCreator.new
+    @yaml_creator = YAMLCreator.new
     @draw_proposal_status = false
     @draw_proposer_color = nil
     @draw_approval_status = false
@@ -77,7 +77,7 @@ class Command
   end
 
   def save(game)
-    @file_creator.save(game)
+    @yaml_creator.save(game)
     print_file_created_message
   end
 
@@ -101,7 +101,7 @@ class Command
   end
 
   def print_file_created_message
-    text = "File saved as #{accent(@file_creator.last_created_file_name)} successfully!"
+    text = "File saved as #{accent(@yaml_creator.last_created_file_name)} successfully!"
     print_info(text, ending: "\n")
   end
 

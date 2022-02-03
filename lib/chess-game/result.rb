@@ -59,9 +59,9 @@ class Result
   end
 
   def announce_player_resignation(game)
-    current_player = game.current_player
-    other_player = game.other_player
-    text = "#{accent(current_player.name)} Resigned. #{accent(other_player.name)} Won!"
+    current_player_name = game.current_player_name
+    other_player_name = game.other_player_name
+    text = "#{accent(current_player_name)} Resigned. #{accent(other_player_name)} Won!"
     print_info(text, ending: "\n", starting: "\n")
   end
 end

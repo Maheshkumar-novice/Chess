@@ -3,7 +3,7 @@
 
 require_relative './cell-creator'
 
-# Creats chess board from pieces
+# Creates chess board from pieces
 class BoardCreator
   def initialize(cell_creator: CellCreator.new)
     @cell_creator = cell_creator

@@ -40,7 +40,7 @@
 - [x] Manual Draw and Resignation
 - [x] Tests
 - [x] Refactoring
-- [ ] Game play testing
+- [x] Game play testing
 
 #
 - [x] Load and Save

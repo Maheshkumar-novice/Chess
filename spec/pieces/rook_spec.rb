@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/pieces/rook'
-require_relative '../../lib/components/creators/board-creator'
-require_relative '../../lib/board/fen-processor'
+require_relative '../../lib/board/utils/board-creator'
+require_relative '../../lib/fen/fen-processor'
 
 describe Rook do
   let(:fen_processor) { FenProcessor.new }

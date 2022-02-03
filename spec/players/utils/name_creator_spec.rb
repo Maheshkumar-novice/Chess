@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../../lib/components/creators/name-creator'
+require_relative '../../../lib/players/utils/name-creator'
 
 describe NameCreator do
   subject(:name_creator) { described_class.new }

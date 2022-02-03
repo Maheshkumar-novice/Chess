@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../lib/board/cell'
+require_relative '../../lib/cell/cell'
 
 describe Cell do
   subject(:cell) { described_class.new }

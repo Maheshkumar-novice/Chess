@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../../lib/components/creators/cell-choice-creator'
+require_relative '../../../lib/cell/utils/cell-choice-creator'
 
 describe CellChoiceCreator do
   subject(:cell_choice_creator) { described_class.new }

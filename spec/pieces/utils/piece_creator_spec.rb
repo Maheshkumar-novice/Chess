@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../../lib/components/creators/piece-creator'
-require_relative '../../../lib/board/fen-processor'
+require_relative '../../../lib/pieces/utils/piece-creator'
+require_relative '../../../lib/fen/fen-processor'
 
 describe PieceCreator do
   subject(:piece_creator) { described_class.new }

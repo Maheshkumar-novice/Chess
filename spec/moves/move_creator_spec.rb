@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../../lib/components/creators/move-creator'
-require_relative '../../../lib/components/creators/board-creator'
-require_relative '../../../lib/board/fen-processor'
+require_relative '../../lib/moves/move-creator'
+require_relative '../../lib/board/utils/board-creator'
+require_relative '../../lib/fen/fen-processor'
 
 describe MoveCreator do
   subject(:move_creator) { described_class.new }

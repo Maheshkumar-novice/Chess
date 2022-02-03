@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../../lib/components/validators/check-finder'
-require_relative '../../../lib/components/creators/board-creator'
-require_relative '../../../lib/board/fen-processor'
+require_relative '../../lib/moves/check-finder'
+require_relative '../../lib/board/utils/board-creator'
+require_relative '../../lib/fen/fen-processor'
 
 describe CheckFinder do
   subject(:check_finder) { described_class.new }

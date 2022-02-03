@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../../lib/components/validators/cell-choice-validator'
+require_relative '../../../lib/cell/utils/cell-choice-validator'
 
 describe CellChoiceValidator do
   subject(:cell_choice_validator) { described_class.new }

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../../lib/components/creators/cell-creator'
+require_relative '../../../lib/cell/utils/cell-creator'
 
 describe CellCreator do
   subject(:cell_creator) { described_class.new }

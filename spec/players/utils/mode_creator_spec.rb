@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../../lib/components/creators/mode-creator'
+require_relative '../../../lib/players/utils/mode-creator'
 
 describe ModeCreator do
   subject(:mode_creator) { described_class.new }

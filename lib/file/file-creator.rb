@@ -5,7 +5,7 @@ require 'psych'
 
 # File Creator Class
 class FileCreator
-  SAVE_DIR = 'saved_games'
+  SAVE_DIR = 'saved-games'
 
   attr_reader :last_created_file_name
 

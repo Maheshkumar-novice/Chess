@@ -34,7 +34,7 @@
 - [x] Mates
 - [x] Tests
 - [x] Refactoring(nil video sandi metz, null object pattern)
-- [ ] Game play testing
+- [x] Game play testing
 
 #
 - [x] Manual Draw and Resignation

@@ -13,6 +13,7 @@ class FileCreator
     @last_created_file_name = nil
     @file_name = nil
     @yaml = nil
+    @time = Time.new
   end
 
   def save(game)
@@ -23,8 +24,8 @@ class FileCreator
   end
 
   def create_file_name(game)
-    player_data = "#{game.current_player.name}-vs-#{game.other_player.name}"
-    datetime = Time.new.strftime('%d-%m-%Y-%k-%M-%S')
+    player_data = "#{game.current_player_name}-vs-#{game.other_player_name}"
+    datetime = @time.strftime('%d-%m-%Y-%k-%M-%S')
     @file_name = "#{SAVE_DIR}/#{player_data}-#{datetime}.yml"
   end
 

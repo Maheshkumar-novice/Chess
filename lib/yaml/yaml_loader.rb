@@ -4,8 +4,8 @@
 require 'psych'
 require_relative '../display-utils/string-color-formatter'
 
-# File Loader Class
-class FileLoader
+# YAML Loader Class
+class YAMLLoader
   SAVE_DIR = 'saved-games'
 
   include StringColorFormatter

@@ -3,8 +3,8 @@
 
 require 'psych'
 
-# File Creator Class
-class FileCreator
+# YAML Creator Class
+class YAMLCreator
   SAVE_DIR = 'saved-games'
 
   attr_reader :last_created_file_name

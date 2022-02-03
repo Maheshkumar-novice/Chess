@@ -150,15 +150,7 @@ board_operator: !ruby/object:BoardOperator
       bottom_right_diagonal: 
       bottom_left_diagonal: :g7
     :a7: !ruby/object:Cell
-      piece: !ruby/object:Pawn
-        name: p
-        color: black
-        current_cell: :a7
-        move_creator: !ruby/object:MoveCreator {}
-        move_classifier: !ruby/object:MoveClassifier
-          enemy_color: 
-          diagonal_moves: 
-          moves_without_diagonal_moves: 
+      piece: 
       row_right: :b7
       row_left: 
       column_above: :a8
@@ -168,7 +160,15 @@ board_operator: !ruby/object:BoardOperator
       bottom_right_diagonal: :b6
       bottom_left_diagonal: 
     :b7: !ruby/object:Cell
-      piece: 
+      piece: !ruby/object:Pawn
+        name: p
+        color: black
+        current_cell: :b7
+        move_creator: !ruby/object:MoveCreator {}
+        move_classifier: !ruby/object:MoveClassifier
+          enemy_color: 
+          diagonal_moves: 
+          moves_without_diagonal_moves: 
       row_right: :c7
       row_left: :a7
       column_above: :b8
@@ -296,19 +296,7 @@ board_operator: !ruby/object:BoardOperator
       bottom_right_diagonal: :b5
       bottom_left_diagonal: 
     :b6: !ruby/object:Cell
-      piece: !ruby/object:Pawn
-        name: p
-        color: black
-        current_cell: :b6
-        move_creator: !ruby/object:MoveCreator {}
-        move_classifier: !ruby/object:MoveClassifier
-          enemy_color: white
-          diagonal_moves:
-          - :c6
-          - :a6
-          moves_without_diagonal_moves:
-          - :b6
-          - :b5
+      piece: 
       row_right: :c6
       row_left: :a6
       column_above: :b7
@@ -378,7 +366,18 @@ board_operator: !ruby/object:BoardOperator
       bottom_right_diagonal: 
       bottom_left_diagonal: :g5
     :a5: !ruby/object:Cell
-      piece: 
+      piece: !ruby/object:Pawn
+        name: p
+        color: black
+        current_cell: :a5
+        move_creator: !ruby/object:MoveCreator {}
+        move_classifier: !ruby/object:MoveClassifier
+          enemy_color: white
+          diagonal_moves:
+          - :b6
+          moves_without_diagonal_moves:
+          - :a6
+          - :a5
       row_right: :b5
       row_left: 
       column_above: :a6
@@ -458,7 +457,7 @@ board_operator: !ruby/object:BoardOperator
       bottom_right_diagonal: 
       bottom_left_diagonal: :g4
     :a4: !ruby/object:Cell
-      piece: &2 !ruby/object:Pawn
+      piece: !ruby/object:Pawn
         name: P
         color: white
         current_cell: :a4
@@ -638,15 +637,19 @@ board_operator: !ruby/object:BoardOperator
       bottom_right_diagonal: :b1
       bottom_left_diagonal: 
     :b2: !ruby/object:Cell
-      piece: !ruby/object:Pawn
+      piece: &2 !ruby/object:Pawn
         name: P
         color: white
         current_cell: :b2
         move_creator: !ruby/object:MoveCreator {}
         move_classifier: !ruby/object:MoveClassifier
-          enemy_color: 
-          diagonal_moves: 
-          moves_without_diagonal_moves: 
+          enemy_color: black
+          diagonal_moves:
+          - :a3
+          - :c3
+          moves_without_diagonal_moves:
+          - :b3
+          - :b4
       row_right: :c2
       row_left: :a2
       column_above: :b3
@@ -917,13 +920,15 @@ board_operator: !ruby/object:BoardOperator
     :half_move_clock: '0'
     :full_move_number: '1'
   moves:
-  - :a5
-  - :b5
+  - :b3
+  - :a3
+  - :c3
+  - :b4
   previous_source_piece: *2
-  previous_source_cell: :a4
+  previous_source_cell: :b2
   previous_destination_piece: 
 current_player: !ruby/object:Human
-  name: Mahi
+  name: mahi
   name_creator: !ruby/object:NameCreator {}
   cell_choice_creator: !ruby/object:CellChoiceCreator
     rows:
@@ -947,8 +952,8 @@ current_player: !ruby/object:Human
   name_validator: !ruby/object:NameValidator
     max_name_length: 25
   cell_choice_validator: !ruby/object:CellChoiceValidator {}
-other_player: !ruby/object:Bot
-  name: morty
+other_player: !ruby/object:Human
+  name: iham
   name_creator: !ruby/object:NameCreator {}
   cell_choice_creator: !ruby/object:CellChoiceCreator
     rows:
@@ -969,6 +974,9 @@ other_player: !ruby/object:Bot
     - f
     - g
     - h
+  name_validator: !ruby/object:NameValidator
+    max_name_length: 25
+  cell_choice_validator: !ruby/object:CellChoiceValidator {}
 current_color: white
 result: !ruby/object:Result
   draw: false
@@ -976,12 +984,12 @@ result: !ruby/object:Result
   stalemate: false
   resign: false
 command: !ruby/object:Command
-  file_creator: !ruby/object:FileCreator
-    last_created_file_name: saved-games/Mahi-vs-morty-03-02-2022-16-15-36.yml
-    file_name: saved-games/Mahi-vs-morty-03-02-2022-16-15-36.yml
+  file_creator: !ruby/object:YAMLCreator
+    last_created_file_name: saved-games/mahi-vs-iham-03-02-2022-17-21-03.yml
+    file_name: saved-games/mahi-vs-iham-03-02-2022-17-21-03.yml
     yaml: 
-  draw_proposal_status: false
-  draw_proposer_color: 
+  draw_proposal_status: true
+  draw_proposer_color: white
   draw_approval_status: false
 printer: !ruby/object:BoardPrinter
   board: 
@@ -990,9 +998,9 @@ printer: !ruby/object:BoardPrinter
   captures: []
   default_bg_color: :bg_gray
   row_no: 8
-source_choice: :b7
-destination_choice: :b6
+source_choice: :a7
+destination_choice: :a5
 moves:
   :empty:
-  - :b6
+  - :a5
   :captures: []

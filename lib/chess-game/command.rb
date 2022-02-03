@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require_relative '../display-utils/string-color-formatter'
-require_relative '../file/file-creator'
+require_relative '../yaml/yaml_creator'
 
 # Command Handler
 class Command
@@ -11,7 +11,7 @@ class Command
   attr_reader :draw_approval_status, :draw_proposal_status, :draw_proposer_color
 
   def initialize
-    @file_creator = FileCreator.new
+    @file_creator = YAMLCreator.new
     @draw_proposal_status = false
     @draw_proposer_color = nil
     @draw_approval_status = false

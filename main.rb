@@ -8,7 +8,7 @@ require_relative './lib/board/utils/board-creator'
 require_relative './lib/players/utils/player-creator'
 require_relative './lib/fen/fen-processor'
 require_relative './lib/chess-game/game'
-require_relative './lib/file/file-loader'
+require_relative './lib/yaml/yaml_loader'
 
 # Chess Game Launcher
 class Launcher
@@ -17,7 +17,7 @@ class Launcher
 
   def initialize
     @fen, @pieces, @current_color, @meta_data, @board, @board_operator, @players, @game = nil
-    @file_loader = FileLoader.new
+    @file_loader = YAMLLoader.new
     @fen_processor = FenProcessor.new
     @board_creator = BoardCreator.new
     @player_creator = PlayerCreator.new

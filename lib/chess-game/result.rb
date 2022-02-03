@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../components/output/string-color-formatter'
+require_relative '../display-utils/string-color-formatter'
 
 # Result Handler
 class Result

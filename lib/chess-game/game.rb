@@ -3,8 +3,8 @@
 
 require_relative './result'
 require_relative './command'
-require_relative './game-helper'
-require_relative '../components/output/board-printer'
+require_relative './utils/game-helper'
+require_relative '../board/utils/board-printer'
 
 # Controls the game play
 class Game

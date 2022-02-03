@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'psych'
-require_relative '../components/output/string-color-formatter'
+require_relative '../display-utils/string-color-formatter'
 
 # File Loader Class
 class FileLoader

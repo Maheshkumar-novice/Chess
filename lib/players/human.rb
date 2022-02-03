@@ -2,11 +2,9 @@
 # frozen_string_literal: true
 
 require_relative './player'
-require_relative '../components/creators/name-creator'
-require_relative '../components/creators/cell-choice-creator'
-require_relative '../components/validators/name-validator'
-require_relative '../components/validators/cell-choice-validator'
-require_relative '../components/output/string-color-formatter'
+require_relative './utils/name-validator'
+require_relative '../cell/utils/cell-choice-validator'
+require_relative '../display-utils/string-color-formatter'
 
 # Represents player Human
 class Human < Player

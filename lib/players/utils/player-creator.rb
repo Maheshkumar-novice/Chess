@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 require_relative './mode-creator'
-require_relative '../../players/bot'
-require_relative '../../players/human'
+require_relative '../bot'
+require_relative '../human'
 
 # Creates players depending on the mode
 class PlayerCreator

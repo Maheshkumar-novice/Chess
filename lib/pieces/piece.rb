@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative '../moves/move-creator'
+require_relative '../moves/move-classifier'
+
 # Represents chess Piece
 class Piece
   attr_accessor :name, :color, :current_cell

@@ -2,9 +2,7 @@
 # frozen_string_literal: true
 
 require_relative './piece'
-require_relative '../components/creators/move-creator'
-require_relative '../components/validators/move-classifier'
-require_relative '../components/validators/check-finder'
+require_relative '../moves/check-finder'
 
 # Represents chess piece King
 class King < Piece

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../creators/move-creator'
+require_relative './move-creator'
 
 # Finds the check status of the cell
 class CheckFinder

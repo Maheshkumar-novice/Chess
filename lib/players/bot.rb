@@ -2,8 +2,6 @@
 # frozen_string_literal: true
 
 require_relative './player'
-require_relative '../components/creators/name-creator'
-require_relative '../components/creators/cell-choice-creator'
 
 # Represents player Bot
 class Bot < Player

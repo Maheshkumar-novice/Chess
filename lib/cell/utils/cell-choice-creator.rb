@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../output/string-color-formatter'
+require_relative '../../display-utils/string-color-formatter'
 
 # Creates cell choice
 class CellChoiceCreator

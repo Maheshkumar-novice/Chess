@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './cell-creator'
+require_relative '../../cell/utils/cell-creator'
 
 # Creates chess board from pieces
 class BoardCreator

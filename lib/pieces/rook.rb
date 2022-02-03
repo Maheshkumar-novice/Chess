@@ -2,8 +2,6 @@
 # frozen_string_literal: true
 
 require_relative './piece'
-require_relative '../components/creators/move-creator'
-require_relative '../components/validators/move-classifier'
 
 # Represents chess piece Rook
 class Rook < Piece

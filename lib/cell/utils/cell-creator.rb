@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../board/cell'
+require_relative '../cell'
 
 # Creates board cell
 class CellCreator

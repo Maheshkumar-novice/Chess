@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../components/creators/piece-creator'
+require_relative '../pieces/utils/piece-creator'
 
 # Operates on FEN code
 class FenProcessor

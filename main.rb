@@ -17,7 +17,7 @@ class Launcher
 
   def initialize
     @fen, @pieces, @current_color, @meta_data, @board, @board_operator, @players, @game = nil
-    @file_loader = YAMLLoader.new
+    @yaml_loader = YAMLLoader.new
     @fen_processor = FenProcessor.new
     @board_creator = BoardCreator.new
     @player_creator = PlayerCreator.new
@@ -38,7 +38,7 @@ class Launcher
   end
 
   def play_saved_game
-    @game = @file_loader.load
+    @game = @yaml_loader.load
     return play_default_game unless @game
 
     @game.play

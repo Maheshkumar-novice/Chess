@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative '../../display/string-color-formatter'
+
 # Prints the board in the terminal
 class BoardPrinter
   LIGHT_BG = :bg_gray
@@ -8,6 +10,8 @@ class BoardPrinter
   SOURCE_BG = :bg_magenta
   EMPTY_BG = :bg_green
   CAPTURE_BG = :bg_red
+
+  include StringColorFormatter
 
   def initialize
     @board = nil
@@ -35,7 +39,7 @@ class BoardPrinter
   end
 
   def print_column_info
-    puts ('a'..'h').to_a.map { |value| row_column_color("  #{value}") }.join.prepend('  ')
+    puts ('a'..'h').to_a.map { |value| gray_bold("  #{value}") }.join.prepend('  ')
   end
 
   def print_board_data
@@ -53,15 +57,11 @@ class BoardPrinter
   end
 
   def print_row_no(condition: true, ending: '')
-    print row_column_color(" #{@row_no} " + ending) if condition
-  end
-
-  def row_column_color(str)
-    str.bold.gray
+    print gray_bold(" #{@row_no} " + ending) if condition
   end
 
   def print_cell(cell, bg_color)
-    print " #{cell} ".send(bg_color).black
+    print color_cell(" #{cell} ", bg_color)
   end
 
   def printable_cell(key)

@@ -78,7 +78,7 @@ class Command
 
   def save(game)
     @file_creator.save(game)
-    print_file_created
+    print_file_created_message
   end
 
   private
@@ -100,7 +100,7 @@ class Command
     print_prompt('Command > ')
   end
 
-  def print_file_created
+  def print_file_created_message
     text = "File saved as #{accent(@file_creator.last_created_file_name)} successfully!"
     print_info(text, ending: "\n")
   end

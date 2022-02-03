@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../lib/chess-game/command'
+require_relative '../../lib/game/command'
 require_relative '../../lib/players/human'
 
 describe Command do

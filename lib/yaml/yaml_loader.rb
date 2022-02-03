@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'psych'
-require_relative '../display-utils/string-color-formatter'
+require_relative '../display/string-color-formatter'
 
 # YAML Loader Class
 class YAMLLoader

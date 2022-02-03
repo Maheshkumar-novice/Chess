@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../lib/chess-game/game'
+require_relative '../../lib/game/game'
 
 describe Game do
   subject(:game) { described_class.new(board_operator, players, current_color) }

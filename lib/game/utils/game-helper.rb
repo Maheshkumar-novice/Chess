@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../display-utils/string-color-formatter'
-require_relative '../../display-utils/title'
+require_relative '../../display/string-color-formatter'
+require_relative '../../display/title'
 
 # Helper methods for Game
 module GameHelper

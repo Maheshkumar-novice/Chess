@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './lib/display-utils/title'
-require_relative './lib/display-utils/string-color-formatter'
+require_relative './lib/display/title'
+require_relative './lib/display/string-color-formatter'
 require_relative './lib/board/board-operator'
 require_relative './lib/board/utils/board-creator'
 require_relative './lib/players/utils/player-creator'
 require_relative './lib/fen/fen-processor'
-require_relative './lib/chess-game/game'
+require_relative './lib/game/game'
 require_relative './lib/yaml/yaml_loader'
 
 # Chess Game Launcher

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../lib/chess-game/result'
+require_relative '../../lib/game/result'
 
 describe Result do
   subject(:result) { described_class.new }

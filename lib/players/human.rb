@@ -4,7 +4,7 @@
 require_relative './player'
 require_relative './utils/name-validator'
 require_relative '../cell/utils/cell-choice-validator'
-require_relative '../display-utils/string-color-formatter'
+require_relative '../display/string-color-formatter'
 
 # Represents player Human
 class Human < Player

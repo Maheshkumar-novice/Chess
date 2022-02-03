@@ -6,7 +6,7 @@ require_relative '../components/output/string-color-formatter'
 
 # File Loader Class
 class FileLoader
-  SAVE_DIR = 'saved_games'
+  SAVE_DIR = 'saved-games'
 
   include StringColorFormatter
 
@@ -17,7 +17,7 @@ class FileLoader
   end
 
   def load
-    create_saved_games_dir unless Dir.exist?('saved_games')
+    create_saved_games_dir unless Dir.exist?(SAVE_DIR)
     return if saved_games_empty?
 
     list_saves
@@ -25,25 +25,20 @@ class FileLoader
   end
 
   def saved_games_empty?
-    Dir.empty?('saved_games')
+    Dir.empty?(SAVE_DIR)
   end
 
   def list_saves
-    @files = Dir.glob('saved_games/*.yml')
+    @files = Dir.glob("#{SAVE_DIR}/*.yml")
     create_hash_of_files
     print_files
   end
 
   def load_file
     loop do
-      user_input
+      @user_input = user_input
       return yaml_load if valid_input?
     end
-  end
-
-  def user_input
-    print_prompt('Enter number of the file to load >', ending: ' ')
-    @user_input = gets.chomp
   end
 
   def valid_input?
@@ -55,11 +50,18 @@ class FileLoader
   end
 
   def create_saved_games_dir
-    Dir.mkdir('saved_games')
+    Dir.mkdir(SAVE_DIR)
   end
 
   def create_hash_of_files
     @files_hash = @files.map.with_index(1) { |file, index| [index.to_s, file] }.to_h
+  end
+
+  private
+
+  def user_input
+    print_prompt('Enter number of the file to load >', ending: ' ')
+    gets.chomp
   end
 
   def print_files

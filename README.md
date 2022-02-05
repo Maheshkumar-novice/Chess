@@ -91,6 +91,12 @@
 - [ ] Game play testing
 
 #
+- [ ] Insufficient Material
+- [ ] Tests
+- [ ] Refactoring
+- [ ] Game play testing
+
+#
 - [ ] Help Command maybe?
 - [ ] Fen Copy command
 - [ ] Tests

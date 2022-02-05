@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative '../monkey-patches/loader'
 require_relative '../display/title'
 require_relative '../display/string-color-formatter'
 require_relative '../board/board-operator'

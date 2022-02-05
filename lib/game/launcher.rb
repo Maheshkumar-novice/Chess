@@ -38,7 +38,15 @@ class Launcher
   end
 
   def play_saved_game
+    load_game
+    play_game
+  end
+
+  def load_game
     @game = @yaml_loader.load
+  end
+
+  def play_game
     return play_default_game unless @game
 
     @game.play
@@ -74,10 +82,6 @@ class Launcher
     cli_arg
   end
 
-  def default_fen
-    'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
-  end
-
   def create_data_from_fen
     @fen_processor.process(@fen)
     @pieces = @fen_processor.pieces
@@ -95,11 +99,21 @@ class Launcher
 
   def create_players
     @players = @player_creator.create_players
+    rotate_if_needed
+  end
+
+  def rotate_if_needed
     @players.rotate! if @current_color == 'black'
   end
 
   def launch_game
     @game = Game.new(@board_operator, @players, @current_color)
     @game.play
+  end
+
+  private
+
+  def default_fen
+    'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
   end
 end

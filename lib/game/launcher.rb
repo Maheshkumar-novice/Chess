@@ -59,7 +59,9 @@ class Launcher
   end
 
   def play_fen_game
+    print_info('Loading FEN game....', starting: "\n", ending: "\n")
     load_fen
+    print_fen
     create_data_from_fen
     create_board
     create_board_operator
@@ -72,7 +74,9 @@ class Launcher
   end
 
   def cli_fen
-    ARGV[0]
+    cli_arg = ARGV[0]
+    print_info('Cli FEN found!', starting: "\n", ending: "\n") if cli_arg
+    cli_arg
   end
 
   def create_data_from_fen
@@ -108,5 +112,9 @@ class Launcher
 
   def default_fen
     'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+  end
+
+  def print_fen
+    print_info("Loaded FEN: #{accent(@fen)}", ending: "\n\n")
   end
 end

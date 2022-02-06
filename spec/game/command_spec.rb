@@ -46,7 +46,7 @@ describe Command do
 
     context 'when the player is human' do
       it 'asks for input' do
-        expect(command).to receive(:gets).and_return('y/n')
+        expect($stdin).to receive(:gets).and_return('y/n')
         command.player_choice_for_draw_approval(player)
       end
     end
@@ -98,7 +98,7 @@ describe Command do
 
     context 'when the case is exit' do
       before do
-        allow(command).to receive(:gets).and_return('exit')
+        allow($stdin).to receive(:gets).and_return('exit')
       end
 
       it 'breaks immediately' do
@@ -109,7 +109,7 @@ describe Command do
 
     context 'when the case is draw' do
       before do
-        allow(command).to receive(:gets).and_return('draw', 'exit')
+        allow($stdin).to receive(:gets).and_return('draw', 'exit')
       end
 
       it 'calls create_draw_proposal' do
@@ -120,7 +120,7 @@ describe Command do
 
     context 'when the case is resign' do
       before do
-        allow(command).to receive(:gets).and_return('resign', 'exit')
+        allow($stdin).to receive(:gets).and_return('resign', 'exit')
       end
 
       it 'calls resign' do
@@ -131,7 +131,7 @@ describe Command do
 
     context 'when the case is save' do
       before do
-        allow(command).to receive(:gets).and_return('save', 'exit')
+        allow($stdin).to receive(:gets).and_return('save', 'exit')
       end
 
       it 'calls save' do

@@ -28,7 +28,7 @@ class Command
   end
 
   def player_choice_for_draw_approval(player)
-    return gets.chomp if player.is_a?(Human)
+    return $stdin.gets.chomp if player.is_a?(Human)
 
     %w[y n].sample
   end
@@ -55,7 +55,7 @@ class Command
   def execute_command(game, result)
     loop do
       print_command_prompt
-      case gets.chomp
+      case $stdin.gets.chomp
       when 'draw' then create_draw_proposal(game)
       when 'resign' then resign(result, game)
       when 'save' then save(game)

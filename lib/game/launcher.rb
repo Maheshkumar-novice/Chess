@@ -33,7 +33,7 @@ class Launcher
 
   def user_wants_to_load?
     print_prompt('Do you want to load a saved game (y/n)?', ending: ' ')
-    return true if gets.chomp.downcase == 'y'
+    return true if $stdin.gets.chomp.downcase == 'y'
 
     false
   end

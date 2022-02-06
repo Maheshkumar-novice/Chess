@@ -21,7 +21,7 @@ describe CellChoiceCreator do
   describe '#human_choice' do
     before do
       allow(cell_choice_creator).to receive(:print_prompt)
-      allow(cell_choice_creator).to receive(:gets).and_return('a name')
+      allow($stdin).to receive(:gets).and_return('a name')
     end
 
     it 'returns a string' do

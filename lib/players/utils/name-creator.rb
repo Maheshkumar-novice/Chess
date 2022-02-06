@@ -13,6 +13,6 @@ class NameCreator
 
   def human_name
     print_prompt('Enter Your Name > ')
-    gets.chomp
+    $stdin.gets.chomp
   end
 end

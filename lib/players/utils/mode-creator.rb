@@ -42,6 +42,6 @@ class ModeCreator
 
   def mode_input
     print_prompt('Enter Your Option [a, b, c, d] > ')
-    gets.chomp
+    $stdin.gets.chomp
   end
 end

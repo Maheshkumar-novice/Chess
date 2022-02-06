@@ -15,13 +15,13 @@ describe Launcher do
     before { allow(launcher).to receive(:print_prompt) }
 
     it 'returns true when the input is y' do
-      allow(launcher).to receive(:gets).and_return('y')
+      allow($stdin).to receive(:gets).and_return('y')
       result = launcher.user_wants_to_load?
       expect(result).to eq(true)
     end
 
     it 'returns false when the input is n' do
-      allow(launcher).to receive(:gets).and_return('n')
+      allow($stdin).to receive(:gets).and_return('n')
       result = launcher.user_wants_to_load?
       expect(result).to eq(false)
     end
@@ -98,27 +98,11 @@ describe Launcher do
     end
 
     context 'when cli arg is not empty' do
-      before { stub_const('Launcher::ARGV', %w[hey there]) }
+      before { stub_const('Launcher::ARGV', %w[hey]) }
 
       it 'returns joined string' do
         result = launcher.cli_fen
-        expect(result).to eq('hey there')
-      end
-    end
-  end
-
-  describe '#parse_cli_arg' do
-    context 'when given arg is empty string' do
-      it 'returns nil' do
-        result = launcher.parse_cli_arg('')
-        expect(result).to be_nil
-      end
-    end
-
-    context 'when given arg is not an empty string' do
-      it 'returns a the given string' do
-        result = launcher.parse_cli_arg('hello')
-        expect(result).to eq('hello')
+        expect(result).to eq('hey')
       end
     end
   end

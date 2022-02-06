@@ -63,7 +63,7 @@ class YAMLLoader
 
   def user_input
     print_prompt('Enter number of the file to load >', ending: ' ')
-    gets.chomp
+    $stdin.gets.chomp
   end
 
   def print_invalid_input

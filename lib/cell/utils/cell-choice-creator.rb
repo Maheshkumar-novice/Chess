@@ -18,6 +18,6 @@ class CellChoiceCreator
 
   def human_choice
     print_prompt('Enter Your Choice > ')
-    gets.chomp
+    $stdin.gets.chomp
   end
 end

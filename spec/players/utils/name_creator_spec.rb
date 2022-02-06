@@ -16,7 +16,7 @@ describe NameCreator do
   describe '#human_name' do
     before do
       allow(name_creator).to receive(:print_prompt)
-      allow(name_creator).to receive(:gets).and_return('a name')
+      allow($stdin).to receive(:gets).and_return('a name')
     end
 
     it 'returns a string' do

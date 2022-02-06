@@ -114,7 +114,7 @@
   - [ ] Ruby Version File usage?
   - [ ] Bundler, Gem, Gemfile, Gemfile.lock, Reek, Simplecov, Another codesmell gem that I starred
   - [ ] Meta Programming
-  - [ ] Go-Su game lib
+  - [ ] Go-Su game lib, Dragon ruby
   - [ ] Design Patterns
 
 #

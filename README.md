@@ -45,8 +45,8 @@
 #
 - [x] Load and Save
 - [x] Tests
-- [ ] Refactoring
-- [ ] Game play testing
+- [x] Refactoring
+- [x] Game play testing
 
 #
 - [ ] MetaData class creatioon

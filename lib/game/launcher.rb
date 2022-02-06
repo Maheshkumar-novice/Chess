@@ -72,15 +72,7 @@ class Launcher
   end
 
   def cli_fen
-    cli_arg = ARGV.join(' ')
-    ARGV.clear
-    parse_cli_arg(cli_arg)
-  end
-
-  def parse_cli_arg(cli_arg)
-    return nil if cli_arg.empty?
-
-    cli_arg
+    ARGV[0]
   end
 
   def create_data_from_fen

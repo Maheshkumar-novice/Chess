@@ -88,6 +88,8 @@ describe Launcher do
   end
 
   describe '#cli_fen' do
+    before {allow(launcher).to receive(:print_info)}
+
     context 'when cli arg is empty' do
       before { stub_const('Launcher::ARGV', []) }
 

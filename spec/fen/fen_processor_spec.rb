@@ -30,16 +30,6 @@ describe FenProcessor do
       current_color = fen_processor.instance_variable_get(:@current_color)
       expect(current_color).not_to be_nil
     end
-
-    it 'creates meta data' do
-      meta_data = fen_processor.instance_variable_get(:@meta_data)
-      expect(meta_data).not_to be_nil
-    end
-
-    it 'creates 4 meta data' do
-      meta_data = fen_processor.instance_variable_get(:@meta_data)
-      expect(meta_data.size).to eq(4)
-    end
   end
 
   describe '#split' do
@@ -77,9 +67,10 @@ describe FenProcessor do
   describe '#parse_remaining_meta_data' do
     let(:meta_data) { fen_processor.split(fen)[-1].split[1..-1] }
 
-    it 'returns a hash of 4 elements' do
-      result = fen_processor.parse_remaining_meta_data(meta_data).size
-      expect(result).to eq(4)
+    it 'sends :en_passant= message to meta_data' do
+      meta_data_obj = fen_processor.instance_variable_get(:@meta_data)
+      expect(meta_data_obj).to receive(:en_passant=)
+      fen_processor.parse_remaining_meta_data(meta_data)
     end
   end
 end

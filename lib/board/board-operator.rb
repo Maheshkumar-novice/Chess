@@ -1,20 +1,22 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative '../moves/piece-mover'
+
 # Performs board operations
 class BoardOperator
   attr_reader :board
 
-  def initialize(board, meta_data)
+  def initialize(board, meta_data, piece_mover: PieceMover.new)
     @board = board
     @meta_data = meta_data
     @moves = nil
+    @piece_mover = piece_mover
   end
 
   def make_move(source, destination)
-    @board[destination].update_piece_to(@board[source].piece)
-    @board[destination].update_current_cell_of_piece(destination)
-    @board[source].update_piece_to(nil)
+    @meta_data.update(source, destination, @board[source].piece_name)
+    @piece_mover.move_piece(source, destination, @board, @meta_data)
   end
 
   def moves_from_source(source, color)

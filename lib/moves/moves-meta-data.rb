@@ -3,34 +3,60 @@
 
 # Meta Data about Moves
 class MovesMetaData
-  attr_accessor :en_passant
+  attr_accessor :en_passant_move
 
   def initialize
-    @en_passant = :-
+    @source = nil
+    @destination = nil
+    @piece_name = nil
+    @board = nil
+    @en_passant_move = :-
   end
 
-  def update(source, destination)
-    update_en_passant(source, destination)
+  def update(source, destination, piece_name, board)
+    set_instance_variables(source, destination, piece_name, board)
+    update_en_passant
   end
 
-  def update_en_passant(source, destination, piece_name)
-    return @en_passant = :- unless satisfy_en_passant_conditions?(source, destination, piece_name)
+  def update_en_passant
+    return @en_passant_move = :- unless satisfy_en_passant_conditions?
 
-    @en_passant = create_en_passant(source)
+    @en_passant_move = create_en_passant_move
   end
 
-  def satisfy_en_passant_conditions?(source, destination, piece_name)
-    piece_name.downcase == 'p' && double_step?(source, destination)
+  def satisfy_en_passant_conditions?
+    @piece_name.downcase == 'p' && double_step?
   end
 
-  def double_step?(source, destination)
-    start = source.to_s[1].to_i
-    ending = destination.to_s[1].to_i
-    (start - ending).abs == 2
+  def double_step?
+    return white_double_step? if @board[@source].piece_color == 'white'
+
+    black_double_step?
   end
 
-  def create_en_passant(source)
-    str = source.to_s
-    (str[0] + (str[1].to_i + 1)).to_sym
+  def white_double_step?
+    step1 = @board[@source].column_above
+    step2 = @board[step1].column_above
+    step2 == @destination
+  end
+
+  def black_double_step?
+    step1 = @board[@source].column_below
+    step2 = @board[step1].column_below
+    step2 == @destination
+  end
+
+  def create_en_passant_move
+    source = @board[@source]
+    return source.column_above if source.piece_color == 'white'
+
+    source.column_below
+  end
+
+  def set_instance_variables(source, destination, piece_name, board)
+    @source = source
+    @destination = destination
+    @piece_name = piece_name
+    @board = board
   end
 end

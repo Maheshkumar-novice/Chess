@@ -8,39 +8,32 @@ require_relative '../../lib/fen/fen-processor'
 describe BoardOperator do
   let(:fen_processor) { FenProcessor.new }
   let(:board_creator) { BoardCreator.new }
-  before { fen_processor.process(fen) }
+  let(:piece_mover) { instance_double(PieceMover) }
+  before do
+    fen_processor.process(fen)
+    allow(piece_mover).to receive(:move_piece)
+  end
 
   describe '#make_move' do
+    subject(:board_operator) { described_class.new(board, meta_data, piece_mover: piece_mover) }
     let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
-    let(:board) { board_creator.create_board(fen_processor.pieces) }
-    let(:meta_data) { fen_processor.meta_data }
-    subject(:board_operator) { described_class.new(board, meta_data) }
+    let(:board) { {} }
+    let(:meta_data) { double('MetaData') }
+    let(:source) { :a4 }
+    let(:destination) { :b2 }
 
-    it 'makes move from a2 to a4' do
-      source = :a2
-      destination = :a4
-      previous_source_piece = board[source].piece
+    before { allow(meta_data).to receive(:update) }
+
+    it 'sends :update message to meta_data' do
+      meta_data = board_operator.instance_variable_get(:@meta_data)
+      expect(meta_data).to receive(:update)
       board_operator.make_move(source, destination)
-      expect(board[source].piece).to be_nil
-      expect(board[destination].piece).to eq(previous_source_piece)
     end
 
-    it 'makes move from b8 to a6' do
-      source = :b8
-      destination = :a6
-      previous_source_piece = board[source].piece
+    it 'sends :move_piece message to piece_mover' do
+      piece_mover = board_operator.instance_variable_get(:@piece_mover)
+      expect(piece_mover).to receive(:move_piece)
       board_operator.make_move(source, destination)
-      expect(board[source].piece).to be_nil
-      expect(board[destination].piece).to eq(previous_source_piece)
-    end
-
-    it 'makes move from e7 to e6' do
-      source = :e7
-      destination = :e6
-      previous_source_piece = board[source].piece
-      board_operator.make_move(source, destination)
-      expect(board[source].piece).to be_nil
-      expect(board[destination].piece).to eq(previous_source_piece)
     end
   end
 

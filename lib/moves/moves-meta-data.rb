@@ -8,13 +8,12 @@ class MovesMetaData
   def initialize
     @source = nil
     @destination = nil
-    @piece_name = nil
     @board = nil
     @en_passant_move = :-
   end
 
-  def update(source, destination, piece_name, board)
-    set_instance_variables(source, destination, piece_name, board)
+  def update(source, destination, board)
+    set_instance_variables(source, destination, board)
     update_en_passant
   end
 
@@ -25,7 +24,7 @@ class MovesMetaData
   end
 
   def satisfy_en_passant_conditions?
-    @piece_name.downcase == 'p' && double_step?
+    @board[@source].piece_name.downcase == 'p' && double_step?
   end
 
   def double_step?
@@ -53,10 +52,9 @@ class MovesMetaData
     source.column_below
   end
 
-  def set_instance_variables(source, destination, piece_name, board)
+  def set_instance_variables(source, destination, board)
     @source = source
     @destination = destination
-    @piece_name = piece_name
     @board = board
   end
 end

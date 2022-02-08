@@ -15,7 +15,7 @@ class BoardOperator
   end
 
   def make_move(source, destination)
-    @meta_data.update(source, destination, @board[source].piece_name)
+    @meta_data.update(source, destination, @board[source].piece_name, board)
     @piece_mover.move_piece(source, destination, @board, @meta_data)
   end
 

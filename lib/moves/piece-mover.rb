@@ -17,14 +17,16 @@ class PieceMover
 
   def take_en_passant(source, destination, board)
     regular_move(source, destination, board)
-    board[en_passant_cell(source, destination)] = nil
+    board[en_passant_piece_cell(source, destination, board)] = nil
   end
 
   def en_passant?(source, destination, board, meta_data)
-    board[source].piece_name.downcase == 'p' && meta_data.en_passant == destination
+    board[source].piece_name.downcase == 'p' && meta_data.en_passant_move == destination
   end
 
-  def en_passant_cell(source, destination)
-    (destination.to_s[0] + source.to_s[1]).to_sym
+  def en_passant_piece_cell(source, destination, board)
+    return board[destination].column_below if board[source].piece_color == 'white'
+
+    board[destination].column_above
   end
 end

@@ -20,7 +20,7 @@ describe PieceMover do
       source = :a2
       destination = :a4
       previous_source_piece = board[source].piece
-      piece_mover.move_piece(source, destination, board, meta_data)
+      piece_mover.regular_move(source, destination, board)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
     end
@@ -29,7 +29,7 @@ describe PieceMover do
       source = :g7
       destination = :g6
       previous_source_piece = board[source].piece
-      piece_mover.move_piece(source, destination, board, meta_data)
+      piece_mover.regular_move(source, destination, board)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
     end
@@ -38,7 +38,7 @@ describe PieceMover do
       source = :b8
       destination = :a6
       previous_source_piece = board[source].piece
-      piece_mover.move_piece(source, destination, board, meta_data)
+      piece_mover.regular_move(source, destination, board)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
     end
@@ -47,7 +47,7 @@ describe PieceMover do
       source = :e7
       destination = :e6
       previous_source_piece = board[source].piece
-      piece_mover.move_piece(source, destination, board, meta_data)
+      piece_mover.regular_move(source, destination, board)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
     end

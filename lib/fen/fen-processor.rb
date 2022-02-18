@@ -17,10 +17,10 @@ class FenProcessor
 
   def process(fen)
     rows = split(fen)
-    meta_data_row = rows[-1].split[1..-1]
+    meta_data_row = rows[-1].split[1..]
     @pieces = to_pieces(rows)
     @current_color = parse_color(meta_data_row[0])
-    parse_remaining_meta_data(meta_data_row[1..-1])
+    parse_remaining_meta_data(meta_data_row[1..])
   end
 
   def split(fen)

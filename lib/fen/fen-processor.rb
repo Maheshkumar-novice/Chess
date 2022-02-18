@@ -39,6 +39,6 @@ class FenProcessor
   end
 
   def parse_remaining_meta_data(meta_data)
-    @meta_data.en_passant_move = meta_data[1]
+    @meta_data.en_passant_move = meta_data[1].to_sym
   end
 end

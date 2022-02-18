@@ -7,8 +7,8 @@ class SpecialMoves
     board[source].piece_name.downcase == 'p' && meta_data.en_passant_move == destination
   end
 
-  def en_passant_capture_cell(destination, board)
-    return board[destination].column_below if board[destination].piece_color == 'white'
+  def en_passant_capture_cell(color, destination, board)
+    return board[destination].column_below if color == 'white'
 
     board[destination].column_above
   end

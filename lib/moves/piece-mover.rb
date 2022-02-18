@@ -1,10 +1,17 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative './special-moves'
+
 # Piece moving operations
 class PieceMover
+  def initialize(special_moves = SpecialMoves.new)
+    @special_moves = special_moves
+  end
+
   def move_piece(source, destination, board, meta_data)
-    return take_en_passant(source, destination, board, meta_data) if en_passant?(source, destination, board, meta_data)
+    return take_en_passant(source, destination, board, meta_data) if @special_moves.en_passant?(source, destination,
+                                                                                                board, meta_data)
 
     regular_move(source, destination, board)
   end
@@ -17,16 +24,6 @@ class PieceMover
 
   def take_en_passant(source, destination, board)
     regular_move(source, destination, board)
-    board[en_passant_capture_cell(destination, board)].piece = nil
-  end
-
-  def en_passant?(source, destination, board, meta_data)
-    board[source].piece_name.downcase == 'p' && meta_data.en_passant_move == destination
-  end
-
-  def en_passant_capture_cell(destination, board)
-    return board[destination].column_below if board[destination].piece_color == 'white'
-
-    board[destination].column_above
+    board[@special_moves.en_passant_capture_cell(destination, board)].piece = nil
   end
 end

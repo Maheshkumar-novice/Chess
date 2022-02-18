@@ -69,7 +69,7 @@ describe FenProcessor do
 
     it 'sends :en_passant= message to meta_data' do
       meta_data_obj = fen_processor.instance_variable_get(:@meta_data)
-      expect(meta_data_obj).to receive(:en_passant_move=)
+      expect(meta_data_obj).to receive(:en_passant_move=).with(meta_data[1].to_sym)
       fen_processor.parse_remaining_meta_data(meta_data)
     end
   end

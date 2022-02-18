@@ -23,7 +23,8 @@ class PieceMover
   end
 
   def take_en_passant(source, destination, board)
+    color = board[source].piece_color
     regular_move(source, destination, board)
-    board[@special_moves.en_passant_capture_cell(destination, board)].piece = nil
+    board[@special_moves.en_passant_capture_cell(color, destination, board)].piece = nil
   end
 end

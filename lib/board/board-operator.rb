@@ -64,7 +64,7 @@ class BoardOperator
   private
 
   def move_leads_to_check?(source, destination, color)
-    @piece_mover.move_piece(source, destination, @board, @meta_data)
+    @piece_mover.move_piece(source, destination, @board, @meta_data, @meta_data.special_moves_state)
     king_in_check = king_in_check?(color)
     revert_move
     king_in_check

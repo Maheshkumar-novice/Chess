@@ -22,7 +22,16 @@ describe BoardOperator do
     let(:source) { :a4 }
     let(:destination) { :b2 }
 
-    before { allow(meta_data).to receive(:update) }
+    before do
+      allow(meta_data).to receive(:update)
+      allow(meta_data).to receive(:special_moves_state)
+    end
+
+    it 'sends :special_moves_state message to meta_data' do
+      meta_data = board_operator.instance_variable_get(:@meta_data)
+      expect(meta_data).to receive(:special_moves_state)
+      board_operator.make_move(source, destination)
+    end
 
     it 'sends :update message to meta_data' do
       meta_data = board_operator.instance_variable_get(:@meta_data)

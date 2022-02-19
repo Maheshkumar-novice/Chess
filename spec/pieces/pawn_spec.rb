@@ -58,6 +58,7 @@ describe Pawn do
 
   describe '#classify_moves' do
     let(:board) { board_creator.create_board(fen_processor.pieces) }
+    let(:meta_data) { fen_processor.meta_data }
 
     before { fen_processor.process(fen) }
 
@@ -67,7 +68,7 @@ describe Pawn do
       it 'returns the classified moves of white pawn' do
         pawn.color = 'white'
         pawn.current_cell = :e2
-        result = pawn.classify_moves(pawn.create_moves(board), board)
+        result = pawn.classify_moves(pawn.create_moves(board), board, meta_data)
         expected_result = { captures: [], empty: %i[e3 e4] }
         result.each { |k, v| result[k] = v.sort }
         expected_result.each { |k, v| expected_result[k] = v.sort }
@@ -77,7 +78,7 @@ describe Pawn do
       it 'returns the classified moves of black pawn' do
         pawn.color = 'black'
         pawn.current_cell = :a7
-        result = pawn.classify_moves(pawn.create_moves(board), board)
+        result = pawn.classify_moves(pawn.create_moves(board), board, meta_data)
         expected_result = { captures: [], empty: %i[a6 a5] }
         result.each { |k, v| result[k] = v.sort }
         expected_result.each { |k, v| expected_result[k] = v.sort }
@@ -91,7 +92,7 @@ describe Pawn do
       it 'returns the classified moves of white pawn' do
         pawn.color = 'white'
         pawn.current_cell = :d4
-        result = pawn.classify_moves(pawn.create_moves(board), board)
+        result = pawn.classify_moves(pawn.create_moves(board), board, meta_data)
         expected_result = { captures: %i[c5], empty: %i[d5] }
         result.each { |k, v| result[k] = v.sort }
         expected_result.each { |k, v| expected_result[k] = v.sort }
@@ -101,7 +102,7 @@ describe Pawn do
       it 'returns the classified moves of black pawn' do
         pawn.color = 'black'
         pawn.current_cell = :e4
-        result = pawn.classify_moves(pawn.create_moves(board), board)
+        result = pawn.classify_moves(pawn.create_moves(board), board, meta_data)
         expected_result = { captures: %i[f3], empty: %i[e3] }
         result.each { |k, v| result[k] = v.sort }
         expected_result.each { |k, v| expected_result[k] = v.sort }

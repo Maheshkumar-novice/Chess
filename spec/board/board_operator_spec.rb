@@ -612,6 +612,34 @@ describe BoardOperator do
         expect(result).to eq(expected_result)
       end
     end
+
+    context 'when white can take en_passant' do
+      let(:fen) { 'rnbqk1nr/p1pp3p/5p1b/P3pPp1/1pP1P3/RB5Q/1P1P2PP/1NB1K1NR b Kkq g6 0 1' }
+
+      it 'returns all the valid moves including en_passant move' do
+        cell = :f5
+        color = 'white'
+        result = board_operator.moves_from_source(cell, color)
+        expected_result = { captures: [:g6], empty: [] }
+        result.each { |k, v| result[k] = v.sort }
+        expected_result.each { |k, v| expected_result[k] = v.sort }
+        expect(result).to eq(expected_result)
+      end
+    end
+
+    context 'when black can take en_passant' do
+      let(:fen) { 'rnbqk1nr/p1pp3p/5p1b/P3pPp1/1pP1P3/RB5Q/1P1P2PP/1NB1K1NR b Kkq c3 0 1' }
+
+      it 'returns all the valid moves including en_passant move' do
+        cell = :b4
+        color = 'black'
+        result = board_operator.moves_from_source(cell, color)
+        expected_result = { captures: %i[a3 c3], empty: [] }
+        result.each { |k, v| result[k] = v.sort }
+        expected_result.each { |k, v| expected_result[k] = v.sort }
+        expect(result).to eq(expected_result)
+      end
+    end
   end
 
   describe '#king_in_check?' do
@@ -830,6 +858,19 @@ describe BoardOperator do
         expected_result = []
         expect(result).to eq(expected_result)
       end
+
+      context 'when white en_passant leads to check' do
+        let(:fen) { 'rnbqk1nr/p1ppp2p/5p1b/P3QPp1/1pP1P3/RP2K3/3P2PP/1NB2BNR w kq g6 0 1' }
+
+        before { board_operator.instance_variable_set(:@moves, %i[e6 g6]) }
+
+        it 'removes that move' do
+          board_operator.remove_moves_that_leads_to_check(:f5, 'white')
+          result = board_operator.instance_variable_get(:@moves)
+          expected_result = [:e6]
+          expect(result).to eq(expected_result)
+        end
+      end
     end
 
     context 'for black color' do
@@ -842,6 +883,19 @@ describe BoardOperator do
         result = board_operator.instance_variable_get(:@moves)
         expected_result = %i[h7 h5 h4]
         expect(result).to eq(expected_result)
+      end
+
+      context 'when black en_passant leads to check' do
+        let(:fen) { 'rnbq2nr/p1pp1k1p/5p1b/P3pPp1/1pP1P3/RB2K2Q/1P1P2PP/1NB3NR b - c3 0 1' }
+
+        before { board_operator.instance_variable_set(:@moves, %i[a3 c3]) }
+
+        it 'removes that move' do
+          board_operator.remove_moves_that_leads_to_check(:b4, 'black')
+          result = board_operator.instance_variable_get(:@moves)
+          expected_result = [:a3]
+          expect(result).to eq(expected_result)
+        end
       end
     end
   end

@@ -20,7 +20,7 @@ describe PieceMover do
       source = :a2
       destination = :a4
       previous_source_piece = board[source].piece
-      piece_mover.regular_move(source, destination, board)
+      piece_mover.regular_move(source, destination, board, meta_data)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
     end
@@ -29,7 +29,7 @@ describe PieceMover do
       source = :g7
       destination = :g6
       previous_source_piece = board[source].piece
-      piece_mover.regular_move(source, destination, board)
+      piece_mover.regular_move(source, destination, board, meta_data)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
     end
@@ -38,7 +38,7 @@ describe PieceMover do
       source = :b8
       destination = :a6
       previous_source_piece = board[source].piece
-      piece_mover.regular_move(source, destination, board)
+      piece_mover.regular_move(source, destination, board, meta_data)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
     end
@@ -47,7 +47,7 @@ describe PieceMover do
       source = :e7
       destination = :e6
       previous_source_piece = board[source].piece
-      piece_mover.regular_move(source, destination, board)
+      piece_mover.regular_move(source, destination, board, meta_data)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
     end
@@ -63,7 +63,7 @@ describe PieceMover do
       destination = :a3
       en_passant_capture_cell = :a4
       previous_source_piece = board[source].piece
-      piece_mover.take_en_passant(source, destination, board)
+      piece_mover.take_en_passant(source, destination, board, meta_data)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
       expect(board[en_passant_capture_cell].piece).to be_nil
@@ -74,7 +74,7 @@ describe PieceMover do
       destination = :c6
       en_passant_capture_cell = :c5
       previous_source_piece = board[source].piece
-      piece_mover.take_en_passant(source, destination, board)
+      piece_mover.take_en_passant(source, destination, board, meta_data)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
       expect(board[en_passant_capture_cell].piece).to be_nil
@@ -85,7 +85,7 @@ describe PieceMover do
       destination = :f6
       en_passant_capture_cell = :f5
       previous_source_piece = board[source].piece
-      piece_mover.take_en_passant(source, destination, board)
+      piece_mover.take_en_passant(source, destination, board, meta_data)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
       expect(board[en_passant_capture_cell].piece).to be_nil
@@ -96,7 +96,7 @@ describe PieceMover do
       destination = :h3
       en_passant_capture_cell = :h4
       previous_source_piece = board[source].piece
-      piece_mover.take_en_passant(source, destination, board)
+      piece_mover.take_en_passant(source, destination, board, meta_data)
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
       expect(board[en_passant_capture_cell].piece).to be_nil

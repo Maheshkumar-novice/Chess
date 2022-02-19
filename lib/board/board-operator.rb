@@ -15,15 +15,16 @@ class BoardOperator
   end
 
   def make_move(source, destination)
+    special_moves_state = @meta_data.special_moves_state
     @meta_data.update(source, destination, board)
-    @piece_mover.move_piece(source, destination, @board, @meta_data)
+    @piece_mover.move_piece(source, destination, @board, @meta_data, special_moves_state)
   end
 
   def moves_from_source(source, color)
     @moves = @board[source].create_moves(@board)
     remove_allies(color)
     remove_moves_that_leads_to_check(source, color)
-    @board[source].classify_moves(@moves, @board)
+    @board[source].classify_moves(@moves, @board, @meta_data)
   end
 
   def king_in_check?(color)
@@ -63,22 +64,16 @@ class BoardOperator
   private
 
   def move_leads_to_check?(source, destination, color)
-    store_current_move_state(source, destination)
-    make_move(source, destination)
+    @piece_mover.move_piece(source, destination, @board, @meta_data)
     king_in_check = king_in_check?(color)
-    revert_move(source, destination)
+    revert_move
     king_in_check
   end
 
-  def store_current_move_state(source, destination)
-    @previous_source_piece = @board[source].piece
-    @previous_source_cell = @previous_source_piece.current_cell
-    @previous_destination_piece = @board[destination].piece
-  end
-
-  def revert_move(source, destination)
-    @board[source].update_piece_to(@previous_source_piece)
-    @board[source].update_current_cell_of_piece(@previous_source_cell)
-    @board[destination].update_piece_to(@previous_destination_piece)
+  def revert_move
+    @meta_data.pieces_changed.each do |cell_marker, piece|
+      @board[cell_marker].update_piece_to(piece)
+      @board[cell_marker].update_current_cell_of_piece(cell_marker) if piece
+    end
   end
 end

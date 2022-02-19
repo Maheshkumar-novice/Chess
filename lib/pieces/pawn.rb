@@ -13,8 +13,8 @@ class Pawn < Piece
     @move_creator.pawn_moves(@current_cell, color, board)
   end
 
-  def classify_moves(moves, board)
-    @move_classifier.classify_pawn_moves(moves, board, @current_cell, @color)
+  def classify_moves(moves, board, meta_data)
+    @move_classifier.classify_pawn_moves(moves, board, meta_data, @current_cell, @color)
   end
 
   def unicode

@@ -16,7 +16,7 @@ class Piece
     @move_classifier = move_classifier
   end
 
-  def classify_moves(moves, board, _meta_data)
+  def classify_moves(moves, board, _meta_data = nil)
     @move_classifier.classify_moves(@color, moves, board)
   end
 

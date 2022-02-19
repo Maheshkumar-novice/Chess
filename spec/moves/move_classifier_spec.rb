@@ -39,12 +39,13 @@ describe MoveClassifier do
   describe '#classify_pawn_moves' do
     let(:fen) { 'rnb1K1r1/p1pppp1p/2qQ1Pp1/1b1p2n1/1PP5/7N/P3PPPP/R1NBkB1R w - - 0 1' }
     let(:board) { board_creator.create_board(fen_processor.pieces) }
+    let(:meta_data) { fen_processor.meta_data }
 
     it 'classifies white pawn moves' do
       cell = :c4
       color = 'white'
       moves = %i[c5 b5 d5]
-      result = move_classifier.classify_pawn_moves(moves, board, cell, color)
+      result = move_classifier.classify_pawn_moves(moves, board, meta_data, cell, color)
       expected_result = { captures: %i[b5 d5], empty: [:c5] }
       result.each { |k, v| result[k] = v.sort }
       expected_result.each { |k, v| expected_result[k] = v.sort }
@@ -55,7 +56,7 @@ describe MoveClassifier do
       cell = :e7
       color = 'black'
       moves = %i[e6 e5 d6 f6]
-      result = move_classifier.classify_pawn_moves(moves, board, cell, color)
+      result = move_classifier.classify_pawn_moves(moves, board, meta_data, cell, color)
       expected_result = { captures: %i[d6 f6], empty: %i[e6 e5] }
       result.each { |k, v| result[k] = v.sort }
       expected_result.each { |k, v| expected_result[k] = v.sort }

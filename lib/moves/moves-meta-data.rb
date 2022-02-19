@@ -4,17 +4,29 @@
 # Meta Data about Moves
 class MovesMetaData
   attr_accessor :en_passant_move
+  attr_reader :pieces_changed
 
   def initialize
     @source = nil
     @destination = nil
     @board = nil
+    @pieces_changed = {}
     @en_passant_move = :-
+  end
+
+  def special_moves_state
+    {
+      en_passant: (@en_passant_move != :-)
+    }
   end
 
   def update(source, destination, board)
     set_instance_variables(source, destination, board)
     update_en_passant
+  end
+
+  def update_changed_pieces_state(pieces_changed)
+    @pieces_changed = pieces_changed
   end
 
   def update_en_passant

@@ -16,33 +16,115 @@ describe BoardOperator do
 
   describe '#make_move' do
     subject(:board_operator) { described_class.new(board, meta_data, piece_mover: piece_mover) }
-    let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
-    let(:board) { {} }
-    let(:meta_data) { double('MetaData') }
-    let(:source) { :a4 }
-    let(:destination) { :b2 }
 
-    before do
-      allow(meta_data).to receive(:update)
-      allow(meta_data).to receive(:special_moves_state)
+    context 'message verifications' do
+      let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
+      let(:board) { {} }
+      let(:meta_data) { double('MetaData') }
+      let(:source) { :a4 }
+      let(:destination) { :b2 }
+
+      before do
+        allow(meta_data).to receive(:update)
+        allow(meta_data).to receive(:special_moves_state)
+      end
+
+      it 'sends :special_moves_state message to meta_data' do
+        meta_data = board_operator.instance_variable_get(:@meta_data)
+        expect(meta_data).to receive(:special_moves_state)
+        board_operator.make_move(source, destination)
+      end
+
+      it 'sends :update message to meta_data' do
+        meta_data = board_operator.instance_variable_get(:@meta_data)
+        expect(meta_data).to receive(:update)
+        board_operator.make_move(source, destination)
+      end
+
+      it 'sends :move_piece message to piece_mover' do
+        piece_mover = board_operator.instance_variable_get(:@piece_mover)
+        expect(piece_mover).to receive(:move_piece)
+        board_operator.make_move(source, destination)
+      end
     end
 
-    it 'sends :special_moves_state message to meta_data' do
-      meta_data = board_operator.instance_variable_get(:@meta_data)
-      expect(meta_data).to receive(:special_moves_state)
-      board_operator.make_move(source, destination)
-    end
+    context 'state verifications' do
+      let(:board) { board_creator.create_board(fen_processor.pieces) }
+      let(:meta_data) { fen_processor.meta_data }
+      subject(:board_operator) { described_class.new(board, meta_data) }
 
-    it 'sends :update message to meta_data' do
-      meta_data = board_operator.instance_variable_get(:@meta_data)
-      expect(meta_data).to receive(:update)
-      board_operator.make_move(source, destination)
-    end
+      context 'when tried to make a regular move' do
+        let(:fen) { 'rn1qkbnr/p2p1p1p/2P3p1/4p3/P6B/1P6/3QPPPP/RN2KBNR w KQkq - 0 1' }
 
-    it 'sends :move_piece message to piece_mover' do
-      piece_mover = board_operator.instance_variable_get(:@piece_mover)
-      expect(piece_mover).to receive(:move_piece)
-      board_operator.make_move(source, destination)
+        before do
+          allow(meta_data).to receive(:special_moves_state).and_return({})
+        end
+
+        it 'makes the move' do
+          source = :d2
+          destination = :d7
+          previous_source_piece = board[source].piece
+          board_operator.make_move(source, destination)
+          current_source_piece = board[source].piece
+          current_destinatin_piece = board[destination].piece
+          expect(current_source_piece).to be_nil
+          expect(current_destinatin_piece).to eq(previous_source_piece)
+        end
+      end
+
+      context 'when tried to make an en_passant move' do
+        let(:fen) { 'rn1qkbnr/p4p1p/6p1/2Ppp3/P6B/1P6/3QPPPP/RN2KBNR w KQkq d6 0 1' }
+
+        before do
+          allow(meta_data).to receive(:special_moves_state).and_return({ en_passant: true })
+        end
+
+        it 'makes the move' do
+          source = :c5
+          destination = :d6
+          en_passant_piece_cell = :d5
+          previous_source_piece = board[source].piece
+          board_operator.make_move(source, destination)
+          current_source_piece = board[source].piece
+          current_destinatin_piece = board[destination].piece
+          current_en_passant_piece = board[en_passant_piece_cell].piece
+          expect(current_source_piece).to be_nil
+          expect(current_destinatin_piece).to eq(previous_source_piece)
+          expect(current_en_passant_piece).to eq(nil)
+        end
+      end
+
+      context 'when the move creates en_passant possibility' do
+        let(:fen) { 'rn1qkbnr/p2p1p1p/6p1/2P1p3/P6B/1P6/3QPPPP/RN2KBNR w KQkq d6 0 1' }
+
+        before do
+          allow(meta_data).to receive(:special_moves_state).and_return({ en_passant: false })
+        end
+
+        it 'updates en_passant cell to a cell marker' do
+          source = :d7
+          destination = :d5
+          board_operator.make_move(source, destination)
+          result = meta_data.en_passant_move
+          expect(result).to eq(:d6)
+        end
+      end
+
+      context 'when the move doesn\'t create en_passant possibility' do
+        let(:fen) { 'rn1qkbnr/p2p1p1p/6p1/2P1p3/P6B/1P6/3QPPPP/RN2KBNR w KQkq d6 0 1' }
+
+        before do
+          allow(meta_data).to receive(:special_moves_state).and_return({ en_passant: true })
+        end
+
+        it 'updates en_passant cell to be not a cell marker' do
+          source = :f2
+          destination = :f3
+          board_operator.make_move(source, destination)
+          result = meta_data.en_passant_move
+          expect(result).to eq(:-)
+        end
+      end
     end
   end
 
@@ -921,6 +1003,102 @@ describe BoardOperator do
       it 'finds king position' do
         result = board_operator.find_king_position('black')
         expected_result = :h8
+        expect(result).to eq(expected_result)
+      end
+    end
+  end
+
+  describe '#move_leads_to_check?' do
+    let(:board) { board_creator.create_board(fen_processor.pieces) }
+    let(:meta_data) { fen_processor.meta_data }
+    subject(:board_operator) { described_class.new(board, meta_data) }
+
+    context 'when the move leads to white king check' do
+      let(:fen) { 'rn1qkbnr/p1pp1p1p/6p1/4p3/Pb6/1P6/2PQPPPP/RNB1KBNR w KQkq - 0 1' }
+
+      it 'returns true' do
+        source = :d2
+        destination = :d1
+        color = 'white'
+        result = board_operator.move_leads_to_check?(source, destination, color)
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when the move leads to black king check' do
+      let(:fen) { 'rn1qkbnr/p1pp1p1p/6p1/4p3/Pb5B/1P6/2PQPPPP/RN2KBNR w KQkq - 0 1' }
+
+      it 'returns true' do
+        source = :e8
+        destination = :e7
+        color = 'black'
+        result = board_operator.move_leads_to_check?(source, destination, color)
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when the move doesn\'t lead to white king check' do
+      let(:fen) { 'rn1qkbnr/p1pp1p1p/6p1/4p3/Pb5B/1P6/2PQPPPP/RN2KBNR w KQkq - 0 1' }
+
+      it 'returns false' do
+        source = :h4
+        destination = :d8
+        color = 'white'
+        result = board_operator.move_leads_to_check?(source, destination, color)
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when the move doesn\'t lead to black king check' do
+      let(:fen) { 'rn1qkbnr/p1pp1p1p/6p1/4p3/Pb5B/1P6/2PQPPPP/RN2KBNR w KQkq - 0 1' }
+
+      it 'returns false' do
+        source = :f8
+        destination = :c5
+        color = 'black'
+        result = board_operator.move_leads_to_check?(source, destination, color)
+        expect(result).to eq(false)
+      end
+    end
+  end
+
+  describe '#revert_move' do
+    let(:board) { board_creator.create_board(fen_processor.pieces) }
+    let(:meta_data) { fen_processor.meta_data }
+    subject(:board_operator) { described_class.new(board, meta_data) }
+
+    context 'for a regular move' do
+      let(:fen) { 'rn1qkbnr/p1pp1p1p/6p1/4p3/PP5B/1P6/3QPPPP/RN2KBNR w KQkq - 0 1' }
+
+      before do
+        pieces_changed = { c3: 'pawn', b4: 'bishop' }
+        allow(meta_data).to receive(:pieces_changed).and_return(pieces_changed)
+        allow(board[:c3]).to receive(:update_current_cell_of_piece)
+        allow(board[:b4]).to receive(:update_current_cell_of_piece)
+      end
+
+      it 'reverts the move' do
+        board_operator.revert_move
+        result = [board[:c3].piece, board[:b4].piece]
+        expected_result = %w[pawn bishop]
+        expect(result).to eq(expected_result)
+      end
+    end
+
+    context 'for an en_passant move' do
+      let(:fen) { 'rn1qkbnr/p2p1p1p/2P3p1/4p3/P6B/1P6/3QPPPP/RN2KBNR w KQkq - 0 1' }
+
+      before do
+        pieces_changed = { b5: 'pawn', c6: nil, c5: 'pawn' }
+        allow(meta_data).to receive(:pieces_changed).and_return(pieces_changed)
+        allow(board[:b5]).to receive(:update_current_cell_of_piece)
+        allow(board[:c5]).to receive(:update_current_cell_of_piece)
+      end
+
+      it 'reverts the move' do
+        board_operator.revert_move
+        result = [board[:b5].piece, board[:c6].piece, board[:c5].piece]
+        expected_result = ['pawn', nil, 'pawn']
         expect(result).to eq(expected_result)
       end
     end

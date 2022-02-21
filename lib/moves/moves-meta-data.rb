@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative './special-moves'
+
 # Meta Data about Moves
 class MovesMetaData
   attr_accessor :en_passant_move
@@ -12,6 +14,7 @@ class MovesMetaData
     @board = nil
     @pieces_changed = {}
     @en_passant_move = :-
+    @special_moves = SpecialMoves.new
   end
 
   def update_changed_pieces_state(pieces_changed)
@@ -20,57 +23,15 @@ class MovesMetaData
 
   def special_moves_state(board, source)
     {
-      en_passant: (@en_passant_move != :- && pawn?(board, source))
+      en_passant: (@en_passant_move != :- && board[source].pawn?)
     }
   end
 
-  def pawn?(board, source)
-    board[source].piece_name.downcase == 'p'
-  end
-
   def update(source, destination, board)
-    set_instance_variables(source, destination, board)
-    update_en_passant
+    update_en_passant(source, destination, board)
   end
 
-  def set_instance_variables(source, destination, board)
-    @source = source
-    @destination = destination
-    @board = board
-  end
-
-  def update_en_passant
-    return @en_passant_move = :- unless satisfy_en_passant_conditions?
-
-    @en_passant_move = create_en_passant_move
-  end
-
-  def satisfy_en_passant_conditions?
-    @board[@source].piece_name.downcase == 'p' && double_step?
-  end
-
-  def double_step?
-    return white_double_step? if @board[@source].piece_color == 'white'
-
-    black_double_step?
-  end
-
-  def white_double_step?
-    step1 = @board[@source].column_above
-    step2 = @board[step1].column_above
-    step2 == @destination
-  end
-
-  def black_double_step?
-    step1 = @board[@source].column_below
-    step2 = @board[step1].column_below
-    step2 == @destination
-  end
-
-  def create_en_passant_move
-    source = @board[@source]
-    return source.column_above if source.piece_color == 'white'
-
-    source.column_below
+  def update_en_passant(source, destination, board)
+    @en_passant_move = @special_moves.create_en_passant_move(source, destination, board)
   end
 end

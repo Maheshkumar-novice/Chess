@@ -20,8 +20,6 @@ class PieceCreator
     [create_valid_piece(value)]
   end
 
-  private
-
   def create_nil_pieces(value)
     [nil] * value
   end

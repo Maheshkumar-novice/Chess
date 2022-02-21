@@ -18,10 +18,14 @@ class MovesMetaData
     @pieces_changed = pieces_changed
   end
 
-  def special_moves_state
+  def special_moves_state(board, source)
     {
-      en_passant: (@en_passant_move != :-)
+      en_passant: (@en_passant_move != :- && pawn?(board, source))
     }
+  end
+
+  def pawn?(board, source)
+    board[source].piece_name.downcase == 'p'
   end
 
   def update(source, destination, board)

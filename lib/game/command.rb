@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require_relative '../display/string-color-formatter'
-require_relative '../yaml/yaml_creator'
+require_relative '../yaml/yaml-creator'
 
 # Command Handler
 class Command

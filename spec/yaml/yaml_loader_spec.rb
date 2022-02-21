@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../lib/yaml/yaml_loader'
+require_relative '../../lib/yaml/yaml-loader'
 
 describe YAMLLoader do
   subject(:yaml_loader) { described_class.new }

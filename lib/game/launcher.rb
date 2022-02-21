@@ -9,7 +9,7 @@ require_relative '../board/utils/board-creator'
 require_relative '../players/utils/player-creator'
 require_relative '../fen/fen-processor'
 require_relative '../game/game'
-require_relative '../yaml/yaml_loader'
+require_relative '../yaml/yaml-loader'
 
 # Chess Game Launcher
 class Launcher

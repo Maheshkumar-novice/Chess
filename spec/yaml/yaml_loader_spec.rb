@@ -6,6 +6,13 @@ require_relative '../../lib/yaml/yaml-loader'
 describe YAMLLoader do
   subject(:yaml_loader) { described_class.new }
 
+  describe '#create_saved_games_dir' do
+    it 'sends :mkdir message to Dir' do
+      expect(Dir).to receive(:mkdir).with(YAMLLoader::SAVE_DIR)
+      yaml_loader.create_saved_games_dir
+    end
+  end
+
   describe '#saved_games_empty?' do
     it 'sends :empty? message to Dir' do
       expect(Dir).to receive(:empty?).with(YAMLLoader::SAVE_DIR)
@@ -22,6 +29,17 @@ describe YAMLLoader do
     it 'sends :glob message to Dir' do
       expect(Dir).to receive(:glob).with("#{YAMLLoader::SAVE_DIR}/*.yml")
       yaml_loader.list_saves
+    end
+  end
+
+  describe '#create_hash_of_files' do
+    before { yaml_loader.instance_variable_set(:@files, %w[a b]) }
+
+    it 'creates files hash' do
+      yaml_loader.create_hash_of_files
+      result = yaml_loader.instance_variable_get(:@files_hash)
+      expected_result = { '1' => 'a', '2' => 'b' }
+      expect(result).to eq(expected_result)
     end
   end
 
@@ -86,24 +104,6 @@ describe YAMLLoader do
     it 'sends :load_file message to Psych' do
       expect(Psych).to receive(:load_file)
       yaml_loader.yaml_load
-    end
-  end
-
-  describe '#create_saved_games_dir' do
-    it 'sends :mkdir message to Dir' do
-      expect(Dir).to receive(:mkdir).with(YAMLLoader::SAVE_DIR)
-      yaml_loader.create_saved_games_dir
-    end
-  end
-
-  describe '#create_hash_of_files' do
-    before { yaml_loader.instance_variable_set(:@files, %w[a b]) }
-
-    it 'creates files hash' do
-      yaml_loader.create_hash_of_files
-      result = yaml_loader.instance_variable_get(:@files_hash)
-      expected_result = { '1' => 'a', '2' => 'b' }
-      expect(result).to eq(expected_result)
     end
   end
 end

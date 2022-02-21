@@ -60,6 +60,38 @@ describe SpecialMoves do
     end
   end
 
+  describe '#satisfy_en_passant_conditions?' do
+    let(:fen) { 'rn1qkbnr/p1pp1p1p/6p1/4p3/Pb6/1P6/2P1PPPP/RNBQKBNR w KQkq - 0 1' }
+    let(:board) { board_creator.create_board(fen_processor.pieces) }
+
+    context 'when piece is not a pawn' do
+      it 'returns false' do
+        source = :b8
+        destination = :c6
+        result = special_moves.satisfy_en_passant_conditions?(source, destination, board)
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when the move is not a double step' do
+      it 'returns false' do
+        source = :h2
+        destination = :h3
+        result = special_moves.satisfy_en_passant_conditions?(source, destination, board)
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when piece is a pawn and move is a double step' do
+      it 'returns true' do
+        source = :e2
+        destination = :e4
+        result = special_moves.satisfy_en_passant_conditions?(source, destination, board)
+        expect(result).to eq(true)
+      end
+    end
+  end
+
   describe '#en_passant_capture_cell' do
     let(:fen) { 'rnbqkbnr/p1pppppp/8/P7/1pP5/8/1P1PPPPP/RNBQKBNR w KQkq c3 0 1' }
     let(:board) { board_creator.create_board(fen_processor.pieces) }
@@ -79,6 +111,96 @@ describe SpecialMoves do
         destination = :c3
         result = special_moves.en_passant_capture_cell(color, destination, board)
         expect(result).to eq(:c4)
+      end
+    end
+  end
+
+  describe '#white_pawn_double_step?' do
+    let(:fen_processor) { FenProcessor.new }
+    let(:board_creator) { BoardCreator.new }
+    before { fen_processor.process(fen) }
+
+    context 'when the move is a double step' do
+      let(:fen) { 'rnbqkbnr/pppppppp/8/8/P7/8/1PPPPPPP/RNBQKBNR w KQkq - 0 1' }
+      let(:board) { board_creator.create_board(fen_processor.pieces) }
+
+      it 'returns true' do
+        source = :a2
+        destination = :a4
+        result = special_moves.white_pawn_double_step?(source, destination, board)
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when the move is not a double step' do
+      let(:fen) { 'rnbqkbnr/pppppppp/8/8/P7/1P6/2PPPPPP/RNBQKBNR w KQkq - 0 1' }
+      let(:board) { board_creator.create_board(fen_processor.pieces) }
+
+      it 'returns false' do
+        source = :b2
+        destination = :b3
+        result = special_moves.white_pawn_double_step?(source, destination, board)
+        expect(result).to eq(false)
+      end
+    end
+  end
+
+  describe '#black_pawn_double_step?' do
+    let(:fen_processor) { FenProcessor.new }
+    let(:board_creator) { BoardCreator.new }
+    before { fen_processor.process(fen) }
+
+    context 'when the move is a double step' do
+      let(:fen) { 'rnbqkbnr/pppp1p1p/6p1/4p3/P7/1P6/2PPPPPP/RNBQKBNR w KQkq - 0 1' }
+      let(:board) { board_creator.create_board(fen_processor.pieces) }
+
+      it 'returns true' do
+        source = :e7
+        destination = :e5
+        result = special_moves.black_pawn_double_step?(source, destination, board)
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when the move is not a double step' do
+      let(:fen) { 'rnbqkbnr/pppp1p1p/6p1/4p3/P7/1P6/2PPPPPP/RNBQKBNR w KQkq - 0 1' }
+      let(:board) { board_creator.create_board(fen_processor.pieces) }
+
+      it 'returns false' do
+        source = :g7
+        destination = :g6
+        result = special_moves.black_pawn_double_step?(source, destination, board)
+        expect(result).to eq(false)
+      end
+    end
+  end
+
+  describe '#en_passant_move_of_source' do
+    let(:fen_processor) { FenProcessor.new }
+    let(:board_creator) { BoardCreator.new }
+    before { fen_processor.process(fen) }
+
+    context 'for white piece' do
+      let(:fen) { 'rnbqkbnr/pppp1p1p/6p1/4p3/P7/1P6/2P1PPPP/RNBQKBNR w KQkq - 0 1' }
+      let(:board) { board_creator.create_board(fen_processor.pieces) }
+
+      it 'returns correct en_passant move cell marker' do
+        source = :e2
+        result = special_moves.en_passant_move_of_source(source, board)
+        expected_result = :e3
+        expect(result).to eq(expected_result)
+      end
+    end
+
+    context 'for black piece' do
+      let(:fen) { 'rnbqkbnr/pppp1p1p/6p1/4p3/P7/1P6/2P1PPPP/RNBQKBNR w KQkq - 0 1' }
+      let(:board) { board_creator.create_board(fen_processor.pieces) }
+
+      it 'returns correct en_passant move cell marker' do
+        source = :b7
+        result = special_moves.en_passant_move_of_source(source, board)
+        expected_result = :b6
+        expect(result).to eq(expected_result)
       end
     end
   end

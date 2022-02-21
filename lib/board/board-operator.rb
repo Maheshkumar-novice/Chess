@@ -61,8 +61,6 @@ class BoardOperator
     @board.find { |_, cell| cell.piece_color == king_color && cell.piece_name.match?(/k/i) }.first
   end
 
-  private
-
   def move_leads_to_check?(source, destination, color)
     @piece_mover.move_piece(source, destination, @board, @meta_data, @meta_data.special_moves_state(@board, source))
     king_in_check = king_in_check?(color)

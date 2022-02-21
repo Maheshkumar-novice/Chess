@@ -23,7 +23,7 @@ class BoardPrinter
   end
 
   def print_board(board, source = nil, empty = [], captures = [])
-    instance_variables_set(board, source, empty, captures)
+    set_instance_variables(board, source, empty, captures)
     print_column_info
     print_board_data
     print_column_info
@@ -31,7 +31,7 @@ class BoardPrinter
 
   private
 
-  def instance_variables_set(board, source, empty, captures)
+  def set_instance_variables(board, source, empty, captures)
     @board = board
     @source = source
     @empty = empty

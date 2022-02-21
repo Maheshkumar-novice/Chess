@@ -219,6 +219,72 @@ describe Cell do
     end
   end
 
+  describe '#pawn?' do
+    context 'when piece is pawn' do
+      before do
+        allow(piece).to receive(:name).and_return('p')
+        cell.piece = piece
+      end
+
+      it 'returns true' do
+        result = cell.pawn?
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when piece is not a pawn' do
+      before do
+        allow(piece).to receive(:name).and_return('k')
+        cell.piece = piece
+      end
+
+      it 'returns false' do
+        result = cell.pawn?
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when piece is not set' do
+      it 'returns false' do
+        result = cell.pawn?
+        expect(result).to eq(false)
+      end
+    end
+  end
+
+  describe '#white_piece?' do
+    context 'when piece is white' do
+      before do
+        allow(piece).to receive(:color).and_return('white')
+        cell.piece = piece
+      end
+
+      it 'returns true' do
+        result = cell.white_piece?
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when piece is black' do
+      before do
+        allow(piece).to receive(:color).and_return('black')
+        cell.piece = piece
+      end
+
+      it 'returns false' do
+        result = cell.white_piece?
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when piece is not set' do
+      it 'returns false' do
+        result = cell.white_piece?
+        expect(result).to eq(false)
+      end
+    end
+  end
+
   describe '#empty?' do
     context 'when piece is set' do
       before do

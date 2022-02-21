@@ -90,6 +90,25 @@ describe Command do
     end
   end
 
+  describe '#create_draw_proposal' do
+    before do
+      allow(game).to receive(:current_color).and_return(color)
+      allow(command).to receive(:print_info)
+    end
+
+    it 'updates draw proposal status to true' do
+      command.create_draw_proposal(game)
+      result = command.instance_variable_get(:@draw_proposal_status)
+      expect(result).to eq(true)
+    end
+
+    it 'updates draw proposer color' do
+      command.create_draw_proposal(game)
+      result = command.instance_variable_get(:@draw_proposer_color)
+      expect(result).to eq(color)
+    end
+  end
+
   describe '#execute_command' do
     before do
       allow(command).to receive(:print_command_prompt)

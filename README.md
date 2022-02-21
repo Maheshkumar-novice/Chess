@@ -49,15 +49,15 @@
 - [x] Game play testing
 
 #
-- [ ] MetaData class creatioon
-- [ ] Tests
-- [ ] Refactoring(tests)
-- [ ] Game play testing
+- [x] MetaData class creatioon
+- [x] Tests
+- [x] Refactoring(tests)
+- [x] Game play testing
 
 #
-- [ ] En Passant
-- [ ] Tests
-- [ ] Refactoring
+- [x] En Passant
+- [x] Tests
+- [x] Refactoring
 - [ ] Game play testing
 
 #

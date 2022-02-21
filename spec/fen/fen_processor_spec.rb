@@ -65,7 +65,7 @@ describe FenProcessor do
   end
 
   describe '#parse_remaining_meta_data' do
-    let(:meta_data) { fen_processor.split(fen)[-1].split[1..-1] }
+    let(:meta_data) { fen_processor.split(fen)[-1].split[1..] }
 
     it 'sends :en_passant= message to meta_data' do
       meta_data_obj = fen_processor.instance_variable_get(:@meta_data)

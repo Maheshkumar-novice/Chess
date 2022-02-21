@@ -51,6 +51,15 @@ describe PieceMover do
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
     end
+
+    it 'updates pieces going to change' do
+      source = :e7
+      destination = :e6
+      expected_result = { e7: board[source].piece, e6: board[destination].piece }
+      piece_mover.regular_move(source, destination, board, meta_data)
+      result = piece_mover.instance_variable_get(:@pieces_going_to_change)
+      expect(result).to eq(expected_result)
+    end
   end
 
   describe '#take_en_passant' do
@@ -100,6 +109,16 @@ describe PieceMover do
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
       expect(board[en_passant_capture_cell].piece).to be_nil
+    end
+
+    it 'updates pieces going to change' do
+      source = :g4
+      destination = :h3
+      en_passant_capture_cell = :h4
+      expected_result = { g4: board[source].piece, h3: board[destination].piece, h4: board[en_passant_capture_cell].piece }
+      piece_mover.take_en_passant(source, destination, board, meta_data)
+      result = piece_mover.instance_variable_get(:@pieces_going_to_change)
+      expect(result).to eq(expected_result)
     end
   end
 end

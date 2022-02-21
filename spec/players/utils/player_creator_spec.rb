@@ -85,4 +85,18 @@ describe PlayerCreator do
       player_creator.create_names
     end
   end
+
+  describe '#new_bot_player' do
+    it 'returns a bot player' do
+      result = player_creator.new_bot_player
+      expect(result).to be_a(Bot)
+    end
+  end
+
+  describe '#new_human_player' do
+    it 'returns a human player' do
+      result = player_creator.new_human_player
+      expect(result).to be_a(Human)
+    end
+  end
 end

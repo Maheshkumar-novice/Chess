@@ -40,8 +40,6 @@ class PlayerCreator
     end
   end
 
-  private
-
   def new_bot_player
     Bot.new
   end

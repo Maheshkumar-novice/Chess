@@ -109,6 +109,36 @@ describe Pawn do
         expect(result).to eq(expected_result)
       end
     end
+
+    context 'with en_passant possibility' do
+      context 'for white pawn' do
+        let(:fen) { 'rnbqkbnr/pp1p1ppp/8/2pPp3/8/5P2/PPP1P1PP/RNBQKBNR w KQkq e6 0 1' }
+
+        it 'returns the classified moves of white pawn' do
+          pawn.color = 'white'
+          pawn.current_cell = :d5
+          result = pawn.classify_moves(pawn.create_moves(board), board, meta_data)
+          expected_result = { captures: %i[e6], empty: %i[d6] }
+          result.each { |k, v| result[k] = v.sort }
+          expected_result.each { |k, v| expected_result[k] = v.sort }
+          expect(result).to eq(expected_result)
+        end
+      end
+
+      context 'for black pawn' do
+        let(:fen) { 'rn1qkbnr/p2p1p1p/6p1/3P4/P3pP1B/1P6/3QP1PP/RN2KBNR w KQkq f3 0 1' }
+
+        it 'returns the classified moves of black pawn' do
+          pawn.color = 'black'
+          pawn.current_cell = :e4
+          result = pawn.classify_moves(pawn.create_moves(board), board, meta_data)
+          expected_result = { captures: %i[f3], empty: %i[e3] }
+          result.each { |k, v| result[k] = v.sort }
+          expected_result.each { |k, v| expected_result[k] = v.sort }
+          expect(result).to eq(expected_result)
+        end
+      end
+    end
   end
 
   describe '#unicode' do

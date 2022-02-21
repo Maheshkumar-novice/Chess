@@ -14,6 +14,10 @@ class MovesMetaData
     @en_passant_move = :-
   end
 
+  def update_changed_pieces_state(pieces_changed)
+    @pieces_changed = pieces_changed
+  end
+
   def special_moves_state
     {
       en_passant: (@en_passant_move != :-)
@@ -25,8 +29,10 @@ class MovesMetaData
     update_en_passant
   end
 
-  def update_changed_pieces_state(pieces_changed)
-    @pieces_changed = pieces_changed
+  def set_instance_variables(source, destination, board)
+    @source = source
+    @destination = destination
+    @board = board
   end
 
   def update_en_passant
@@ -62,11 +68,5 @@ class MovesMetaData
     return source.column_above if source.piece_color == 'white'
 
     source.column_below
-  end
-
-  def set_instance_variables(source, destination, board)
-    @source = source
-    @destination = destination
-    @board = board
   end
 end

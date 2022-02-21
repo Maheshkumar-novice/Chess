@@ -96,10 +96,10 @@ class Launcher
 
   def create_players
     @players = @player_creator.create_players
-    rotate_if_needed
+    switch_players_if_needed
   end
 
-  def rotate_if_needed
+  def switch_players_if_needed
     @players.rotate! if @current_color == 'black'
   end
 

@@ -142,7 +142,7 @@ describe Launcher do
   describe '#create_players' do
     before do
       launcher.instance_variable_set(:@player_creator, player_creator)
-      allow(launcher).to receive(:rotate_if_needed)
+      allow(launcher).to receive(:switch_players_if_needed)
     end
 
     it 'sends :create players message to player creator' do
@@ -152,7 +152,7 @@ describe Launcher do
     end
   end
 
-  describe '#rotate_if_needed' do
+  describe '#switch_players_if_needed' do
     before do
       launcher.instance_variable_set(:@players, [])
     end
@@ -163,7 +163,7 @@ describe Launcher do
       it 'sends :rotate! message to players' do
         players = launcher.instance_variable_get(:@players)
         expect(players).to receive(:rotate!)
-        launcher.rotate_if_needed
+        launcher.switch_players_if_needed
       end
     end
 
@@ -173,7 +173,7 @@ describe Launcher do
       it 'not sends :rotate! message to players' do
         players = launcher.instance_variable_get(:@players)
         expect(players).not_to receive(:rotate!)
-        launcher.rotate_if_needed
+        launcher.switch_players_if_needed
       end
     end
   end

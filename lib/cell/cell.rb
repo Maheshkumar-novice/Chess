@@ -46,6 +46,14 @@ class Cell
     piece&.color?(color)
   end
 
+  def pawn?
+    piece_name&.downcase == 'p'
+  end
+
+  def white_piece?
+    piece_color == 'white'
+  end
+
   def empty?
     piece.nil?
   end

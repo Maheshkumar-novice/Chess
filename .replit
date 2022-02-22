@@ -1,0 +1,2 @@
+language = "nix"
+run = "ruby main.rb"

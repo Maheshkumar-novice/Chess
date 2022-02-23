@@ -738,8 +738,26 @@ describe BoardOperator do
       end
     end
 
+    context 'when white king is in check after promotion' do
+      let(:fen) { 'N6k/1PPQPP2/6PP/8/8/1p6/3ppppp/K1r5 w - - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.king_in_check?('white')
+        expect(result).to eq(true)
+      end
+    end
+
     context 'when white king is not in check' do
       let(:fen) { 'rnb1kbnr/pp1ppppp/1qp5/8/8/3P4/PPP1PPPP/RNBQKBNR w KQkq - 0 1' }
+
+      it 'returns false' do
+        result = board_operator.king_in_check?('white')
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when white king is not in check after promotion' do
+      let(:fen) { 'N6k/1PPQPP2/6PP/8/8/1p6/3ppppp/K1b5 w - - 0 1' }
 
       it 'returns false' do
         result = board_operator.king_in_check?('white')
@@ -756,8 +774,26 @@ describe BoardOperator do
       end
     end
 
+    context 'when black king is in check after promotion' do
+      let(:fen) { 'Q6k/1PPQPP2/6PP/1K6/8/8/1ppppppp/8 w - - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.king_in_check?('black')
+        expect(result).to eq(true)
+      end
+    end
+
     context 'when black king is not in check' do
       let(:fen) { 'rnb1kbnr/pp1ppppp/1qp5/7B/8/3P1PP1/PPP1P2P/RNBQK1NR w KQkq - 0 1' }
+
+      it 'returns false' do
+        result = board_operator.king_in_check?('black')
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when black king is not in check after promotion' do
+      let(:fen) { 'N6k/1PPQPP2/6PP/1K6/8/8/1ppppppp/8 w - - 0 1' }
 
       it 'returns false' do
         result = board_operator.king_in_check?('black')
@@ -780,6 +816,15 @@ describe BoardOperator do
       end
     end
 
+    context 'when white king is in checkmate after promotion' do
+      let(:fen) { '8/8/8/8/8/8/r7/3K1q2 w - - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.checkmate?('white')
+        expect(result).to eq(true)
+      end
+    end
+
     context 'when white king is not in checkmate' do
       let(:fen) { 'rnb1kbnr/pppp1ppp/4p3/8/7q/5P2/PPPPP1PP/RNBQKBNR w KQkq - 0 1' }
 
@@ -791,6 +836,15 @@ describe BoardOperator do
 
     context 'when black king is in checkmate' do
       let(:fen) { 'rnb3nr/pp3ppp/4p3/1k2Q1b1/5P1q/RP1N1B2/P1PPPBPP/4K1NR w K - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.checkmate?('black')
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when black king is in checkmate after promotion' do
+      let(:fen) { '1QB5/k7/8/8/8/2B5/8/1R6 w - - 0 1' }
 
       it 'returns true' do
         result = board_operator.checkmate?('black')
@@ -822,6 +876,15 @@ describe BoardOperator do
       end
     end
 
+    context 'when white king is in stalemate after promotion' do
+      let(:fen) { '7k/8/8/8/1q6/8/2qppppp/K7 w - - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.stalemate?('white')
+        expect(result).to eq(true)
+      end
+    end
+
     context 'when white king is not in stalemate' do
       let(:fen) { '2P4K/p7/8/1k6/4brq1/8/8/2Q5 w - - 0 1' }
 
@@ -833,6 +896,15 @@ describe BoardOperator do
 
     context 'when black king is in stalemate' do
       let(:fen) { '2P4K/8/7R/k7/6R1/8/8/1Q6 w - - 0 1' }
+
+      it 'returns true' do
+        result = board_operator.stalemate?('black')
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when black king is in stalemate after promotion' do
+      let(:fen) { '1Q2B3/8/k7/8/8/2B5/8/1R6 w - - 0 1' }
 
       it 'returns true' do
         result = board_operator.stalemate?('black')

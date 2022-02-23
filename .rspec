@@ -1,3 +1,3 @@
 --require spec_helper
 --format doc
---require ./lib/monkey-patches/loader
+--require ./lib/core-extensions/loader

@@ -9,9 +9,6 @@ class MovesMetaData
   attr_reader :pieces_changed
 
   def initialize
-    @source = nil
-    @destination = nil
-    @board = nil
     @pieces_changed = {}
     @en_passant_move = :-
     @special_moves = SpecialMoves.new

@@ -19,6 +19,7 @@ class PieceMover
   def regular_move(source, destination, board, meta_data)
     @pieces_going_to_change = { source => board[source].piece, destination => board[destination].piece }
     meta_data.update_changed_pieces_state(@pieces_going_to_change)
+
     board[destination].update_piece_to(board[source].piece)
     board[destination].update_current_cell_of_piece(destination)
     board[source].update_piece_to(nil)
@@ -28,8 +29,10 @@ class PieceMover
     color = board[source].piece_color
     en_passant_capture_cell = @special_moves.en_passant_capture_cell(color, destination, board)
     en_passant_capture_cell_piece = board[en_passant_capture_cell].piece
+
     regular_move(source, destination, board, meta_data)
     board[en_passant_capture_cell].piece = nil
+
     @pieces_going_to_change[en_passant_capture_cell] = en_passant_capture_cell_piece
     meta_data.update_changed_pieces_state(@pieces_going_to_change)
   end

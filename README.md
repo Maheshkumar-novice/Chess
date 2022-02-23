@@ -85,13 +85,13 @@
 - [ ] Game play testing
 
 #
-- [ ] Improve Bot player
+- [ ] Insufficient Material
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Game play testing
 
 #
-- [ ] Insufficient Material
+- [ ] Improve Bot player
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Game play testing

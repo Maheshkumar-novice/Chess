@@ -55,14 +55,14 @@ class PromotionPieceCreator
   private
 
   def print_promotions_available
-    str = <<~MODES
-      #{print_info(accent('Modes: '))}
+    str = <<~PROMOTIONS
+      #{print_info(accent('Promotions Available: '))}
         q. Queen
         r. Rook
         b. Bishop
         n. Knight
 
-    MODES
+    PROMOTIONS
     print_info(str, ending: "\n")
   end
 

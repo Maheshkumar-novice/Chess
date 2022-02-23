@@ -61,10 +61,10 @@
 - [x] Game play testing
 
 #
-- [ ] Promotion
-- [ ] Tests
-- [ ] Refactoring
-- [ ] Game play testing
+- [x] Promotion
+- [x] Tests
+- [x] Refactoring
+- [x] Game play testing
 
 #
 - [ ] Castling

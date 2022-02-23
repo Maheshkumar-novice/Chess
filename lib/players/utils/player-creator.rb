@@ -32,11 +32,10 @@ class PlayerCreator
   end
 
   def create_names
-    colors = %w[white black]
     @players.each_with_index do |player, index|
-      print_info("\nPlayer##{index + 1} name (#{accent(colors[index])}): ", ending: "\n")
+      print_player_data(index)
       player.create_name
-      print_info("#{accent(player.name)} (Bot)", ending: "\n") if player.is_a?(Bot)
+      print_bot_name(player) if player.is_a?(Bot)
     end
   end
 
@@ -46,5 +45,17 @@ class PlayerCreator
 
   def new_human_player
     Human.new
+  end
+
+  private
+
+  def print_player_data(index)
+    colors = %w[white black]
+    print_info("Player##{index + 1} (#{accent(colors[index])}): ", ending: "\n", starting: "\n")
+  end
+
+  def print_bot_name(player)
+    print_info("#{accent(player.name)} (Bot)", ending: "\n")
+    sleep(1)
   end
 end

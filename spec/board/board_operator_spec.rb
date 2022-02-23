@@ -15,9 +15,8 @@ describe BoardOperator do
   end
 
   describe '#make_move' do
-    subject(:board_operator) { described_class.new(board, meta_data, piece_mover: piece_mover) }
-
     context 'message verifications' do
+      subject(:board_operator) { described_class.new(board, meta_data, piece_mover: piece_mover) }
       let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
       let(:board) { {} }
       let(:meta_data) { double('MetaData') }

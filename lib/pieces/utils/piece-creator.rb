@@ -11,10 +11,10 @@ require_relative '../pawn'
 # Creates pieces from array of strings from fen
 class PieceCreator
   def create_pieces(rows)
-    rows.each_with_object([]) { |row, pieces| row.each_char { |value| pieces.concat(make_piece(value)) } }
+    rows.each_with_object([]) { |row, pieces| row.each_char { |value| pieces.concat(create_piece(value)) } }
   end
 
-  def make_piece(value)
+  def create_piece(value)
     return create_nil_pieces(value.to_i) if value.match?(/^[1-8]{1}$/)
 
     [create_valid_piece(value)]

@@ -18,17 +18,17 @@ describe PieceCreator do
     end
   end
 
-  describe '#make_piece' do
+  describe '#create_piece' do
     context 'when value is a number' do
       let(:number) { '8' }
 
       it 'returns an array of size number' do
-        result = piece_creator.make_piece(number).size
+        result = piece_creator.create_piece(number).size
         expect(result).to eq(number.to_i)
       end
 
       it 'returns an array full of nils' do
-        result = piece_creator.make_piece(number)
+        result = piece_creator.create_piece(number)
         expect(result).to all(be_nil)
       end
     end
@@ -37,12 +37,12 @@ describe PieceCreator do
       let(:character) { 'r' }
 
       it 'returns an array' do
-        result = piece_creator.make_piece(character)
+        result = piece_creator.create_piece(character)
         expect(result).to be_an(Array)
       end
 
       it 'returns a piece' do
-        result = piece_creator.make_piece(character)[0]
+        result = piece_creator.create_piece(character)[0]
         expect(result).to be_a(Piece)
       end
     end

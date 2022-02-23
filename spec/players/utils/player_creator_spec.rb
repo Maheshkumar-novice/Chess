@@ -63,6 +63,8 @@ describe PlayerCreator do
       player_creator.instance_variable_set(:@mode, 'b')
       players = player_creator.create_players_of_mode
       player_creator.instance_variable_set(:@players, players)
+      allow(player_creator).to receive(:print_player_data)
+      allow(player_creator).to receive(:print_bot_name)
     end
 
     it 'sends create_name message to the first player' do

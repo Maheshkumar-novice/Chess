@@ -51,10 +51,7 @@ class MoveClassifier
     @diagonal_moves.each_with_object([]) do |move, result|
       next result << move if board[move].color?(@enemy_color)
 
-      result << move if @special_moves.en_passant?(cell,
-                                                   move,
-                                                   board,
-                                                   meta_data)
+      result << move if @special_moves.en_passant?(cell, move, board, meta_data)
     end
   end
 end

@@ -19,8 +19,12 @@ module GameHelper
 
   private
 
+  def board
+    @board_operator.board
+  end
+
   def valid_source?
-    @board_operator.board[@source_choice].color?(@current_color)
+    board[@source_choice].color?(@current_color)
   end
 
   def create_moves_for_source
@@ -81,7 +85,7 @@ module GameHelper
   end
 
   def print_board
-    @printer.print_board(@board_operator.board, @source_choice, @moves[:empty], @moves[:captures])
+    @printer.print_board(board, @source_choice, @moves[:empty], @moves[:captures])
   end
 
   def print_check_status

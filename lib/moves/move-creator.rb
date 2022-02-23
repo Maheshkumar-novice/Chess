@@ -4,24 +4,24 @@
 # Creates possible moves from cell depending on the context
 class MoveCreator
   def horizontal_moves(cell, board)
-    all_moves(%i[row_right row_left], cell, board)
+    all_moves(rows, cell, board)
   end
 
   def vertical_moves(cell, board)
-    all_moves(%i[column_above column_below], cell, board)
+    all_moves(columns, cell, board)
   end
 
   def diagonal_moves(cell, board)
-    all_moves(%i[top_left_diagonal top_right_diagonal bottom_right_diagonal bottom_left_diagonal], cell, board)
+    all_moves(diagonals, cell, board)
   end
 
   def rook_moves(cell, board)
-    all_moves(%i[row_right row_left column_above column_below], cell, board)
+    all_moves(rows + columns, cell, board)
   end
 
   def knight_moves(cell, board)
     first_steps = %i[column_above row_right column_below row_left]
-    second_steps = %i[top_left_diagonal top_right_diagonal bottom_right_diagonal bottom_left_diagonal]
+    second_steps = diagonals
 
     first_steps.each_with_object([]) do |first_step, moves|
       current_cell = board[cell].send(first_step)
@@ -34,21 +34,15 @@ class MoveCreator
   end
 
   def bishop_moves(cell, board)
-    all_moves(%i[top_left_diagonal top_right_diagonal bottom_right_diagonal bottom_left_diagonal], cell, board)
+    all_moves(diagonals, cell, board)
   end
 
   def queen_moves(cell, board)
-    all_moves(
-      %i[top_left_diagonal top_right_diagonal bottom_right_diagonal bottom_left_diagonal row_left row_right column_above
-         column_below], cell, board
-    )
+    all_moves(rows + columns + diagonals, cell, board)
   end
 
   def king_moves(cell, board)
-    single_step_moves(
-      %i[row_right row_left column_above column_below top_left_diagonal top_right_diagonal bottom_right_diagonal
-         bottom_left_diagonal], cell, board
-    )
+    single_step_moves(rows + columns + diagonals, cell, board)
   end
 
   def pawn_moves(cell, color, board)
@@ -57,6 +51,18 @@ class MoveCreator
   end
 
   private
+
+  def rows
+    %i[row_right row_left]
+  end
+
+  def columns
+    %i[column_above column_below]
+  end
+
+  def diagonals
+    %i[top_left_diagonal top_right_diagonal bottom_right_diagonal bottom_left_diagonal]
+  end
 
   def white_pawn_moves(cell, board)
     moves = single_step_moves(%i[column_above top_left_diagonal top_right_diagonal], cell, board)

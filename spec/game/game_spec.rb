@@ -6,6 +6,7 @@ require_relative '../../lib/game/game'
 describe Game do
   subject(:game) { described_class.new(board_operator, players, current_color) }
   let(:board_operator) { double('BoardOperator') }
+  let(:promotion) { double('Promotion') }
   let(:players) { [current_player, other_player] }
   let(:current_player) { double('Player') }
   let(:other_player) { double('Player') }
@@ -245,6 +246,7 @@ describe Game do
 
   describe '#make_move' do
     before do
+      allow(game).to receive(:promotion)
       allow(game).to receive(:switch_current_color)
       allow(game).to receive(:switch_players)
       allow(game).to receive(:update_moves_for_post_move_print)
@@ -253,6 +255,31 @@ describe Game do
     it 'sends :make_move message to board_operator' do
       expect(board_operator).to receive(:make_move)
       game.make_move
+    end
+  end
+
+  describe '#promotion' do
+    before do
+      game.instance_variable_set(:@promotion, promotion)
+      allow(board_operator).to receive(:board)
+    end
+
+    context 'when promotion available' do
+      before { allow(game).to receive(:promotion?).and_return(true) }
+
+      it 'sends promote message to promotion' do
+        expect(promotion).to receive(:promote)
+        game.promotion
+      end
+    end
+
+    context 'when promotion not available' do
+      before { allow(game).to receive(:promotion?).and_return(false) }
+
+      it 'doesn\'t send promote message to promotion' do
+        expect(promotion).not_to receive(:promote)
+        game.promotion
+      end
     end
   end
 

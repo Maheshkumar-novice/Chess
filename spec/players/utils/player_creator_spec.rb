@@ -6,12 +6,6 @@ require_relative '../../../lib/players/utils/player-creator'
 describe PlayerCreator do
   subject(:player_creator) { described_class.new }
 
-  before do
-    allow(player_creator).to receive(:print_error)
-    allow(player_creator).to receive(:print_info)
-    allow(player_creator).to receive(:accent)
-  end
-
   describe '#create_players_of_mode' do
     context 'when the mode is a' do
       before do

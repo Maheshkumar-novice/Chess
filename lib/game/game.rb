@@ -5,6 +5,7 @@ require_relative './result'
 require_relative './command'
 require_relative './utils/game-helper'
 require_relative '../board/utils/board-printer'
+require_relative '../promotion/promotion'
 
 # Controls the game play
 class Game
@@ -19,6 +20,7 @@ class Game
     @result = Result.new
     @command = Command.new
     @printer = BoardPrinter.new
+    @promotion = Promotion.new
     @source_choice = nil
     @destination_choice = nil
     @moves = { empty: [], captures: [] }
@@ -103,9 +105,18 @@ class Game
 
   def make_move
     @board_operator.make_move(@source_choice, @destination_choice)
+    promotion
     switch_current_color
     switch_players
     update_moves_for_post_move_print
+  end
+
+  def promotion
+    @promotion.promote(@destination_choice, board, @current_color, @current_player) if promotion?
+  end
+
+  def promotion?
+    @promotion.promotion?(@destination_choice, board)
   end
 
   def switch_current_color

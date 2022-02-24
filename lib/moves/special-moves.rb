@@ -8,10 +8,11 @@ class SpecialMoves
   end
 
   def update_castling_rights(source, destination, castling_rights)
-    source_right = @castling_right_of_cells[source]
-    destination_right = @castling_right_of_cells[destination]
-    castling_rights.tr!(source_right, '') if source_right
-    castling_rights.tr!(destination_right, '') if destination_right
+    return castling_rights if castling_rights.empty?
+
+    [@castling_right_of_cells[source], @castling_right_of_cells[destination]].compact.each do |right|
+      castling_rights = castling_rights.tr(right, '')
+    end
     castling_rights
   end
 

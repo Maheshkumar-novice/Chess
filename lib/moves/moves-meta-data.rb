@@ -26,7 +26,12 @@ class MovesMetaData
   end
 
   def update(source, destination, board)
+    update_castling_rights(source, destination)
     update_en_passant(source, destination, board)
+  end
+
+  def update_castling_rights(source, destination)
+    @castling_rights = @special_moves.update_castling_rights(source, destination, @castling_rights)
   end
 
   def update_en_passant(source, destination, board)

@@ -3,6 +3,18 @@
 
 # Special Moves
 class SpecialMoves
+  def initialize
+    @castling_right_of_cells = { a1: 'Q', e1: 'KQ', h1: 'K', a8: 'q', e8: 'kq', h8: 'k' }
+  end
+
+  def update_castling_rights(source, destination, castling_rights)
+    source_right = @castling_right_of_cells[source]
+    destination_right = @castling_right_of_cells[destination]
+    castling_rights.tr!(source_right, '') if source_right
+    castling_rights.tr!(destination_right, '') if destination_right
+    castling_rights
+  end
+
   def en_passant?(source, destination, board, meta_data)
     board[source].pawn? && meta_data.en_passant_move == destination
   end

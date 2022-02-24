@@ -16,6 +16,76 @@ class SpecialMoves
     castling_rights
   end
 
+  def castling_move(moves, board, source, castling_rights, color)
+    return [] if castling_rights.empty?
+
+    available_castlings = castlings_of_color(color, castling_rights)
+    available_castlings.select! { |castling| castling_has_adjacent_move?(moves, adjacent_move(castling, board)) }
+    available_castlings.select! { |castling| cells_between_king_and_rook_empty?(source, castling, board, color) }
+    return [] if available_castlings.empty?
+
+    available_castlings
+  end
+
+  def cells_between_king_and_rook_empty?(source, castling_move, board, color)
+    direction = queen_side_castling?(castling_move) ? :row_left : :row_right
+    rook_cell = rook_cell(color, castling_move)
+    cell = board[board[source].send(direction)]
+    loop do
+      return false if cell.occupied?
+      return true if cell.send(direction) == rook_cell
+
+      cell = board[cell.send(direction)]
+    end
+  end
+
+  def rook_cell(color, castling_move)
+    return whtie_rook_cell(castling_move) if color == 'white'
+
+    black_rook_cell(castling_move)
+  end
+
+  def whtie_rook_cell(castling_move)
+    queen_side_castling?(castling_move) ? :a1 : :h1
+  end
+
+  def black_rook_cell(castling_move)
+    queen_side_castling?(castling_move) ? :a8 : :h8
+  end
+
+  def castling_has_adjacent_move?(moves, adjacent_move)
+    moves.include?(adjacent_move)
+  end
+
+  def adjacent_move(castling, board)
+    direction = queen_side_castling?(castling) ? :row_right : :row_left
+    board[castling].send(direction)
+  end
+
+  def queen_side_castling?(castling_move)
+    %i[c1 c8].any? { |move| move == castling_move }
+  end
+
+  def castlings_of_color(color, castling_rights)
+    return white_castlings(castling_rights) if color == 'white'
+
+    black_castlings(castling_rights)
+  end
+
+  def white_castlings(castling_rights)
+    rights = []
+    rights << :g1 if castling_rights.include?('K')
+    rights << :c1 if castling_rights.include?('Q')
+    rights
+  end
+
+  def black_castlings(castling_rights)
+    rights = []
+    rights << :g8 if castling_rights.include?('k')
+    rights << :c8 if castling_rights.include?('q')
+    rights
+  end
+
   def en_passant?(source, destination, board, meta_data)
     board[source].pawn? && meta_data.en_passant_move == destination
   end

@@ -50,6 +50,10 @@ class Cell
     piece_name&.downcase == 'p'
   end
 
+  def king?
+    piece_name&.downcase == 'k'
+  end
+
   def white_piece?
     piece_color == 'white'
   end

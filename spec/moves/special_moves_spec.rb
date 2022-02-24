@@ -9,7 +9,156 @@ describe SpecialMoves do
   subject(:special_moves) { described_class.new }
   let(:fen_processor) { FenProcessor.new }
   let(:board_creator) { BoardCreator.new }
+  let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
   before { fen_processor.process(fen) }
+
+  describe '#update_castling_rights' do
+    let(:castling_rights) { 'KQkq' }
+
+    context 'for white' do
+      context 'when queen side rook moves' do
+        it 'updates castling_rights correctly' do
+          source = :a1
+          destination = :a3
+          result = special_moves.update_castling_rights(source, destination, castling_rights)
+          expected_result = 'Kkq'
+          expect(result).to eq(expected_result)
+        end
+      end
+
+      context 'when king side rook moves' do
+        it 'updates castling_rights correctly' do
+          source = :h1
+          destination = :h6
+          result = special_moves.update_castling_rights(source, destination, castling_rights)
+          expected_result = 'Qkq'
+          expect(result).to eq(expected_result)
+        end
+      end
+
+      context 'when king moves' do
+        it 'updates castling_rights correctly' do
+          source = :e1
+          destination = :f2
+          result = special_moves.update_castling_rights(source, destination, castling_rights)
+          expected_result = 'kq'
+          expect(result).to eq(expected_result)
+        end
+      end
+    end
+
+    context 'for black' do
+      context 'when queen side rook moves' do
+        it 'updates castling_rights correctly' do
+          source = :a8
+          destination = :a6
+          result = special_moves.update_castling_rights(source, destination, castling_rights)
+          expected_result = 'KQk'
+          expect(result).to eq(expected_result)
+        end
+      end
+
+      context 'when king side rook moves' do
+        it 'updates castling_rights correctly' do
+          source = :h8
+          destination = :h6
+          result = special_moves.update_castling_rights(source, destination, castling_rights)
+          expected_result = 'KQq'
+          expect(result).to eq(expected_result)
+        end
+      end
+
+      context 'when king moves' do
+        it 'updates castling_rights correctly' do
+          source = :e8
+          destination = :f7
+          result = special_moves.update_castling_rights(source, destination, castling_rights)
+          expected_result = 'KQ'
+          expect(result).to eq(expected_result)
+        end
+      end
+    end
+
+    context 'when rook captures rook' do
+      context 'queen side' do
+        it 'updates castling_rights correctly' do
+          source = :a1
+          destination = :a8
+          result = special_moves.update_castling_rights(source, destination, castling_rights)
+          expected_result = 'Kk'
+          expect(result).to eq(expected_result)
+        end
+      end
+
+      context 'king side' do
+        it 'updates castling_rights correctly' do
+          source = :h8
+          destination = :h1
+          result = special_moves.update_castling_rights(source, destination, castling_rights)
+          expected_result = 'Qq'
+          expect(result).to eq(expected_result)
+        end
+      end
+    end
+
+    context 'when other piece captures rook' do
+      context 'for white' do
+        context 'for queen side rook' do
+          it 'updates castling_rights correctly' do
+            source = :c3
+            destination = :a1
+            result = special_moves.update_castling_rights(source, destination, castling_rights)
+            expected_result = 'Kkq'
+            expect(result).to eq(expected_result)
+          end
+        end
+
+        context 'for king side rook' do
+          it 'updates castling_rights correctly' do
+            source = :f3
+            destination = :h1
+            result = special_moves.update_castling_rights(source, destination, castling_rights)
+            expected_result = 'Qkq'
+            expect(result).to eq(expected_result)
+          end
+        end
+      end
+
+      context 'for black' do
+        context 'for queen side rook' do
+          it 'updates castling_rights correctly' do
+            source = :c6
+            destination = :a8
+            result = special_moves.update_castling_rights(source, destination, castling_rights)
+            expected_result = 'KQk'
+            expect(result).to eq(expected_result)
+          end
+        end
+
+        context 'for king side rook' do
+          it 'updates castling_rights correctly' do
+            source = :f6
+            destination = :h8
+            result = special_moves.update_castling_rights(source, destination, castling_rights)
+            expected_result = 'KQq'
+            expect(result).to eq(expected_result)
+          end
+        end
+      end
+    end
+
+    context 'when castling_rights empty' do
+      let(:castling_rights) { '' }
+
+      it 'returns empty castling_rights' do
+        source = :h8
+        destination = :h1
+        result = special_moves.update_castling_rights(source, destination, castling_rights)
+        expected_result = ''
+        expect(result).to eq(expected_result)
+      end
+    end
+  end
 
   describe '#en_passant?' do
     let(:board) { board_creator.create_board(fen_processor.pieces) }

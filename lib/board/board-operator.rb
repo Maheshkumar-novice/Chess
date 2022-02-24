@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require_relative '../moves/piece-mover'
+require_relative '../moves/special-moves'
 
 # Performs board operations
 class BoardOperator
@@ -12,6 +13,7 @@ class BoardOperator
     @meta_data = meta_data
     @moves = nil
     @piece_mover = piece_mover
+    @special_moves = SpecialMoves.new
   end
 
   def make_move(source, destination)
@@ -24,7 +26,15 @@ class BoardOperator
     @moves = @board[source].create_moves(@board)
     remove_allies(color)
     remove_moves_that_leads_to_check(source, color)
+    add_castling_move(source, color) if @board[source].king?
     @board[source].classify_moves(@moves, @board, @meta_data)
+  end
+
+  def add_castling_move(source, color)
+    return if king_in_check?(color)
+
+    @moves += @special_moves.castling_move(@moves, board, source, @meta_data.castling_rights, color)
+    remove_moves_that_leads_to_check(source, color)
   end
 
   def king_in_check?(color)

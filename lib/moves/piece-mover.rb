@@ -12,6 +12,7 @@ class PieceMover
 
   def move_piece(source, destination, board, meta_data, special_moves_state = {})
     return take_en_passant(source, destination, board, meta_data) if special_moves_state[:en_passant]
+    return castling(source, destination, board, meta_data) if special_moves_state[:castling]
 
     regular_move(source, destination, board, meta_data)
   end
@@ -35,5 +36,18 @@ class PieceMover
 
     @pieces_going_to_change[en_passant_capture_cell] = en_passant_capture_cell_piece
     meta_data.update_changed_pieces_state(@pieces_going_to_change)
+  end
+
+  def castling(source, destination, board, meta_data)
+    color = board[source].piece_color
+    rook_source = @special_moves.rook_cell(color, destination)
+    rook_destination = @special_moves.adjacent_move(destination, board)
+    pieces_going_to_change = { source => board[source].piece,
+                               destination => board[destination].piece,
+                               rook_source => board[rook_source].piece,
+                               rook_destination => board[rook_destination].piece }
+    regular_move(source, destination, board, meta_data)
+    regular_move(rook_source, rook_destination, board, meta_data)
+    meta_data.update_changed_pieces_state(pieces_going_to_change)
   end
 end

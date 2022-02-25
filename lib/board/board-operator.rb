@@ -17,7 +17,7 @@ class BoardOperator
   end
 
   def make_move(source, destination)
-    special_moves_state = @meta_data.special_moves_state(@board, source, destination)
+    special_moves_state = @meta_data.special_moves_state(@board, source, destination, @moves)
     @meta_data.update(source, destination, board)
     @piece_mover.move_piece(source, destination, @board, @meta_data, special_moves_state)
   end
@@ -72,7 +72,7 @@ class BoardOperator
   end
 
   def move_leads_to_check?(source, destination, color)
-    special_moves_state = @meta_data.special_moves_state(@board, source, destination)
+    special_moves_state = @meta_data.special_moves_state(@board, source, destination, @moves)
     @piece_mover.move_piece(source, destination, @board, @meta_data, special_moves_state)
     king_in_check = king_in_check?(color)
     revert_move

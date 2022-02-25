@@ -106,7 +106,3 @@
 #
 - [ ] Readme Creation
 - [ ] Feedback, Review and Reflections
-
-### To Learn
-  - Meta Programming
-  - Design Patterns

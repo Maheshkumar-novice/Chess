@@ -1091,6 +1091,7 @@ describe BoardOperator do
         source = :d2
         destination = :d1
         color = 'white'
+        board_operator.moves_from_source(source, color)
         result = board_operator.move_leads_to_check?(source, destination, color)
         expect(result).to eq(true)
       end
@@ -1103,6 +1104,7 @@ describe BoardOperator do
         source = :e8
         destination = :e7
         color = 'black'
+        board_operator.moves_from_source(source, color)
         result = board_operator.move_leads_to_check?(source, destination, color)
         expect(result).to eq(true)
       end
@@ -1115,6 +1117,7 @@ describe BoardOperator do
         source = :h4
         destination = :d8
         color = 'white'
+        board_operator.moves_from_source(source, color)
         result = board_operator.move_leads_to_check?(source, destination, color)
         expect(result).to eq(false)
       end
@@ -1127,6 +1130,7 @@ describe BoardOperator do
         source = :f8
         destination = :c5
         color = 'black'
+        board_operator.moves_from_source(source, color)
         result = board_operator.move_leads_to_check?(source, destination, color)
         expect(result).to eq(false)
       end

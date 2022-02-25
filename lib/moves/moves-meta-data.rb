@@ -22,8 +22,8 @@ class MovesMetaData
   def special_moves_state(board, source, destination, moves)
     {
       en_passant: (@en_passant_move != :- && board[source].pawn? && @en_passant_move == destination),
-      castling: board[source].king? && !@special_moves.castling_move(moves, board, source, @castling_rights,
-                                                                     board[source].piece_color).empty?
+      castling: board[source].king? && @special_moves.castling_move(moves, board, source, @castling_rights,
+                                                                    board[source].piece_color).include?(destination)
     }
   end
 

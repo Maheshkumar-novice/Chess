@@ -67,8 +67,8 @@
 - [x] Game play testing
 
 #
-- [ ] Castling
-- [ ] Tests
+- [x] Castling
+- [x] Tests
 - [ ] Refactoring
 - [ ] Game play testing
 

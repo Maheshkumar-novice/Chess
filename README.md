@@ -105,8 +105,6 @@
 
 #
 - [ ] Readme Creation
-
-#
 - [ ] Feedback, Review and Reflections
 
 ### To Learn

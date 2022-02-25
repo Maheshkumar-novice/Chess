@@ -107,15 +107,8 @@
 - [ ] Readme Creation
 
 #
-- [ ] To Do After:
-  - [ ] Learn about Include, Extend, Prepend, Require, Load, Require Relative
-  - [ ] Explore ruby 3, RDocs, Ruby Cheatsheet I starred
-  - [ ] Releases, Versions, Tags, Licenses
-  - [ ] Ruby Version File usage?
-  - [ ] Bundler, Gem, Gemfile, Gemfile.lock, Reek, Simplecov, Another codesmell gem that I starred
-  - [ ] Meta Programming
-  - [ ] Go-Su game lib, Dragon ruby
-  - [ ] Design Patterns
-
-#
 - [ ] Feedback, Review and Reflections
+
+### To Learn
+  - Meta Programming
+  - Design Patterns

@@ -124,6 +124,39 @@ describe BoardOperator do
           expect(result).to eq(:-)
         end
       end
+
+      context 'when tried to make a castling move' do
+        let(:fen) { 'r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1' }
+
+        before do
+          allow(meta_data).to receive(:special_moves_state).and_return({ castling: true })
+        end
+
+        it 'makes the move' do
+          source = :e1
+          destination = :c1
+          rook_source = :a1
+          rook_destination = :d1
+          previous_rook_source = board[rook_source].piece
+          previous_source_piece = board[source].piece
+          board_operator.make_move(source, destination)
+          current_source_piece = board[source].piece
+          current_destination_piece = board[destination].piece
+          current_rook_source = board[rook_source].piece
+          current_rook_destination = board[rook_destination].piece
+          expect(current_source_piece).to eq(nil)
+          expect(current_destination_piece).to eq(previous_source_piece)
+          expect(current_rook_source).to eq(nil)
+          expect(current_rook_destination).to eq(previous_rook_source)
+        end
+
+        it 'empties castling right of current color' do
+          source = :e1
+          destination = :c1
+          board_operator.make_move(source, destination)
+          expect(meta_data.castling_rights).to eq('kq')
+        end
+      end
     end
   end
 

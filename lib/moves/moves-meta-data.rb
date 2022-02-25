@@ -19,9 +19,11 @@ class MovesMetaData
     @pieces_changed = pieces_changed
   end
 
-  def special_moves_state(board, source, destination)
+  def special_moves_state(board, source, destination, moves)
     {
-      en_passant: (@en_passant_move != :- && board[source].pawn? && @en_passant_move == destination)
+      en_passant: (@en_passant_move != :- && board[source].pawn? && @en_passant_move == destination),
+      castling: board[source].king? && !@special_moves.castling_move(moves, board, source, @castling_rights,
+                                                                     board[source].piece_color).empty?
     }
   end
 

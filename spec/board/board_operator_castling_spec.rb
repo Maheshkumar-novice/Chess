@@ -16,7 +16,7 @@ describe BoardOperator do
     let(:board) { board_creator.create_board(fen_processor.pieces) }
     let(:meta_data) { fen_processor.meta_data }
     subject(:board_operator) { described_class.new(board, meta_data) }
-    
+
     context 'castling' do
       context 'for white' do
         context 'when queen side castling available' do
@@ -83,6 +83,20 @@ describe BoardOperator do
             color = 'white'
             result = board_operator.moves_from_source(cell, color)
             expected_result = { captures: [], empty: %i[d1 f1] }
+            result.each { |k, v| result[k] = v.sort }
+            expected_result.each { |k, v| expected_result[k] = v.sort }
+            expect(result).to eq(expected_result)
+          end
+        end
+
+        context 'when castling leads to check' do
+          let(:fen) { 'r1r1k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1' }
+
+          it 'returns all the valid moves' do
+            cell = :e1
+            color = 'white'
+            result = board_operator.moves_from_source(cell, color)
+            expected_result = { captures: [], empty: %i[d1 d2 e2 f1 f2 g1] }
             result.each { |k, v| result[k] = v.sort }
             expected_result.each { |k, v| expected_result[k] = v.sort }
             expect(result).to eq(expected_result)
@@ -225,6 +239,20 @@ describe BoardOperator do
             color = 'black'
             result = board_operator.moves_from_source(cell, color)
             expected_result = { captures: [], empty: %i[d8 f7 d7 f8] }
+            result.each { |k, v| result[k] = v.sort }
+            expected_result.each { |k, v| expected_result[k] = v.sort }
+            expect(result).to eq(expected_result)
+          end
+        end
+
+        context 'when castling leads to check' do
+          let(:fen) { 'r1r1k2r/8/8/8/8/8/8/R3K1QR w KQkq - 0 1' }
+
+          it 'returns all the valid moves' do
+            cell = :e8
+            color = 'black'
+            result = board_operator.moves_from_source(cell, color)
+            expected_result = { captures: [], empty: %i[d8 d7 e7 f8 f7] }
             result.each { |k, v| result[k] = v.sort }
             expected_result.each { |k, v| expected_result[k] = v.sort }
             expect(result).to eq(expected_result)

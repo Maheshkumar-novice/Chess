@@ -21,10 +21,18 @@ class MovesMetaData
 
   def special_moves_state(board, source, destination, moves)
     {
-      en_passant: (@en_passant_move != :- && board[source].pawn? && @en_passant_move == destination),
-      castling: board[source].king? && @special_moves.castling_move(moves, board, source, @castling_rights,
-                                                                    board[source].piece_color).include?(destination)
+      en_passant: en_passant?(board, source, destination),
+      castling: castling?(board, source, destination, moves)
     }
+  end
+
+  def en_passant?(board, source, destination)
+    (@en_passant_move != :- && board[source].pawn? && @en_passant_move == destination)
+  end
+
+  def castling?(board, source, destination, moves)
+    board[source].king? && @special_moves.castling_move(moves, board, source, @castling_rights,
+                                                        board[source].piece_color).include?(destination)
   end
 
   def update(source, destination, board)

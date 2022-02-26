@@ -8,11 +8,11 @@ require_relative '../moves/special-moves'
 class BoardOperator
   attr_reader :board
 
-  def initialize(board, meta_data, piece_mover: PieceMover.new)
+  def initialize(board, meta_data)
     @board = board
     @meta_data = meta_data
     @moves = nil
-    @piece_mover = piece_mover
+    @piece_mover = PieceMover.new
     @special_moves = SpecialMoves.new
   end
 

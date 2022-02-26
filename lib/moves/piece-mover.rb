@@ -5,8 +5,8 @@ require_relative './special-moves'
 
 # Piece moving operations
 class PieceMover
-  def initialize(special_moves = SpecialMoves.new)
-    @special_moves = special_moves
+  def initialize
+    @special_moves = SpecialMoves.new
     @pieces_going_to_change = {}
   end
 

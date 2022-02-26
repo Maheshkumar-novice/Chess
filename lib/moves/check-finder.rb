@@ -5,8 +5,8 @@ require_relative './move-creator'
 
 # Finds the check status of the cell
 class CheckFinder
-  def initialize(move_creator: MoveCreator.new)
-    @move_creator = move_creator
+  def initialize
+    @move_creator = MoveCreator.new
   end
 
   def cell_in_check?(king_position, board)

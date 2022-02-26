@@ -8,11 +8,11 @@ require_relative '../moves/moves-meta-data'
 class FenProcessor
   attr_reader :pieces, :current_color, :meta_data
 
-  def initialize(piece_creator: PieceCreator.new, meta_data: MovesMetaData.new)
+  def initialize
     @pieces = nil
     @current_color = nil
-    @piece_creator = piece_creator
-    @meta_data = meta_data
+    @piece_creator = PieceCreator.new
+    @meta_data = MovesMetaData.new
   end
 
   def process(fen)

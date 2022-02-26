@@ -5,8 +5,8 @@ require_relative '../../cell/utils/cell-creator'
 
 # Creates chess board from pieces
 class BoardCreator
-  def initialize(cell_creator: CellCreator.new)
-    @cell_creator = cell_creator
+  def initialize
+    @cell_creator = CellCreator.new
     @rows = (1..8).to_a.reverse
     @columns = ('a'..'h').to_a
   end

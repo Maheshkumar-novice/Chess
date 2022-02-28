@@ -91,14 +91,13 @@
 - [ ] Game play testing
 
 #
-- [ ] Improve Bot player
+- [ ] Fen Copy command
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Game play testing
 
 #
-- [ ] Help Command maybe?
-- [ ] Fen Copy command
+- [ ] Improve Bot player
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Game play testing

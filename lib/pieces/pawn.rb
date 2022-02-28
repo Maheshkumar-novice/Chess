@@ -5,10 +5,6 @@ require_relative './piece'
 
 # Represents chess piece Pawn
 class Pawn < Piece
-  def initialize(move_creator: MoveCreator.new, move_classifier: MoveClassifier.new)
-    super(move_creator, move_classifier)
-  end
-
   def create_moves(board)
     @move_creator.pawn_moves(@current_cell, color, board)
   end

@@ -30,15 +30,35 @@ class BoardOperator
     @board[source].classify_moves(@moves, @board, @meta_data)
   end
 
-  def add_castling_move(source, color)
-    return if king_in_check?(color)
+  def remove_allies(color)
+    @moves.reject! { |move| @board[move].color?(color) }
+  end
 
-    @moves += @special_moves.castling_move(@moves, board, source, @meta_data.castling_rights, color)
-    remove_moves_that_leads_to_check(source, color)
+  def remove_moves_that_leads_to_check(source, color)
+    @moves.reject! { |move| move_leads_to_check?(source, move, color) }
+  end
+
+  def move_leads_to_check?(source, destination, color)
+    special_moves_state = @meta_data.special_moves_state(@board, source, destination, @moves)
+    @piece_mover.move_piece(source, destination, @board, @meta_data, special_moves_state)
+    king_in_check = king_in_check?(color)
+    revert_move
+    king_in_check
   end
 
   def king_in_check?(color)
     @board[find_king_position(color)].in_check?(@board)
+  end
+
+  def find_king_position(king_color)
+    @board.find { |_, cell| cell.piece_color == king_color && cell.piece_name.match?(/k/i) }.first
+  end
+
+  def revert_move
+    @meta_data.pieces_changed.each do |cell_marker, piece|
+      @board[cell_marker].update_piece_to(piece)
+      @board[cell_marker].update_current_cell_of_piece(cell_marker) if piece
+    end
   end
 
   def checkmate?(color)
@@ -59,30 +79,10 @@ class BoardOperator
     true
   end
 
-  def remove_allies(color)
-    @moves.reject! { |move| @board[move].color?(color) }
-  end
+  def add_castling_move(source, color)
+    return if king_in_check?(color)
 
-  def remove_moves_that_leads_to_check(source, color)
-    @moves.reject! { |move| move_leads_to_check?(source, move, color) }
-  end
-
-  def find_king_position(king_color)
-    @board.find { |_, cell| cell.piece_color == king_color && cell.piece_name.match?(/k/i) }.first
-  end
-
-  def move_leads_to_check?(source, destination, color)
-    special_moves_state = @meta_data.special_moves_state(@board, source, destination, @moves)
-    @piece_mover.move_piece(source, destination, @board, @meta_data, special_moves_state)
-    king_in_check = king_in_check?(color)
-    revert_move
-    king_in_check
-  end
-
-  def revert_move
-    @meta_data.pieces_changed.each do |cell_marker, piece|
-      @board[cell_marker].update_piece_to(piece)
-      @board[cell_marker].update_current_cell_of_piece(cell_marker) if piece
-    end
+    @moves += @special_moves.castling_move(@moves, board, source, @meta_data.castling_rights, color)
+    remove_moves_that_leads_to_check(source, color)
   end
 end

@@ -9,8 +9,8 @@ require_relative '../human'
 class PlayerCreator
   include StringColorFormatter
 
-  def initialize(mode_creator: ModeCreator.new)
-    @mode_creator = mode_creator
+  def initialize
+    @mode_creator = ModeCreator.new
     @mode = nil
     @players = []
   end

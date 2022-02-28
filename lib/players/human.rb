@@ -10,13 +10,10 @@ require_relative '../display/string-color-formatter'
 class Human < Player
   include StringColorFormatter
 
-  def initialize(name_creator: NameCreator.new,
-                 cell_choice_creator: CellChoiceCreator.new,
-                 name_validator: NameValidator.new,
-                 cell_choice_validator: CellChoiceValidator.new)
-    super(name_creator, cell_choice_creator)
-    @name_validator = name_validator
-    @cell_choice_validator = cell_choice_validator
+  def initialize
+    super
+    @name_validator = NameValidator.new
+    @cell_choice_validator = CellChoiceValidator.new
   end
 
   def make_choice

@@ -6,9 +6,9 @@ require_relative '../moves/check-finder'
 
 # Represents chess piece King
 class King < Piece
-  def initialize(move_creator: MoveCreator.new, move_classifier: MoveClassifier.new, check_finder: CheckFinder.new)
-    super(move_creator, move_classifier)
-    @check_finder = check_finder
+  def initialize
+    super
+    @check_finder = CheckFinder.new
   end
 
   def create_moves(board)

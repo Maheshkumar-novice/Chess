@@ -32,7 +32,7 @@ class PieceMover
                                en_passant_capture_cell => board[en_passant_capture_cell].piece }
 
     regular_move(source, destination, board, meta_data)
-    board[en_passant_capture_cell].piece = nil
+    board[en_passant_capture_cell].update_piece_to(nil)
     meta_data.update_changed_pieces_state(pieces_going_to_change)
   end
 

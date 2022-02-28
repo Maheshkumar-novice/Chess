@@ -8,12 +8,12 @@ require_relative '../moves/move-classifier'
 class Piece
   attr_accessor :name, :color, :current_cell
 
-  def initialize(move_creator, move_classifier)
+  def initialize
     @name = nil
     @color = nil
     @current_cell = nil
-    @move_creator = move_creator
-    @move_classifier = move_classifier
+    @move_creator = MoveCreator.new
+    @move_classifier = MoveClassifier.new
   end
 
   def classify_moves(moves, board, _meta_data = nil)

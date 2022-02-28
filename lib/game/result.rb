@@ -35,10 +35,10 @@ class Result
   end
 
   def announce(game)
-    announce_draw if @draw
-    announce_checkmate(game) if @checkmate
-    announce_stalemate if @stalemate
-    announce_player_resignation(game) if @resign
+    return announce_draw if @draw
+    return announce_checkmate(game) if @checkmate
+    return announce_stalemate if @stalemate
+    return announce_player_resignation(game) if @resign
   end
 
   private
@@ -48,9 +48,7 @@ class Result
   end
 
   def announce_checkmate(game)
-    current_player_name = game.current_player_name
-    other_player_name = game.other_player_name
-    text = "#{accent(current_player_name)} Checkmated by #{accent(other_player_name)} :P"
+    text = "#{accent(game.current_player_name)} Checkmated by #{accent(game.other_player_name)} :P"
     print_info(text, ending: "\n", starting: "\n")
   end
 
@@ -59,9 +57,7 @@ class Result
   end
 
   def announce_player_resignation(game)
-    current_player_name = game.current_player_name
-    other_player_name = game.other_player_name
-    text = "#{accent(current_player_name)} Resigned. #{accent(other_player_name)} Won!"
+    text = "#{accent(game.current_player_name)} Resigned. #{accent(game.other_player_name)} Won!"
     print_info(text, ending: "\n", starting: "\n")
   end
 end

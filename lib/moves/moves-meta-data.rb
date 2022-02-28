@@ -5,14 +5,21 @@ require_relative './special-moves'
 
 # Meta Data about Moves
 class MovesMetaData
-  attr_accessor :en_passant_move, :castling_rights
-  attr_reader :pieces_changed
+  attr_reader :pieces_changed, :en_passant_move, :castling_rights
 
   def initialize
     @pieces_changed = {}
     @castling_rights = '-'
     @en_passant_move = :-
     @special_moves = SpecialMoves.new
+  end
+
+  def update_en_passant_move_to(value)
+    @en_passant = value.to_sym
+  end
+
+  def update_castling_rights_to(value)
+    @castling_rights = value
   end
 
   def update_changed_pieces_state(pieces_changed)

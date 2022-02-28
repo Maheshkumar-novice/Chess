@@ -16,30 +16,24 @@ class FenProcessor
   end
 
   def process(fen)
-    rows = split(fen)
-    meta_data_row = rows[-1].split[1..]
-    @pieces = to_pieces(rows)
+    rows = fen.split('/')
+    rows[-1], meta_data_row = parse_last_row(rows[-1])
+    @pieces = @piece_creator.create_pieces(rows)
     @current_color = parse_color(meta_data_row[0])
     parse_remaining_meta_data(meta_data_row[1..])
   end
 
-  def split(fen)
-    fen.split('/')
-  end
-
-  def to_pieces(rows)
-    rows[-1] = rows[-1].split[0]
-    @piece_creator.create_pieces(rows)
+  def parse_last_row(row)
+    split = row.split
+    [split[0], split[1..]]
   end
 
   def parse_color(value)
-    return 'white' if value == 'w'
-
-    'black'
+    value == 'w' ? 'white' : 'black'
   end
 
   def parse_remaining_meta_data(meta_data)
-    @meta_data.castling_rights = meta_data[0]
-    @meta_data.en_passant_move = meta_data[1].to_sym
+    @meta_data.update_castling_rights_to(meta_data[0])
+    @meta_data.update_en_passant_move_to(meta_data[1])
   end
 end

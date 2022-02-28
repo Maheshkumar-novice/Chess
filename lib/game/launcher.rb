@@ -32,10 +32,8 @@ class Launcher
   end
 
   def user_wants_to_load?
-    print_prompt('Do you want to load a saved game (y/n)?', ending: ' ')
-    return true if $stdin.gets.chomp.downcase == 'y'
-
-    false
+    saved_game_input_prompt
+    $stdin.gets.chomp.downcase == 'y'
   end
 
   def play_saved_game
@@ -54,12 +52,12 @@ class Launcher
   end
 
   def play_default_game
-    print_info('No saved games found! Loading default game.', ending: "\n\n")
+    print_no_saved_games_found
     play_fen_game
   end
 
   def play_fen_game
-    print_info('Loading FEN game....', starting: "\n", ending: "\n")
+    print_loading_fen
     load_fen
     print_fen
     create_data_from_fen
@@ -75,7 +73,7 @@ class Launcher
 
   def cli_fen
     cli_arg = ARGV[0]
-    print_info('Cli FEN found!', starting: "\n", ending: "\n") if cli_arg
+    print_cli_fen_status(cli_arg)
     cli_arg
   end
 
@@ -114,7 +112,25 @@ class Launcher
     'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
   end
 
+  def saved_game_input_prompt
+    print_prompt('Do you want to load a saved game (y/n)?', ending: ' ')
+  end
+
   def print_fen
     print_info("Loaded FEN: #{accent(@fen)}", ending: "\n\n")
+  end
+
+  def print_no_saved_games_found
+    print_info('No saved games found! Loading default game.', ending: "\n\n")
+  end
+
+  def print_loading_fen
+    print_info('Loading FEN game....', starting: "\n", ending: "\n")
+  end
+
+  def print_cli_fen_status(cli_arg)
+    return print_info('Cli FEN found!', starting: "\n", ending: "\n") if cli_arg
+
+    print_info('No Cli FEN found!', starting: "\n", ending: "\n")
   end
 end

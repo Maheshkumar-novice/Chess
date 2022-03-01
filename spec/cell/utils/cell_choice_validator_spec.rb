@@ -30,5 +30,13 @@ describe CellChoiceValidator do
         expect(result).to eq true
       end
     end
+
+    context 'when the given choice is valid and the choice is cmd' do
+      it 'returns true' do
+        choice = 'cmd'
+        result = cell_choice_validator.valid?(choice)
+        expect(result).to eq true
+      end
+    end
   end
 end

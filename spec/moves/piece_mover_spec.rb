@@ -7,14 +7,14 @@ require_relative '../../lib/board/utils/board-creator'
 
 describe PieceMover do
   subject(:piece_mover) { described_class.new }
+  let(:board) { board_creator.create_board(fen_processor.pieces) }
+  let(:meta_data) { fen_processor.meta_data }
   let(:fen_processor) { FenProcessor.new }
   let(:board_creator) { BoardCreator.new }
   before { fen_processor.process(fen) }
 
   describe '#regular_move' do
     let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
-    let(:board) { board_creator.create_board(fen_processor.pieces) }
-    let(:meta_data) { fen_processor.meta_data }
 
     it 'moves the piece from a2 to a4' do
       source = :a2
@@ -51,21 +51,10 @@ describe PieceMover do
       expect(board[source].piece).to be_nil
       expect(board[destination].piece).to eq(previous_source_piece)
     end
-
-    it 'updates pieces going to change' do
-      source = :e7
-      destination = :e6
-      expected_result = { e7: board[source].piece, e6: board[destination].piece }
-      piece_mover.regular_move(source, destination, board, meta_data)
-      result = piece_mover.instance_variable_get(:@pieces_going_to_change)
-      expect(result).to eq(expected_result)
-    end
   end
 
   describe '#take_en_passant' do
     let(:fen) { 'rnbqkbnr/p2p3p/8/2pPPp2/Pp4pP/8/1PP2PP1/RNBQKBNR w KQkq b4 0 1' }
-    let(:board) { board_creator.create_board(fen_processor.pieces) }
-    let(:meta_data) { fen_processor.meta_data }
 
     it 'takes passant from a4' do
       source = :b4
@@ -110,22 +99,10 @@ describe PieceMover do
       expect(board[destination].piece).to eq(previous_source_piece)
       expect(board[en_passant_capture_cell].piece).to be_nil
     end
-
-    it 'updates pieces going to change' do
-      source = :g4
-      destination = :h3
-      en_passant_capture_cell = :h4
-      expected_result = { g4: board[source].piece, h3: board[destination].piece, h4: board[en_passant_capture_cell].piece }
-      piece_mover.take_en_passant(source, destination, board, meta_data)
-      result = piece_mover.instance_variable_get(:@pieces_going_to_change)
-      expect(result).to eq(expected_result)
-    end
   end
 
   describe '#castling' do
     let(:fen) { 'r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1' }
-    let(:board) { board_creator.create_board(fen_processor.pieces) }
-    let(:meta_data) { fen_processor.meta_data }
 
     context 'for white' do
       context 'for queen side castling' do

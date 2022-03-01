@@ -10,7 +10,7 @@ class Promotion
   end
 
   def promotion?(destination, board)
-    board[destination].pawn? && destination.to_s.match?(/^[a-h]8$|^[a-h]1$/)
+    board[destination].pawn? && destination.match?(/^[a-h]8$|^[a-h]1$/)
   end
 
   def promote(destination, board, current_color, current_player)

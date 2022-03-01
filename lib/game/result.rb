@@ -8,14 +8,19 @@ class Result
   include StringColorFormatter
 
   def initialize
-    @draw = false
+    @manual_draw = false
+    @fifty_move_rule_draw = false
     @checkmate = false
     @stalemate = false
     @resign = false
   end
 
-  def update_draw(value)
-    @draw = value
+  def update_manual_draw(value)
+    @manual_draw = value
+  end
+
+  def update_fifty_move_rule_draw(value)
+    @fifty_move_rule_draw = value
   end
 
   def update_checkmate(value)
@@ -31,11 +36,12 @@ class Result
   end
 
   def any?
-    [@draw, @checkmate, @stalemate, @resign].any?
+    [@manual_draw, @fifty_move_rule_draw, @checkmate, @stalemate, @resign].any?
   end
 
   def announce(game)
-    return announce_draw if @draw
+    return announce_draw if @manual_draw
+    return announce_fifty_move_rule_draw if @fifty_move_rule_draw
     return announce_checkmate(game) if @checkmate
     return announce_stalemate if @stalemate
     return announce_player_resignation(game) if @resign
@@ -45,6 +51,10 @@ class Result
 
   def announce_draw
     print_info("It's a Draw! :(", ending: "\n", starting: "\n")
+  end
+
+  def announce_fifty_move_rule_draw
+    print_info("It's a Draw by 50 move rule! :(", ending: "\n", starting: "\n")
   end
 
   def announce_checkmate(game)

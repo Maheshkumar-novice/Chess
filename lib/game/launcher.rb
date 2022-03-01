@@ -82,6 +82,7 @@ class Launcher
     @pieces = @fen_processor.pieces
     @current_color = @fen_processor.current_color
     @meta_data = @fen_processor.meta_data
+    @counters = @fen_processor.counters
   end
 
   def create_board
@@ -102,7 +103,7 @@ class Launcher
   end
 
   def launch_game
-    @game = Game.new(@board_operator, @players, @current_color)
+    @game = Game.new(@board_operator, @players, @current_color, @counters)
     @game.play
   end
 

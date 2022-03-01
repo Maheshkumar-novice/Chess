@@ -20,6 +20,52 @@ class Cell
     create_diagonal_connections(row, column)
   end
 
+  def diagonals
+    [@top_left_diagonal, @top_right_diagonal, @bottom_right_diagonal, @bottom_left_diagonal]
+  end
+
+  def update_piece_to(piece)
+    @piece = piece
+  end
+
+  def piece_name
+    @piece&.name
+  end
+
+  def piece_color
+    @piece&.color
+  end
+
+  def piece_color?(color)
+    @piece&.color?(color)
+  end
+
+  def pawn?
+    piece_name&.downcase == 'p'
+  end
+
+  def king?
+    piece_name&.downcase == 'k'
+  end
+
+  def white_piece?
+    piece_color == 'white'
+  end
+
+  def empty?
+    @piece.nil?
+  end
+
+  def occupied?
+    !empty?
+  end
+
+  def to_s
+    @piece&.unicode
+  end
+
+  private
+
   def create_row_connections(row, column)
     @row_right = create_row_right_connection(row, column)
     @row_left = create_row_left_connection(row, column)
@@ -83,49 +129,5 @@ class Cell
     return if row == 1 || column == 'a'
 
     ((column.ord - 1).chr + (row - 1).to_s).to_sym
-  end
-
-  def diagonals
-    [@top_left_diagonal, @top_right_diagonal, @bottom_right_diagonal, @bottom_left_diagonal]
-  end
-
-  def update_piece_to(piece)
-    @piece = piece
-  end
-
-  def piece_name
-    @piece&.name
-  end
-
-  def piece_color
-    @piece&.color
-  end
-
-  def piece_color?(color)
-    @piece&.color?(color)
-  end
-
-  def pawn?
-    piece_name&.downcase == 'p'
-  end
-
-  def king?
-    piece_name&.downcase == 'k'
-  end
-
-  def white_piece?
-    piece_color == 'white'
-  end
-
-  def empty?
-    @piece.nil?
-  end
-
-  def occupied?
-    !empty?
-  end
-
-  def to_s
-    @piece&.unicode
   end
 end

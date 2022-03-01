@@ -73,8 +73,8 @@
 - [x] Game play testing
 
 #
-- [ ] 50 move rule
-- [ ] Tests
+- [x] 50 move rule
+- [x] Tests
 - [ ] Refactoring
 - [ ] Game play testing
 

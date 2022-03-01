@@ -33,9 +33,7 @@ class PromotionPieceCreator
   end
 
   def player_piece_choice(current_player)
-    return %w[q r b n].sample if current_player.is_a?(Bot)
-
-    human_player_choice
+    current_player.is_a?(Bot) ? %w[q r b n].sample : human_player_choice
   end
 
   def human_player_choice

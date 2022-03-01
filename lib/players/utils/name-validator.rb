@@ -10,6 +10,6 @@ class NameValidator
   end
 
   def valid?(name)
-    name.match?(/^[\w+\s]{1,#{@max_name_length}}$/)
+    name.match?(/^\w+{1,#{@max_name_length}}$/)
   end
 end

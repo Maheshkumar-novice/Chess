@@ -19,6 +19,10 @@ module GameHelper
 
   private
 
+  def create_moves_for_source
+    @board_operator.moves_from_source(@source_choice, @current_color)
+  end
+
   def board
     @board_operator.board
   end
@@ -27,24 +31,24 @@ module GameHelper
     board[@source_choice].color?(@current_color)
   end
 
-  def create_moves_for_source
-    @board_operator.moves_from_source(@source_choice, @current_color)
+  def valid_destination?
+    @moves.values.flatten.include?(@destination_choice)
   end
 
   def moves_empty?
     @moves.values.all?(&:empty?)
   end
 
-  def valid_destination?
-    @moves.values.flatten.include?(@destination_choice)
+  def sleep_if_bot
+    sleep(1) unless human?
+  end
+
+  def human?
+    @current_player.is_a?(Human)
   end
 
   def update_moves_for_post_move_print
     @moves = { empty: [@destination_choice], captures: [] }
-  end
-
-  def sleep_if_bot
-    sleep(1) unless human?
   end
 
   def print_data(additional_info: '')
@@ -55,10 +59,6 @@ module GameHelper
     print_check_status
     print_draw_proposal_status
     print_info(additional_info, ending: '')
-  end
-
-  def human?
-    @current_player.is_a?(Human)
   end
 
   def pre_source_input_print

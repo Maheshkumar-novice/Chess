@@ -40,10 +40,9 @@ class CheckFinder
   end
 
   def pawn_check?
-    moves = black_pawn_moves if king_cell.piece_color == 'white'
-    moves = white_pawn_moves if king_cell.piece_color == 'black'
+    return any_move_leads_to_check?(%w[p P], black_pawn_moves) if king_cell.piece_color?('white')
 
-    any_move_leads_to_check?(%w[p P], moves)
+    any_move_leads_to_check?(%w[p P], white_pawn_moves)
   end
 
   private
@@ -69,7 +68,11 @@ class CheckFinder
   end
 
   def enemy?(move)
-    king_cell.piece_color != @board[move].piece_color
+    !ally?(move)
+  end
+
+  def ally?(move)
+    king_cell.piece_color?(@board[move].piece_color)
   end
 
   def piece_in_move_can_check?(pieces_can_check, move)

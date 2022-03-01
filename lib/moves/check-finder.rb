@@ -9,7 +9,7 @@ class CheckFinder
     @move_creator = MoveCreator.new
   end
 
-  def cell_in_check?(king_position, board)
+  def king_in_check?(king_position, board)
     @king_position = king_position
     @board = board
     check_possibilities.any? { |check_possibility| send(check_possibility) }

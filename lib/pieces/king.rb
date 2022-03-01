@@ -16,7 +16,7 @@ class King < Piece
   end
 
   def in_check?(board)
-    @check_finder.cell_in_check?(@current_cell, board)
+    @check_finder.king_in_check?(@current_cell, board)
   end
 
   def unicode

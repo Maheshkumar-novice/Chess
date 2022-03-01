@@ -3,16 +3,18 @@
 
 require_relative '../pieces/utils/piece-creator'
 require_relative '../moves/moves-meta-data'
+require_relative '../counters/counters'
 
 # Operates on FEN code
 class FenProcessor
-  attr_reader :pieces, :current_color, :meta_data
+  attr_reader :pieces, :current_color, :meta_data, :counters
 
   def initialize
     @pieces = nil
     @current_color = nil
     @piece_creator = PieceCreator.new
     @meta_data = MovesMetaData.new
+    @counters = Counters.new
   end
 
   def process(fen)
@@ -26,6 +28,8 @@ class FenProcessor
   def parse_remaining_meta_data(meta_data)
     @meta_data.update_castling_rights_to(meta_data[0])
     @meta_data.update_en_passant_move_to(meta_data[1])
+    @counters.update_half_move_clock(meta_data[2])
+    @counters.update_full_move_number(meta_data[3])
   end
 
   private

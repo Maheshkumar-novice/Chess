@@ -14,6 +14,13 @@ describe CellCreator do
       cell = cell_creator.create_cell(row, column, piece)
       expect(cell).to be_a(Cell)
     end
+
+    it 'returns a cell object with the given piece assigned' do
+      row = 3
+      column = 'a'
+      cell_piece = cell_creator.create_cell(row, column, piece).piece
+      expect(cell_piece).to eq(piece)
+    end
   end
 
   describe '#cell_marker' do

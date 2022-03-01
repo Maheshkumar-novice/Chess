@@ -69,8 +69,8 @@
 #
 - [x] Castling
 - [x] Tests
-- [ ] Refactoring
-- [ ] Game play testing
+- [x] Refactoring
+- [x] Game play testing
 
 ##
 - [ ] 3/5 fold repetition

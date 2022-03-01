@@ -43,8 +43,6 @@ class PieceCreator
   end
 
   def piece_color(value)
-    return 'white' if value.match?(/^[[:upper:]]{1}$/)
-
-    'black'
+    value.match?(/^[[:upper:]]{1}$/) ? 'white' : 'black'
   end
 end

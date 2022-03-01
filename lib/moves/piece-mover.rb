@@ -1,12 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './special-moves'
+require_relative '../special-moves/castling/castling'
+require_relative '../special-moves/en-passant/en-passant'
 
 # Piece moving operations
 class PieceMover
   def initialize
-    @special_moves = SpecialMoves.new
+    @castling = Castling.new
+    @en_passant = EnPassant.new
   end
 
   def move_piece(source, destination, board, meta_data, special_moves_state = {})
@@ -27,7 +29,7 @@ class PieceMover
   end
 
   def take_en_passant(source, destination, board, meta_data)
-    en_passant_capture_cell = @special_moves.en_passant_capture_cell(board[source].piece_color, destination, board)
+    en_passant_capture_cell = @en_passant.en_passant_capture_cell(board[source].piece_color, destination, board)
     pieces_going_to_change = { source => board[source].piece, destination => board[destination].piece,
                                en_passant_capture_cell => board[en_passant_capture_cell].piece }
 
@@ -38,8 +40,8 @@ class PieceMover
   end
 
   def castling(source, destination, board, meta_data)
-    rook_source = @special_moves.rook_cell(board[source].piece_color, destination)
-    rook_destination = @special_moves.adjacent_move(destination, board)
+    rook_source = @castling.rook_cell(board[source].piece_color, destination)
+    rook_destination = @castling.adjacent_move(destination, board)
     pieces_going_to_change = { source => board[source].piece,
                                destination => board[destination].piece,
                                rook_source => board[rook_source].piece,

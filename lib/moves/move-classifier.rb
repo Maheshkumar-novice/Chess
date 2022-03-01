@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative './special-moves'
+require_relative '../special-moves/en-passant/en-passant'
 
 # Classifies the given moves as empty & captures
 class MoveClassifier
@@ -9,7 +9,7 @@ class MoveClassifier
     @enemy_color = nil
     @diagonal_moves = nil
     @moves_without_diagonal_moves = nil
-    @special_moves = SpecialMoves.new
+    @en_passant = EnPassant.new
   end
 
   def classify_moves(color, moves, board)
@@ -51,7 +51,7 @@ class MoveClassifier
     @diagonal_moves.each_with_object([]) do |move, result|
       next result << move if board[move].piece_color?(@enemy_color)
 
-      result << move if @special_moves.en_passant?(cell, move, board, meta_data)
+      result << move if @en_passant.en_passant?(cell, move, board, meta_data)
     end
   end
 end

@@ -5,7 +5,7 @@ require_relative './result'
 require_relative './command'
 require_relative './utils/game-helper'
 require_relative '../board/utils/board-printer'
-require_relative '../promotion/promotion'
+require_relative '../special-moves/promotion/promotion'
 
 # Controls the game play
 class Game

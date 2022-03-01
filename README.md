@@ -72,12 +72,6 @@
 - [x] Refactoring
 - [x] Game play testing
 
-##
-- [ ] 3/5 fold repetition
-- [ ] Tests
-- [ ] Refactoring
-- [ ] Game play testing
-
 #
 - [ ] 50 move rule
 - [ ] Tests

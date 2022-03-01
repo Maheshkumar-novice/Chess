@@ -114,6 +114,7 @@ describe Launcher do
       allow(fen_processor).to receive(:pieces)
       allow(fen_processor).to receive(:current_color)
       allow(fen_processor).to receive(:meta_data)
+      allow(fen_processor).to receive(:counters)
       launcher.instance_variable_set(:@fen_processor, fen_processor)
     end
 

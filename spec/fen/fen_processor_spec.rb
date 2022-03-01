@@ -27,7 +27,7 @@ describe FenProcessor do
   end
 
   describe '#parse_remaining_meta_data' do
-    let(:meta_data) { %w[a b] }
+    let(:meta_data) { %w[a b c d] }
 
     it 'sends :update_castling_rights_to message to meta_data' do
       meta_data_obj = fen_processor.instance_variable_get(:@meta_data)
@@ -38,6 +38,18 @@ describe FenProcessor do
     it 'sends :update_en_passant_move_to message to meta_data' do
       meta_data_obj = fen_processor.instance_variable_get(:@meta_data)
       expect(meta_data_obj).to receive(:update_en_passant_move_to).with(meta_data[1])
+      fen_processor.parse_remaining_meta_data(meta_data)
+    end
+
+    it 'sends :update_half_move_clock message to counters' do
+      counters_obj = fen_processor.instance_variable_get(:@counters)
+      expect(counters_obj).to receive(:update_half_move_clock).with(meta_data[2])
+      fen_processor.parse_remaining_meta_data(meta_data)
+    end
+
+    it 'sends :update_full_move_number message to counters' do
+      counters_obj = fen_processor.instance_variable_get(:@counters)
+      expect(counters_obj).to receive(:update_full_move_number).with(meta_data[3])
       fen_processor.parse_remaining_meta_data(meta_data)
     end
   end

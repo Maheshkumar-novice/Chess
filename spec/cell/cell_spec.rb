@@ -148,12 +148,7 @@ describe Cell do
         cell.piece = piece
       end
 
-      it 'sends :name message to piece' do
-        expect(piece).to receive(:name)
-        cell.piece_name
-      end
-
-      it 'returns the return value of the message' do
+      it 'returns rick' do
         name = cell.piece_name
         expect(name).to eq('rick')
       end
@@ -174,12 +169,7 @@ describe Cell do
         cell.piece = piece
       end
 
-      it 'sends :color message to piece' do
-        expect(piece).to receive(:color)
-        cell.piece_color
-      end
-
-      it 'returns the return value of the message' do
+      it 'returns white' do
         color = cell.piece_color
         expect(color).to eq('white')
       end
@@ -193,27 +183,22 @@ describe Cell do
     end
   end
 
-  describe '#color?' do
+  describe '#piece_color?' do
     context 'when piece is set' do
       before do
         allow(piece).to receive(:color?).with('white').and_return(true)
         cell.piece = piece
       end
 
-      it 'sends :color? message to piece' do
-        expect(piece).to receive(:color?).with('white')
-        cell.color?('white')
-      end
-
-      it 'returns the return value of the message' do
-        result = cell.color?('white')
+      it 'returns true' do
+        result = cell.piece_color?('white')
         expect(result).to eq(true)
       end
     end
 
     context 'when piece is not set' do
       it 'returns nil' do
-        result = cell.color?('white')
+        result = cell.piece_color?('white')
         expect(result).to be_nil
       end
     end
@@ -247,6 +232,39 @@ describe Cell do
     context 'when piece is not set' do
       it 'returns false' do
         result = cell.pawn?
+        expect(result).to eq(false)
+      end
+    end
+  end
+
+  describe '#king?' do
+    context 'when piece is king' do
+      before do
+        allow(piece).to receive(:name).and_return('k')
+        cell.piece = piece
+      end
+
+      it 'returns true' do
+        result = cell.king?
+        expect(result).to eq(true)
+      end
+    end
+
+    context 'when piece is not a king' do
+      before do
+        allow(piece).to receive(:name).and_return('p')
+        cell.piece = piece
+      end
+
+      it 'returns false' do
+        result = cell.king?
+        expect(result).to eq(false)
+      end
+    end
+
+    context 'when piece is not set' do
+      it 'returns false' do
+        result = cell.king?
         expect(result).to eq(false)
       end
     end
@@ -332,12 +350,7 @@ describe Cell do
         cell.piece = piece
       end
 
-      it 'sends :unicode message to piece' do
-        expect(piece).to receive(:unicode)
-        cell.to_s
-      end
-
-      it 'returns the return value of the message' do
+      it 'returns unicode' do
         result = cell.to_s
         expect(result).to eq('unicode')
       end

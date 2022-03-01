@@ -4,9 +4,10 @@
 require_relative '../../lib/game/game'
 
 describe Game do
-  subject(:game) { described_class.new(board_operator, players, current_color) }
+  subject(:game) { described_class.new(board_operator, players, current_color, counters) }
   let(:board_operator) { double('BoardOperator') }
   let(:promotion) { double('Promotion') }
+  let(:counters) { double('Counters') }
   let(:players) { [current_player, other_player] }
   let(:current_player) { double('Player') }
   let(:other_player) { double('Player') }
@@ -18,6 +19,7 @@ describe Game do
       allow(game).to receive(:update_result)
       allow(game).to receive(:create_source_choice)
       allow(game).to receive(:create_destination_choice)
+      allow(game).to receive(:update_counters)
       allow(game).to receive(:make_move)
     end
 
@@ -55,23 +57,32 @@ describe Game do
     end
   end
 
-  describe '#update_draw' do
+  describe '#update_draws' do
+    before do
+      allow(game.instance_variable_get(:@counters)).to receive(:fifty_move_rule?)
+    end
+
     let(:command) { game.instance_variable_get(:@command) }
     let(:result) { game.instance_variable_get(:@result) }
 
     it 'sends :propose_draw message to command' do
       expect(command).to receive(:propose_draw)
-      game.update_draw
+      game.update_draws
     end
 
     it 'sends :draw_approval_status message to command' do
       expect(command).to receive(:draw_approval_status)
-      game.update_draw
+      game.update_draws
     end
 
-    it 'sends :update_draw message to result' do
-      expect(result).to receive(:update_draw)
-      game.update_draw
+    it 'sends :update_manual_draw message to result' do
+      expect(result).to receive(:update_manual_draw)
+      game.update_draws
+    end
+
+    it 'sends :update_fifty_move_rule_draw message to result' do
+      expect(result).to receive(:update_fifty_move_rule_draw)
+      game.update_draws
     end
   end
 
@@ -241,6 +252,18 @@ describe Game do
         expect(game).to receive(:print_error).twice
         game.make_destination
       end
+    end
+  end
+
+  describe '#update_counters' do
+    before do
+      allow(game.instance_variable_get(:@counters)).to receive(:update_counters)
+      allow(board_operator).to receive(:board)
+    end
+
+    it 'sends update_counters message to counters' do
+      expect(game.instance_variable_get(:@counters)).to receive(:update_counters)
+      game.update_counters
     end
   end
 

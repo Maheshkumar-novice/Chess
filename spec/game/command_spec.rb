@@ -9,88 +9,98 @@ describe Command do
   let(:player) { double('Player') }
   let(:game) { double('Game') }
   let(:result) { double('Result') }
-  let(:color) { 'whtie' }
 
   describe '#propose_draw' do
-    context 'when draw proposal status is false' do
+    context 'when draw_proposal_status is false' do
       before do
         command.instance_variable_set(:@draw_proposal_status, false)
       end
 
-      it 'doesn\'t call draw_prompt' do
-        expect(command).not_to receive(:draw_prompt)
-        command.propose_draw(player, color)
+      it 'doesn\'t update draw approval status' do
+        previous_draw_approval_status = command.instance_variable_get(:@draw_approval_status)
+        command.propose_draw(player, 'white')
+        current_draw_approval_status = command.instance_variable_get(:@draw_approval_status)
+        expect(previous_draw_approval_status).to eq(current_draw_approval_status)
+      end
+
+      it 'doesn\'t update draw proposal status' do
+        previous_draw_proposal_status = command.instance_variable_get(:@draw_proposal_status)
+        command.propose_draw(player, 'white')
+        current_draw_proposal_status = command.instance_variable_get(:@draw_proposal_status)
+        expect(previous_draw_proposal_status).to eq(current_draw_proposal_status)
+      end
+
+      it 'doesn\'t update draw proposer color' do
+        previous_draw_proposer_color = command.instance_variable_get(:@draw_proposer_color)
+        command.propose_draw(player, 'white')
+        current_draw_proposer_color = command.instance_variable_get(:@draw_proposer_color)
+        expect(previous_draw_proposer_color).to eq(current_draw_proposer_color)
       end
     end
 
-    context 'when draw proposal status is true' do
+    context 'when draw proposer color is the same as the given color' do
+      let(:color) { 'white' }
+
       before do
         command.instance_variable_set(:@draw_proposal_status, true)
-        allow(command).to receive(:update_draw_approval_status)
-        allow(command).to receive(:update_draw_proposal_status)
-        allow(command).to receive(:player_choice_for_draw_approval)
-        allow(command).to receive(:update_draw_proposer_color)
+        command.instance_variable_set(:@draw_proposer_color, color)
       end
 
-      it 'calls draw_prompt' do
-        expect(command).to receive(:draw_prompt)
+      it 'doesn\'t update draw approval status' do
+        previous_draw_approval_status = command.instance_variable_get(:@draw_approval_status)
         command.propose_draw(player, color)
+        current_draw_approval_status = command.instance_variable_get(:@draw_approval_status)
+        expect(previous_draw_approval_status).to eq(current_draw_approval_status)
+      end
+
+      it 'doesn\'t update draw proposal status' do
+        previous_draw_proposal_status = command.instance_variable_get(:@draw_proposal_status)
+        command.propose_draw(player, color)
+        current_draw_proposal_status = command.instance_variable_get(:@draw_proposal_status)
+        expect(previous_draw_proposal_status).to eq(current_draw_proposal_status)
+      end
+
+      it 'doesn\'t update draw proposer color' do
+        previous_draw_proposer_color = command.instance_variable_get(:@draw_proposer_color)
+        command.propose_draw(player, color)
+        current_draw_proposer_color = command.instance_variable_get(:@draw_proposer_color)
+        expect(previous_draw_proposer_color).to eq(current_draw_proposer_color)
       end
     end
-  end
 
-  describe '#player_choice_for_draw_approval' do
-    before do
-      allow(player).to receive(:is_a?).with(Human).and_return(true)
-    end
+    context 'when draw proposal available' do
+      let(:color) { 'white' }
 
-    context 'when the player is human' do
-      it 'asks for input' do
-        expect($stdin).to receive(:gets).and_return('y/n')
-        command.player_choice_for_draw_approval(player)
-      end
-    end
-
-    context 'when the player is not a human' do
       before do
-        allow(player).to receive(:is_a?).with(Human).and_return(false)
+        command.instance_variable_set(:@draw_proposal_status, true)
+        command.instance_variable_set(:@draw_propose_color, 'black')
+        allow(command).to receive(:player_choice_for_draw_approval).and_return('y')
+        allow(command).to receive(:draw_prompt)
       end
 
-      it 'returns y or n' do
-        result = command.player_choice_for_draw_approval(player)
-        expect(%w[y n].include?(result)).to eq(true)
+      it 'updates draw approval status' do
+        command.propose_draw(player, color)
+        current_draw_approval_status = command.instance_variable_get(:@draw_approval_status)
+        expect(current_draw_approval_status).to eq(true)
       end
-    end
-  end
 
-  describe '#update_draw_approval_status' do
-    context 'when choice is y' do
-      it 'updates draw approval status to true' do
-        command.update_draw_approval_status('y')
-        result = command.instance_variable_get(:@draw_approval_status)
-        expect(result).to eq(true)
+      it 'updates draw proposal status' do
+        command.propose_draw(player, color)
+        current_draw_proposal_status = command.instance_variable_get(:@draw_proposal_status)
+        expect(current_draw_proposal_status).to eq(false)
       end
-    end
 
-    context 'when choice is n' do
-      it 'updates draw approval status to false' do
-        command.update_draw_approval_status('n')
-        result = command.instance_variable_get(:@draw_approval_status)
-        expect(result).to eq(false)
+      it 'updates draw proposer color' do
+        command.propose_draw(player, color)
+        current_draw_proposer_color = command.instance_variable_get(:@draw_proposer_color)
+        expect(current_draw_proposer_color).to eq(nil)
       end
-    end
-  end
-
-  describe '#update_draw_proposal_status' do
-    it 'update the draw proposal status with the given value' do
-      value = false
-      command.update_draw_proposal_status(value)
-      result = command.instance_variable_get(:@draw_proposal_status)
-      expect(result).to eq(value)
     end
   end
 
   describe '#create_draw_proposal' do
+    let(:color) { 'whtie' }
+
     before do
       allow(game).to receive(:current_color).and_return(color)
       allow(command).to receive(:print_info)
@@ -106,57 +116,6 @@ describe Command do
       command.create_draw_proposal(game)
       result = command.instance_variable_get(:@draw_proposer_color)
       expect(result).to eq(color)
-    end
-  end
-
-  describe '#execute_command' do
-    before do
-      allow(command).to receive(:print_command_prompt)
-      allow(command).to receive(:print_spacing)
-    end
-
-    context 'when the case is exit' do
-      before do
-        allow($stdin).to receive(:gets).and_return('exit')
-      end
-
-      it 'breaks immediately' do
-        expect(command).not_to receive(:print_spacing)
-        command.execute_command(game, result)
-      end
-    end
-
-    context 'when the case is draw' do
-      before do
-        allow($stdin).to receive(:gets).and_return('draw', 'exit')
-      end
-
-      it 'calls create_draw_proposal' do
-        expect(command).to receive(:create_draw_proposal)
-        command.execute_command(game, result)
-      end
-    end
-
-    context 'when the case is resign' do
-      before do
-        allow($stdin).to receive(:gets).and_return('resign', 'exit')
-      end
-
-      it 'calls resign' do
-        expect(command).to receive(:resign).with(result, game)
-        command.execute_command(game, result)
-      end
-    end
-
-    context 'when the case is save' do
-      before do
-        allow($stdin).to receive(:gets).and_return('save', 'exit')
-      end
-
-      it 'calls save' do
-        expect(command).to receive(:save).with(game)
-        command.execute_command(game, result)
-      end
     end
   end
 

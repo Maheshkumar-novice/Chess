@@ -383,14 +383,14 @@ describe CheckFinder do
     end
   end
 
-  describe '#cell_in_check?' do
+  describe '#king_in_check?' do
     context 'when white king when in check' do
       let(:fen) { 'rnb1K1r1/p1pp1p1p/2q1p1p1/1b1p2n1/1P3P2/2P4N/PQ2PPPP/R1NBkB1R w - - 0 1' }
       let(:board) { board_creator.create_board(fen_processor.pieces) }
 
       it 'returns true' do
         king_position = :e8
-        result = check_finder.cell_in_check?(king_position, board)
+        result = check_finder.king_in_check?(king_position, board)
         expect(result).to eq(true)
       end
     end
@@ -401,7 +401,7 @@ describe CheckFinder do
 
       it 'returns false' do
         king_position = :h1
-        result = check_finder.cell_in_check?(king_position, board)
+        result = check_finder.king_in_check?(king_position, board)
         expect(result).to eq(false)
       end
     end
@@ -412,7 +412,7 @@ describe CheckFinder do
 
       it 'returns true' do
         king_position = :e1
-        result = check_finder.cell_in_check?(king_position, board)
+        result = check_finder.king_in_check?(king_position, board)
         expect(result).to eq(true)
       end
     end
@@ -423,7 +423,7 @@ describe CheckFinder do
 
       it 'returns false' do
         king_position = :a8
-        result = check_finder.cell_in_check?(king_position, board)
+        result = check_finder.king_in_check?(king_position, board)
         expect(result).to eq(false)
       end
     end

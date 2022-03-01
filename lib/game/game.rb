@@ -13,10 +13,11 @@ class Game
 
   attr_reader :current_color
 
-  def initialize(board_operator, players, current_color)
+  def initialize(board_operator, players, current_color, counters)
     @board_operator = board_operator
     @current_player, @other_player = players
     @current_color = current_color
+    @counters = counters
     @result = Result.new
     @command = Command.new
     @printer = BoardPrinter.new
@@ -39,18 +40,20 @@ class Game
 
       create_source_choice
       create_destination_choice
+      update_counters
       make_move
     end
   end
 
   def update_result
-    update_draw
+    update_draws
     update_mates
   end
 
-  def update_draw
+  def update_draws
     @command.propose_draw(@current_player, @current_color)
-    @result.update_draw(@command.draw_approval_status)
+    @result.update_manual_draw(@command.draw_approval_status)
+    @result.update_fifty_move_rule_draw(@counters.fifty_move_rule?)
   end
 
   def update_mates
@@ -101,6 +104,10 @@ class Game
 
       print_error('Enter a valid move from the selected source!', ending: "\n") if human?
     end
+  end
+
+  def update_counters
+    @counters.update_counters(@source_choice, @destination_choice, board, @current_color)
   end
 
   def make_move

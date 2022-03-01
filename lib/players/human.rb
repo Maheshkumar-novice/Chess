@@ -30,10 +30,13 @@ class Human < Player
       @name = @name_creator.human_name
       return if @name_validator.valid?(@name)
 
-      print_error(
-        "Enter a valid name! (Min. Length 1, Max. Length #{@name_validator.max_name_length}, No special characters)",
-        ending: "\n"
-      )
+      print_error(name_error_text, ending: "\n")
     end
+  end
+
+  private
+
+  def name_error_text
+    "Enter a valid name! (Min. Length 1, Max. Length #{@name_validator.max_name_length}, No special characters)"
   end
 end

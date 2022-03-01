@@ -91,6 +91,12 @@
 - [ ] Game play testing
 
 #
+- [ ] 5 fold repetition
+- [ ] Tests
+- [ ] Refactoring
+- [ ] Game play testing
+
+#
 - [ ] Improve Bot player
 - [ ] Tests
 - [ ] Refactoring

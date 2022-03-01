@@ -23,6 +23,13 @@ class FenProcessor
     parse_remaining_meta_data(meta_data_row[1..])
   end
 
+  def parse_remaining_meta_data(meta_data)
+    @meta_data.update_castling_rights_to(meta_data[0])
+    @meta_data.update_en_passant_move_to(meta_data[1])
+  end
+
+  private
+
   def parse_last_row(row)
     split = row.split
     [split[0], split[1..]]
@@ -30,10 +37,5 @@ class FenProcessor
 
   def parse_color(value)
     value == 'w' ? 'white' : 'black'
-  end
-
-  def parse_remaining_meta_data(meta_data)
-    @meta_data.update_castling_rights_to(meta_data[0])
-    @meta_data.update_en_passant_move_to(meta_data[1])
   end
 end

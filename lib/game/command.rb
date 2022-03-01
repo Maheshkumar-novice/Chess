@@ -27,41 +27,11 @@ class Command
     update_draw_proposer_color(nil)
   end
 
-  def player_choice_for_draw_approval(player)
-    return $stdin.gets.chomp if player.is_a?(Human)
-
-    %w[y n].sample
-  end
-
-  def update_draw_approval_status(choice)
-    @draw_approval_status = choice.downcase == 'y'
-  end
-
-  def update_draw_proposal_status(value)
-    @draw_proposal_status = value
-  end
-
-  def update_draw_proposer_color(value)
-    @draw_proposer_color = value
-  end
-
   def execute(game, result)
     print_intro
     show_commands
     execute_command(game, result)
     print_spacing
-  end
-
-  def execute_command(game, result)
-    loop do
-      print_command_prompt
-      case $stdin.gets.chomp
-      when 'draw' then create_draw_proposal(game)
-      when 'resign' then resign(result, game)
-      when 'save' then save(game)
-      when 'exit' then break
-      end
-    end
   end
 
   def create_draw_proposal(game)
@@ -82,6 +52,34 @@ class Command
   end
 
   private
+
+  def execute_command(game, result)
+    loop do
+      print_command_prompt
+      case $stdin.gets.chomp
+      when 'draw' then create_draw_proposal(game)
+      when 'resign' then resign(result, game)
+      when 'save' then save(game)
+      when 'exit' then break
+      end
+    end
+  end
+
+  def player_choice_for_draw_approval(player)
+    player.is_a?(Human) ? $stdin.gets.chomp : %w[y n].sample
+  end
+
+  def update_draw_approval_status(choice)
+    @draw_approval_status = choice.downcase == 'y'
+  end
+
+  def update_draw_proposal_status(value)
+    @draw_proposal_status = value
+  end
+
+  def update_draw_proposer_color(value)
+    @draw_proposer_color = value
+  end
 
   def show_commands
     text = "Commands: #{accent('draw, resign, save, exit')} (from command mode)"

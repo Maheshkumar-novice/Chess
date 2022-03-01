@@ -15,6 +15,30 @@ describe NameValidator do
       end
     end
 
+    context 'when the given name is full of multiple white spaces' do
+      it 'returns false' do
+        name = '  '
+        result = name_validator.valid?(name)
+        expect(result).to eq false
+      end
+    end
+
+    context 'when the given name is a new line character' do
+      it 'returns false' do
+        name = "\n"
+        result = name_validator.valid?(name)
+        expect(result).to eq false
+      end
+    end
+
+    context 'when the given name contains special characters' do
+      it 'returns false' do
+        name = '!'
+        result = name_validator.valid?(name)
+        expect(result).to eq false
+      end
+    end
+
     context 'when the given name is of length greater than max_name_length' do
       it 'returns false' do
         max_name_length = name_validator.instance_variable_get(:@max_name_length)
@@ -26,7 +50,7 @@ describe NameValidator do
 
     context 'when the given name is valid' do
       it 'returns true' do
-        name = 'bot name'
+        name = 'bot_name'
         result = name_validator.valid?(name)
         expect(result).to eq true
       end

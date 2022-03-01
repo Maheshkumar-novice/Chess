@@ -37,6 +37,8 @@ class Human < Player
   private
 
   def name_error_text
-    "Enter a valid name! (Min. Length 1, Max. Length #{@name_validator.max_name_length}, No special characters)"
+    <<~NAME_ERROR
+      Enter a valid name! (Min. Length 1, Max. Length #{@name_validator.max_name_length}, No special characters, You can use _, numbers, alphabets)
+    NAME_ERROR
   end
 end

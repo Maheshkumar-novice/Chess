@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../lib/promotion/promotion'
-require_relative '../../lib/board/utils/board-creator'
-require_relative '../../lib/fen/fen-processor'
+require_relative '../../../lib/special-moves/promotion/promotion'
+require_relative '../../../lib/board/utils/board-creator'
+require_relative '../../../lib/fen/fen-processor'
 
 describe Promotion do
   let(:fen_processor) { FenProcessor.new }

@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../../../lib/promotion/utils/promotion-piece-creator'
-require_relative '../../../lib/players/bot'
+require_relative '../../../../lib/special-moves/promotion/utils/promotion-piece-creator'
+require_relative '../../../../lib/players/bot'
 
 describe PromotionPieceCreator do
   subject(:promotion_piece_creator) { described_class.new }

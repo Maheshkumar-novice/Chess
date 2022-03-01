@@ -6,13 +6,12 @@ require_relative '../../lib/board/utils/board-creator'
 require_relative '../../lib/fen/fen-processor'
 
 describe Pawn do
+  subject(:pawn) { described_class.new }
   let(:fen_processor) { FenProcessor.new }
   let(:board_creator) { BoardCreator.new }
-  subject(:pawn) { described_class.new }
 
   describe '#create_moves' do
     let(:board) { board_creator.create_board(fen_processor.pieces) }
-
     before { fen_processor.process(fen) }
 
     context 'with default board' do
@@ -59,7 +58,6 @@ describe Pawn do
   describe '#classify_moves' do
     let(:board) { board_creator.create_board(fen_processor.pieces) }
     let(:meta_data) { fen_processor.meta_data }
-
     before { fen_processor.process(fen) }
 
     context 'with default board' do

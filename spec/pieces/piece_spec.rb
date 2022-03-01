@@ -4,7 +4,7 @@
 require_relative '../../lib/pieces/piece'
 
 describe Piece do
-  subject(:piece) { described_class.new(Object.new, Object.new) }
+  subject(:piece) { described_class.new }
 
   describe '#color?' do
     before { piece.color = 'white' }

@@ -2,16 +2,14 @@
 # frozen_string_literal: true
 
 require_relative '../../../lib/pieces/utils/piece-creator'
-require_relative '../../../lib/fen/fen-processor'
 
 describe PieceCreator do
   subject(:piece_creator) { described_class.new }
-  let(:fen_processor) { FenProcessor.new }
   let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' }
 
   describe '#create_pieces' do
     it 'creates 64 pieces' do
-      rows = fen_processor.split(fen)
+      rows = fen.split('/')
       rows[-1] = rows[-1].split[0]
       result = piece_creator.create_pieces(rows).size
       expect(result).to eq(64)

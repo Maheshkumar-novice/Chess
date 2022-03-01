@@ -179,7 +179,7 @@ describe Launcher do
     end
   end
 
-  describe '#lauch_game' do
+  describe '#launch_game' do
     before { allow(game).to receive(:play) }
 
     it 'sends :new message to game class' do

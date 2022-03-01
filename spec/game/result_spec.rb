@@ -7,11 +7,20 @@ describe Result do
   subject(:result) { described_class.new }
   let(:game) { double('Game') }
 
-  describe '#update_draw' do
+  describe '#update_manual_draw' do
     it 'updates the value of draw with the given value' do
       value = true
-      result.update_draw(value)
-      current = result.instance_variable_get(:@draw)
+      result.update_manual_draw(value)
+      current = result.instance_variable_get(:@manual_draw)
+      expect(current).to eq(value)
+    end
+  end
+
+  describe '#update_fifty_move_rule_draw' do
+    it 'updates the value of draw with the given value' do
+      value = true
+      result.update_fifty_move_rule_draw(value)
+      current = result.instance_variable_get(:@fifty_move_rule_draw)
       expect(current).to eq(value)
     end
   end
@@ -44,9 +53,16 @@ describe Result do
   end
 
   describe '#any?' do
-    context 'when draw is true' do
+    context 'when manual_draw is true' do
       it 'returns true' do
-        result.instance_variable_set(:@draw, true)
+        result.instance_variable_set(:@manual_draw, true)
+        expect(result.any?).to eq(true)
+      end
+    end
+
+    context 'when fifty_move_rule_draw is true' do
+      it 'returns true' do
+        result.instance_variable_set(:@fifty_move_rule_draw, true)
         expect(result.any?).to eq(true)
       end
     end
@@ -80,10 +96,18 @@ describe Result do
   end
 
   describe '#announce' do
-    context 'when draw is true' do
+    context 'when manual_draw is true' do
       it 'calls announce_draw' do
-        result.instance_variable_set(:@draw, true)
+        result.instance_variable_set(:@manual_draw, true)
         expect(result).to receive(:announce_draw)
+        result.announce(game)
+      end
+    end
+
+    context 'when fifty_move_rule_draw is true' do
+      it 'calls announce_draw' do
+        result.instance_variable_set(:@fifty_move_rule_draw, true)
+        expect(result).to receive(:announce_fifty_move_rule_draw)
         result.announce(game)
       end
     end

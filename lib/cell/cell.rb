@@ -101,7 +101,7 @@ class Cell
     @piece&.color
   end
 
-  def color?(color)
+  def piece_color?(color)
     @piece&.color?(color)
   end
 

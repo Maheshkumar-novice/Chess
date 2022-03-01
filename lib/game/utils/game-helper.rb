@@ -28,7 +28,7 @@ module GameHelper
   end
 
   def valid_source?
-    board[@source_choice].color?(@current_color)
+    board[@source_choice].piece_color?(@current_color)
   end
 
   def valid_destination?

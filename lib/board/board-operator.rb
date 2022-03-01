@@ -31,7 +31,7 @@ class BoardOperator
   end
 
   def remove_allies(color)
-    @moves.reject! { |move| @board[move].color?(color) }
+    @moves.reject! { |move| @board[move].piece_color?(color) }
   end
 
   def remove_moves_that_leads_to_check(source, color)
@@ -71,7 +71,7 @@ class BoardOperator
 
   def color_has_no_legal_moves?(color)
     @board.each_key do |marker|
-      next unless @board[marker].color?(color)
+      next unless @board[marker].piece_color?(color)
 
       moves = moves_from_source(marker, color)
       return false unless moves.values.all?(&:empty?)

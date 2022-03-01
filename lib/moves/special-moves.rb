@@ -16,6 +16,11 @@ class SpecialMoves
     castling_rights
   end
 
+  def castling?(source, destination, board, moves, castling_rights)
+    board[source].king? && castling_move(moves, board, source, castling_rights,
+                                         board[source].piece_color).include?(destination)
+  end
+
   def castling_move(moves, board, source, castling_rights, color)
     return [] if castling_rights.empty?
 

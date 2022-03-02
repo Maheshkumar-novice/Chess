@@ -85,11 +85,5 @@
 - [ ] Game play testing
 
 #
-- [ ] Improve Bot player
-- [ ] Tests
-- [ ] Refactoring
-- [ ] Game play testing
-
-#
 - [ ] Readme Creation
 - [ ] Feedback, Review and Reflections

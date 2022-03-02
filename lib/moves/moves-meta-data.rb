@@ -41,6 +41,7 @@ class MovesMetaData
   end
 
   def to_s
-    "#{@castling_rights} #{@en_passant_move}"
+    castling_rights = @castling_rights.empty? ? '-' : @castling_rights
+    "#{castling_rights} #{@en_passant_move}"
   end
 end

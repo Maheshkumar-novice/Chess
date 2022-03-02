@@ -539,5 +539,23 @@ describe BoardOperator do
         expect(result).to eq(expected_result)
       end
     end
+
+    context 'for a castling move' do
+      let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/1NBQ4/PPPPPPPP/2KR1BNR w Kkq - 0 1' }
+
+      before do
+        pieces_changed = { e1: 'king', a1: 'rook', c1: nil, d1: nil }
+        allow(meta_data).to receive(:pieces_changed).and_return(pieces_changed)
+        allow(board[:e1]).to receive(:update_current_cell_of_piece)
+        allow(board[:a1]).to receive(:update_current_cell_of_piece)
+      end
+
+      it 'reverts the move' do
+        board_operator.revert_move
+        result = [board[:e1].piece, board[:a1].piece, board[:c1].piece, board[:d1].piece]
+        expected_result = ['king', 'rook', nil, nil]
+        expect(result).to eq(expected_result)
+      end
+    end
   end
 end

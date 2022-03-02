@@ -75,8 +75,8 @@
 #
 - [x] 50 move rule
 - [x] Tests
-- [ ] Refactoring
-- [ ] Game play testing
+- [x] Refactoring
+- [x] Game play testing
 
 #
 - [ ] Insufficient Material

@@ -112,4 +112,17 @@ describe MovesMetaData do
       expect(en_passant_move).to eq('en_passant')
     end
   end
+
+  describe '#to_s' do
+    before do
+      moves_meta_data.instance_variable_set(:@castling_rights, 'KQk')
+      moves_meta_data.instance_variable_set(:@en_passant_move, :e6)
+    end
+
+    it 'returns the string of castling_rights and en_passant_move joined' do
+      result = moves_meta_data.to_s
+      expected_result = 'KQk e6'
+      expect(result).to eq(expected_result)
+    end
+  end
 end

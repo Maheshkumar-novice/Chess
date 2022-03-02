@@ -61,7 +61,7 @@ It's definitely a big project. I thought chess is a complicated game because I d
 
 | Tool         | Use Case                |
 | ------------ | ----------------------- |
-| Ruby 3.0.3   | Programming Language    |
+| Ruby         | Programming Language    |
 | RSpec        | Unit Tests              |
 | Git & GitHub | Source Code Management  |
 

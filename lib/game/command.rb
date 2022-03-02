@@ -51,6 +51,12 @@ class Command
     print_file_created_message
   end
 
+  def fen(game)
+    print_info(
+      "#{game.board_operator} #{game.current_color == 'white' ? 'w' : 'b'} #{game.board_operator.meta_data} #{game.counters}", ending: "\n\n"
+    )
+  end
+
   private
 
   def execute_command(game, result)
@@ -60,6 +66,7 @@ class Command
       when 'draw' then create_draw_proposal(game)
       when 'resign' then resign(result, game)
       when 'save' then save(game)
+      when 'fen' then fen(game)
       when 'exit' then break
       end
     end
@@ -82,7 +89,7 @@ class Command
   end
 
   def show_commands
-    text = "Commands: #{accent('draw, resign, save, exit')} (from command mode)"
+    text = "Commands: #{accent('draw, resign, save, fen, exit')} (from command mode)"
     print_info(text, ending: "\n", starting: "\n")
   end
 

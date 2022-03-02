@@ -79,19 +79,7 @@
 - [x] Game play testing
 
 #
-- [ ] Insufficient Material
-- [ ] Tests
-- [ ] Refactoring
-- [ ] Game play testing
-
-#
 - [ ] Fen Copy command
-- [ ] Tests
-- [ ] Refactoring
-- [ ] Game play testing
-
-#
-- [ ] 5 fold repetition
 - [ ] Tests
 - [ ] Refactoring
 - [ ] Game play testing

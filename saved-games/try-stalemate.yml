@@ -1,0 +1,815 @@
+--- !ruby/object:Game
+board_operator: !ruby/object:BoardOperator
+  board: &1
+    :a8: !ruby/object:Cell
+      piece: 
+      row_right: :b8
+      row_left: 
+      column_above: 
+      column_below: :a7
+      top_left_diagonal: 
+      top_right_diagonal: 
+      bottom_right_diagonal: :b7
+      bottom_left_diagonal: 
+    :b8: !ruby/object:Cell
+      piece: 
+      row_right: :c8
+      row_left: :a8
+      column_above: 
+      column_below: :b7
+      top_left_diagonal: 
+      top_right_diagonal: 
+      bottom_right_diagonal: :c7
+      bottom_left_diagonal: :a7
+    :c8: !ruby/object:Cell
+      piece: 
+      row_right: :d8
+      row_left: :b8
+      column_above: 
+      column_below: :c7
+      top_left_diagonal: 
+      top_right_diagonal: 
+      bottom_right_diagonal: :d7
+      bottom_left_diagonal: :b7
+    :d8: !ruby/object:Cell
+      piece: 
+      row_right: :e8
+      row_left: :c8
+      column_above: 
+      column_below: :d7
+      top_left_diagonal: 
+      top_right_diagonal: 
+      bottom_right_diagonal: :e7
+      bottom_left_diagonal: :c7
+    :e8: !ruby/object:Cell
+      piece: 
+      row_right: :f8
+      row_left: :d8
+      column_above: 
+      column_below: :e7
+      top_left_diagonal: 
+      top_right_diagonal: 
+      bottom_right_diagonal: :f7
+      bottom_left_diagonal: :d7
+    :f8: !ruby/object:Cell
+      piece: 
+      row_right: :g8
+      row_left: :e8
+      column_above: 
+      column_below: :f7
+      top_left_diagonal: 
+      top_right_diagonal: 
+      bottom_right_diagonal: :g7
+      bottom_left_diagonal: :e7
+    :g8: !ruby/object:Cell
+      piece: 
+      row_right: :h8
+      row_left: :f8
+      column_above: 
+      column_below: :g7
+      top_left_diagonal: 
+      top_right_diagonal: 
+      bottom_right_diagonal: :h7
+      bottom_left_diagonal: :f7
+    :h8: !ruby/object:Cell
+      piece: &2 !ruby/object:Rook
+        name: r
+        color: black
+        current_cell: :h8
+        move_creator: !ruby/object:MoveCreator {}
+        move_classifier: !ruby/object:MoveClassifier
+          enemy_color: white
+          diagonal_moves: 
+          moves_without_diagonal_moves: 
+          en_passant: !ruby/object:EnPassant {}
+      row_right: 
+      row_left: :g8
+      column_above: 
+      column_below: :h7
+      top_left_diagonal: 
+      top_right_diagonal: 
+      bottom_right_diagonal: 
+      bottom_left_diagonal: :g7
+    :a7: !ruby/object:Cell
+      piece: !ruby/object:King
+        name: K
+        color: white
+        current_cell: :a7
+        move_creator: !ruby/object:MoveCreator {}
+        move_classifier: !ruby/object:MoveClassifier
+          enemy_color: 
+          diagonal_moves: 
+          moves_without_diagonal_moves: 
+          en_passant: !ruby/object:EnPassant {}
+        check_finder: !ruby/object:CheckFinder
+          move_creator: !ruby/object:MoveCreator {}
+      row_right: :b7
+      row_left: 
+      column_above: :a8
+      column_below: :a6
+      top_left_diagonal: 
+      top_right_diagonal: :b8
+      bottom_right_diagonal: :b6
+      bottom_left_diagonal: 
+    :b7: !ruby/object:Cell
+      piece: 
+      row_right: :c7
+      row_left: :a7
+      column_above: :b8
+      column_below: :b6
+      top_left_diagonal: :a8
+      top_right_diagonal: :c8
+      bottom_right_diagonal: :c6
+      bottom_left_diagonal: :a6
+    :c7: !ruby/object:Cell
+      piece: 
+      row_right: :d7
+      row_left: :b7
+      column_above: :c8
+      column_below: :c6
+      top_left_diagonal: :b8
+      top_right_diagonal: :d8
+      bottom_right_diagonal: :d6
+      bottom_left_diagonal: :b6
+    :d7: !ruby/object:Cell
+      piece: 
+      row_right: :e7
+      row_left: :c7
+      column_above: :d8
+      column_below: :d6
+      top_left_diagonal: :c8
+      top_right_diagonal: :e8
+      bottom_right_diagonal: :e6
+      bottom_left_diagonal: :c6
+    :e7: !ruby/object:Cell
+      piece: 
+      row_right: :f7
+      row_left: :d7
+      column_above: :e8
+      column_below: :e6
+      top_left_diagonal: :d8
+      top_right_diagonal: :f8
+      bottom_right_diagonal: :f6
+      bottom_left_diagonal: :d6
+    :f7: !ruby/object:Cell
+      piece: 
+      row_right: :g7
+      row_left: :e7
+      column_above: :f8
+      column_below: :f6
+      top_left_diagonal: :e8
+      top_right_diagonal: :g8
+      bottom_right_diagonal: :g6
+      bottom_left_diagonal: :e6
+    :g7: !ruby/object:Cell
+      piece: 
+      row_right: :h7
+      row_left: :f7
+      column_above: :g8
+      column_below: :g6
+      top_left_diagonal: :f8
+      top_right_diagonal: :h8
+      bottom_right_diagonal: :h6
+      bottom_left_diagonal: :f6
+    :h7: !ruby/object:Cell
+      piece: 
+      row_right: 
+      row_left: :g7
+      column_above: :h8
+      column_below: :h6
+      top_left_diagonal: :g8
+      top_right_diagonal: 
+      bottom_right_diagonal: 
+      bottom_left_diagonal: :g6
+    :a6: !ruby/object:Cell
+      piece: 
+      row_right: :b6
+      row_left: 
+      column_above: :a7
+      column_below: :a5
+      top_left_diagonal: 
+      top_right_diagonal: :b7
+      bottom_right_diagonal: :b5
+      bottom_left_diagonal: 
+    :b6: !ruby/object:Cell
+      piece: 
+      row_right: :c6
+      row_left: :a6
+      column_above: :b7
+      column_below: :b5
+      top_left_diagonal: :a7
+      top_right_diagonal: :c7
+      bottom_right_diagonal: :c5
+      bottom_left_diagonal: :a5
+    :c6: !ruby/object:Cell
+      piece: 
+      row_right: :d6
+      row_left: :b6
+      column_above: :c7
+      column_below: :c5
+      top_left_diagonal: :b7
+      top_right_diagonal: :d7
+      bottom_right_diagonal: :d5
+      bottom_left_diagonal: :b5
+    :d6: !ruby/object:Cell
+      piece: 
+      row_right: :e6
+      row_left: :c6
+      column_above: :d7
+      column_below: :d5
+      top_left_diagonal: :c7
+      top_right_diagonal: :e7
+      bottom_right_diagonal: :e5
+      bottom_left_diagonal: :c5
+    :e6: !ruby/object:Cell
+      piece: 
+      row_right: :f6
+      row_left: :d6
+      column_above: :e7
+      column_below: :e5
+      top_left_diagonal: :d7
+      top_right_diagonal: :f7
+      bottom_right_diagonal: :f5
+      bottom_left_diagonal: :d5
+    :f6: !ruby/object:Cell
+      piece: 
+      row_right: :g6
+      row_left: :e6
+      column_above: :f7
+      column_below: :f5
+      top_left_diagonal: :e7
+      top_right_diagonal: :g7
+      bottom_right_diagonal: :g5
+      bottom_left_diagonal: :e5
+    :g6: !ruby/object:Cell
+      piece: 
+      row_right: :h6
+      row_left: :f6
+      column_above: :g7
+      column_below: :g5
+      top_left_diagonal: :f7
+      top_right_diagonal: :h7
+      bottom_right_diagonal: :h5
+      bottom_left_diagonal: :f5
+    :h6: !ruby/object:Cell
+      piece: 
+      row_right: 
+      row_left: :g6
+      column_above: :h7
+      column_below: :h5
+      top_left_diagonal: :g7
+      top_right_diagonal: 
+      bottom_right_diagonal: 
+      bottom_left_diagonal: :g5
+    :a5: !ruby/object:Cell
+      piece: !ruby/object:King
+        name: k
+        color: black
+        current_cell: :a5
+        move_creator: !ruby/object:MoveCreator {}
+        move_classifier: !ruby/object:MoveClassifier
+          enemy_color: 
+          diagonal_moves: 
+          moves_without_diagonal_moves: 
+          en_passant: !ruby/object:EnPassant {}
+        check_finder: !ruby/object:CheckFinder
+          move_creator: !ruby/object:MoveCreator {}
+          king_position: :a5
+          board: *1
+      row_right: :b5
+      row_left: 
+      column_above: :a6
+      column_below: :a4
+      top_left_diagonal: 
+      top_right_diagonal: :b6
+      bottom_right_diagonal: :b4
+      bottom_left_diagonal: 
+    :b5: !ruby/object:Cell
+      piece: 
+      row_right: :c5
+      row_left: :a5
+      column_above: :b6
+      column_below: :b4
+      top_left_diagonal: :a6
+      top_right_diagonal: :c6
+      bottom_right_diagonal: :c4
+      bottom_left_diagonal: :a4
+    :c5: !ruby/object:Cell
+      piece: 
+      row_right: :d5
+      row_left: :b5
+      column_above: :c6
+      column_below: :c4
+      top_left_diagonal: :b6
+      top_right_diagonal: :d6
+      bottom_right_diagonal: :d4
+      bottom_left_diagonal: :b4
+    :d5: !ruby/object:Cell
+      piece: 
+      row_right: :e5
+      row_left: :c5
+      column_above: :d6
+      column_below: :d4
+      top_left_diagonal: :c6
+      top_right_diagonal: :e6
+      bottom_right_diagonal: :e4
+      bottom_left_diagonal: :c4
+    :e5: !ruby/object:Cell
+      piece: 
+      row_right: :f5
+      row_left: :d5
+      column_above: :e6
+      column_below: :e4
+      top_left_diagonal: :d6
+      top_right_diagonal: :f6
+      bottom_right_diagonal: :f4
+      bottom_left_diagonal: :d4
+    :f5: !ruby/object:Cell
+      piece: 
+      row_right: :g5
+      row_left: :e5
+      column_above: :f6
+      column_below: :f4
+      top_left_diagonal: :e6
+      top_right_diagonal: :g6
+      bottom_right_diagonal: :g4
+      bottom_left_diagonal: :e4
+    :g5: !ruby/object:Cell
+      piece: 
+      row_right: :h5
+      row_left: :f5
+      column_above: :g6
+      column_below: :g4
+      top_left_diagonal: :f6
+      top_right_diagonal: :h6
+      bottom_right_diagonal: :h4
+      bottom_left_diagonal: :f4
+    :h5: !ruby/object:Cell
+      piece: 
+      row_right: 
+      row_left: :g5
+      column_above: :h6
+      column_below: :h4
+      top_left_diagonal: :g6
+      top_right_diagonal: 
+      bottom_right_diagonal: 
+      bottom_left_diagonal: :g4
+    :a4: !ruby/object:Cell
+      piece: 
+      row_right: :b4
+      row_left: 
+      column_above: :a5
+      column_below: :a3
+      top_left_diagonal: 
+      top_right_diagonal: :b5
+      bottom_right_diagonal: :b3
+      bottom_left_diagonal: 
+    :b4: !ruby/object:Cell
+      piece: 
+      row_right: :c4
+      row_left: :a4
+      column_above: :b5
+      column_below: :b3
+      top_left_diagonal: :a5
+      top_right_diagonal: :c5
+      bottom_right_diagonal: :c3
+      bottom_left_diagonal: :a3
+    :c4: !ruby/object:Cell
+      piece: 
+      row_right: :d4
+      row_left: :b4
+      column_above: :c5
+      column_below: :c3
+      top_left_diagonal: :b5
+      top_right_diagonal: :d5
+      bottom_right_diagonal: :d3
+      bottom_left_diagonal: :b3
+    :d4: !ruby/object:Cell
+      piece: 
+      row_right: :e4
+      row_left: :c4
+      column_above: :d5
+      column_below: :d3
+      top_left_diagonal: :c5
+      top_right_diagonal: :e5
+      bottom_right_diagonal: :e3
+      bottom_left_diagonal: :c3
+    :e4: !ruby/object:Cell
+      piece: 
+      row_right: :f4
+      row_left: :d4
+      column_above: :e5
+      column_below: :e3
+      top_left_diagonal: :d5
+      top_right_diagonal: :f5
+      bottom_right_diagonal: :f3
+      bottom_left_diagonal: :d3
+    :f4: !ruby/object:Cell
+      piece: 
+      row_right: :g4
+      row_left: :e4
+      column_above: :f5
+      column_below: :f3
+      top_left_diagonal: :e5
+      top_right_diagonal: :g5
+      bottom_right_diagonal: :g3
+      bottom_left_diagonal: :e3
+    :g4: !ruby/object:Cell
+      piece: 
+      row_right: :h4
+      row_left: :f4
+      column_above: :g5
+      column_below: :g3
+      top_left_diagonal: :f5
+      top_right_diagonal: :h5
+      bottom_right_diagonal: :h3
+      bottom_left_diagonal: :f3
+    :h4: !ruby/object:Cell
+      piece: 
+      row_right: 
+      row_left: :g4
+      column_above: :h5
+      column_below: :h3
+      top_left_diagonal: :g5
+      top_right_diagonal: 
+      bottom_right_diagonal: 
+      bottom_left_diagonal: :g3
+    :a3: !ruby/object:Cell
+      piece: 
+      row_right: :b3
+      row_left: 
+      column_above: :a4
+      column_below: :a2
+      top_left_diagonal: 
+      top_right_diagonal: :b4
+      bottom_right_diagonal: :b2
+      bottom_left_diagonal: 
+    :b3: !ruby/object:Cell
+      piece: 
+      row_right: :c3
+      row_left: :a3
+      column_above: :b4
+      column_below: :b2
+      top_left_diagonal: :a4
+      top_right_diagonal: :c4
+      bottom_right_diagonal: :c2
+      bottom_left_diagonal: :a2
+    :c3: !ruby/object:Cell
+      piece: 
+      row_right: :d3
+      row_left: :b3
+      column_above: :c4
+      column_below: :c2
+      top_left_diagonal: :b4
+      top_right_diagonal: :d4
+      bottom_right_diagonal: :d2
+      bottom_left_diagonal: :b2
+    :d3: !ruby/object:Cell
+      piece: 
+      row_right: :e3
+      row_left: :c3
+      column_above: :d4
+      column_below: :d2
+      top_left_diagonal: :c4
+      top_right_diagonal: :e4
+      bottom_right_diagonal: :e2
+      bottom_left_diagonal: :c2
+    :e3: !ruby/object:Cell
+      piece: 
+      row_right: :f3
+      row_left: :d3
+      column_above: :e4
+      column_below: :e2
+      top_left_diagonal: :d4
+      top_right_diagonal: :f4
+      bottom_right_diagonal: :f2
+      bottom_left_diagonal: :d2
+    :f3: !ruby/object:Cell
+      piece: 
+      row_right: :g3
+      row_left: :e3
+      column_above: :f4
+      column_below: :f2
+      top_left_diagonal: :e4
+      top_right_diagonal: :g4
+      bottom_right_diagonal: :g2
+      bottom_left_diagonal: :e2
+    :g3: !ruby/object:Cell
+      piece: 
+      row_right: :h3
+      row_left: :f3
+      column_above: :g4
+      column_below: :g2
+      top_left_diagonal: :f4
+      top_right_diagonal: :h4
+      bottom_right_diagonal: :h2
+      bottom_left_diagonal: :f2
+    :h3: !ruby/object:Cell
+      piece: 
+      row_right: 
+      row_left: :g3
+      column_above: :h4
+      column_below: :h2
+      top_left_diagonal: :g4
+      top_right_diagonal: 
+      bottom_right_diagonal: 
+      bottom_left_diagonal: :g2
+    :a2: !ruby/object:Cell
+      piece: 
+      row_right: :b2
+      row_left: 
+      column_above: :a3
+      column_below: :a1
+      top_left_diagonal: 
+      top_right_diagonal: :b3
+      bottom_right_diagonal: :b1
+      bottom_left_diagonal: 
+    :b2: !ruby/object:Cell
+      piece: 
+      row_right: :c2
+      row_left: :a2
+      column_above: :b3
+      column_below: :b1
+      top_left_diagonal: :a3
+      top_right_diagonal: :c3
+      bottom_right_diagonal: :c1
+      bottom_left_diagonal: :a1
+    :c2: !ruby/object:Cell
+      piece: 
+      row_right: :d2
+      row_left: :b2
+      column_above: :c3
+      column_below: :c1
+      top_left_diagonal: :b3
+      top_right_diagonal: :d3
+      bottom_right_diagonal: :d1
+      bottom_left_diagonal: :b1
+    :d2: !ruby/object:Cell
+      piece: 
+      row_right: :e2
+      row_left: :c2
+      column_above: :d3
+      column_below: :d1
+      top_left_diagonal: :c3
+      top_right_diagonal: :e3
+      bottom_right_diagonal: :e1
+      bottom_left_diagonal: :c1
+    :e2: !ruby/object:Cell
+      piece: 
+      row_right: :f2
+      row_left: :d2
+      column_above: :e3
+      column_below: :e1
+      top_left_diagonal: :d3
+      top_right_diagonal: :f3
+      bottom_right_diagonal: :f1
+      bottom_left_diagonal: :d1
+    :f2: !ruby/object:Cell
+      piece: 
+      row_right: :g2
+      row_left: :e2
+      column_above: :f3
+      column_below: :f1
+      top_left_diagonal: :e3
+      top_right_diagonal: :g3
+      bottom_right_diagonal: :g1
+      bottom_left_diagonal: :e1
+    :g2: !ruby/object:Cell
+      piece: 
+      row_right: :h2
+      row_left: :f2
+      column_above: :g3
+      column_below: :g1
+      top_left_diagonal: :f3
+      top_right_diagonal: :h3
+      bottom_right_diagonal: :h1
+      bottom_left_diagonal: :f1
+    :h2: !ruby/object:Cell
+      piece: 
+      row_right: 
+      row_left: :g2
+      column_above: :h3
+      column_below: :h1
+      top_left_diagonal: :g3
+      top_right_diagonal: 
+      bottom_right_diagonal: 
+      bottom_left_diagonal: :g1
+    :a1: !ruby/object:Cell
+      piece: 
+      row_right: :b1
+      row_left: 
+      column_above: :a2
+      column_below: 
+      top_left_diagonal: 
+      top_right_diagonal: :b2
+      bottom_right_diagonal: 
+      bottom_left_diagonal: 
+    :b1: !ruby/object:Cell
+      piece: 
+      row_right: :c1
+      row_left: :a1
+      column_above: :b2
+      column_below: 
+      top_left_diagonal: :a2
+      top_right_diagonal: :c2
+      bottom_right_diagonal: 
+      bottom_left_diagonal: 
+    :c1: !ruby/object:Cell
+      piece: !ruby/object:Rook
+        name: r
+        color: black
+        current_cell: :c1
+        move_creator: !ruby/object:MoveCreator {}
+        move_classifier: !ruby/object:MoveClassifier
+          enemy_color: 
+          diagonal_moves: 
+          moves_without_diagonal_moves: 
+          en_passant: !ruby/object:EnPassant {}
+      row_right: :d1
+      row_left: :b1
+      column_above: :c2
+      column_below: 
+      top_left_diagonal: :b2
+      top_right_diagonal: :d2
+      bottom_right_diagonal: 
+      bottom_left_diagonal: 
+    :d1: !ruby/object:Cell
+      piece: 
+      row_right: :e1
+      row_left: :c1
+      column_above: :d2
+      column_below: 
+      top_left_diagonal: :c2
+      top_right_diagonal: :e2
+      bottom_right_diagonal: 
+      bottom_left_diagonal: 
+    :e1: !ruby/object:Cell
+      piece: 
+      row_right: :f1
+      row_left: :d1
+      column_above: :e2
+      column_below: 
+      top_left_diagonal: :d2
+      top_right_diagonal: :f2
+      bottom_right_diagonal: 
+      bottom_left_diagonal: 
+    :f1: !ruby/object:Cell
+      piece: 
+      row_right: :g1
+      row_left: :e1
+      column_above: :f2
+      column_below: 
+      top_left_diagonal: :e2
+      top_right_diagonal: :g2
+      bottom_right_diagonal: 
+      bottom_left_diagonal: 
+    :g1: !ruby/object:Cell
+      piece: 
+      row_right: :h1
+      row_left: :f1
+      column_above: :g2
+      column_below: 
+      top_left_diagonal: :f2
+      top_right_diagonal: :h2
+      bottom_right_diagonal: 
+      bottom_left_diagonal: 
+    :h1: !ruby/object:Cell
+      piece: 
+      row_right: 
+      row_left: :g1
+      column_above: :h2
+      column_below: 
+      top_left_diagonal: :g2
+      top_right_diagonal: 
+      bottom_right_diagonal: 
+      bottom_left_diagonal: 
+  meta_data: !ruby/object:MovesMetaData
+    pieces_changed:
+      :h8: *2
+      :h1: 
+    castling_rights: "-"
+    en_passant_move: :-
+    castling: !ruby/object:Castling
+      castling_right_of_cells:
+        :a1: Q
+        :e1: KQ
+        :h1: K
+        :a8: q
+        :e8: kq
+        :h8: k
+    en_passant: !ruby/object:EnPassant {}
+  moves:
+  - :g8
+  - :f8
+  - :e8
+  - :d8
+  - :c8
+  - :b8
+  - :a8
+  - :h7
+  - :h6
+  - :h5
+  - :h4
+  - :h3
+  - :h2
+  - :h1
+  piece_mover: !ruby/object:PieceMover
+    castling: !ruby/object:Castling
+      castling_right_of_cells:
+        :a1: Q
+        :e1: KQ
+        :h1: K
+        :a8: q
+        :e8: kq
+        :h8: k
+    en_passant: !ruby/object:EnPassant {}
+  castling: !ruby/object:Castling
+    castling_right_of_cells:
+      :a1: Q
+      :e1: KQ
+      :h1: K
+      :a8: q
+      :e8: kq
+      :h8: k
+current_player: !ruby/object:Human
+  name: a
+  name_creator: !ruby/object:NameCreator {}
+  cell_choice_creator: !ruby/object:CellChoiceCreator
+    rows:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '7'
+    - '8'
+    columns:
+    - a
+    - b
+    - c
+    - d
+    - e
+    - f
+    - g
+    - h
+  name_validator: !ruby/object:NameValidator
+    max_name_length: 25
+  cell_choice_validator: !ruby/object:CellChoiceValidator {}
+other_player: !ruby/object:Human
+  name: afds
+  name_creator: !ruby/object:NameCreator {}
+  cell_choice_creator: !ruby/object:CellChoiceCreator
+    rows:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+    - '7'
+    - '8'
+    columns:
+    - a
+    - b
+    - c
+    - d
+    - e
+    - f
+    - g
+    - h
+  name_validator: !ruby/object:NameValidator
+    max_name_length: 25
+  cell_choice_validator: !ruby/object:CellChoiceValidator {}
+current_color: black
+counters: !ruby/object:Counters
+  half_move_clock: 0
+  full_move_number: 1
+result: !ruby/object:Result
+  manual_draw: false
+  fifty_move_rule_draw: false
+  checkmate: false
+  stalemate: false
+  resign: false
+command: !ruby/object:Command
+  yaml_creator: !ruby/object:YAMLCreator
+    last_created_file_name: saved-games/a-vs-afds-02-03-2022-11-41-06.yml
+    file_name: saved-games/a-vs-afds-02-03-2022-11-41-06.yml
+    yaml: 
+  draw_proposal_status: false
+  draw_proposer_color: 
+  draw_approval_status: false
+printer: !ruby/object:BoardPrinter
+  board: 
+  source: 
+  empty: []
+  captures: []
+  default_bg_color: :bg_gray
+  row_no: 8
+promotion: !ruby/object:Promotion
+  promotion_piece_creator: !ruby/object:PromotionPieceCreator {}
+source_choice: 
+destination_choice: 
+moves:
+  :empty: []
+  :captures: []

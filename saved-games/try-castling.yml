@@ -746,7 +746,7 @@ board_operator: !ruby/object:BoardOperator
       :e8: kq
       :h8: k
 current_player: !ruby/object:Human
-  name: mahi
+  name: dexter
   name_creator: !ruby/object:NameCreator {}
   cell_choice_creator: !ruby/object:CellChoiceCreator
     rows:
@@ -771,7 +771,7 @@ current_player: !ruby/object:Human
     max_name_length: 25
   cell_choice_validator: !ruby/object:CellChoiceValidator {}
 other_player: !ruby/object:Human
-  name: iham
+  name: elliot
   name_creator: !ruby/object:NameCreator {}
   cell_choice_creator: !ruby/object:CellChoiceCreator
     rows:

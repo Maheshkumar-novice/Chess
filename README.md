@@ -214,4 +214,6 @@ Then we use other objects to operate and manipulate this board and the pieces in
 * [Chess Variants](http://www.chessvariants.org/d.chess/chess.html)
 * [Chess Programming](https://www.chessprogramming.org/Forsyth-Edwards_Notation)
 
+Found an issue? [Click](https://github.com/Maheshkumar-novice/Chess/issues) here to raise an issue.
+
 [Move To Top](#chess)

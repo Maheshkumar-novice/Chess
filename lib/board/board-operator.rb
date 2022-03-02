@@ -87,24 +87,22 @@ class BoardOperator
   end
 
   def to_s
-    string_rows = []
+    @board.keys.each_slice(8).with_object([]) { |row, string_rows| string_rows << create_row_string(row) }.join('/')
+  end
+
+  private
+
+  def create_row_string(row)
+    string = ''
     empty_cell_counter = 0
-    @board.keys.each_slice(8) do |row|
-      string = ''
-      empty_cell_counter = 0
-      row.each do |cell|
-        next empty_cell_counter += 1 if @board[cell].empty?
+    row.each do |cell_marker|
+      next empty_cell_counter += 1 if @board[cell_marker].empty?
 
-        if empty_cell_counter.positive?
-          string += empty_cell_counter.to_s
-          empty_cell_counter = 0
-        end
-
-        string += @board[cell].piece_name
-      end
       string += empty_cell_counter.to_s if empty_cell_counter.positive?
-      string_rows << string
+      empty_cell_counter = 0
+      string += @board[cell_marker].piece_name
     end
-    string_rows.join('/')
+    string += empty_cell_counter.to_s if empty_cell_counter.positive?
+    string
   end
 end

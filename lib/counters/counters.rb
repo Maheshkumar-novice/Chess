@@ -17,11 +17,11 @@ class Counters
   end
 
   def update_counters(source, destination, board, color)
-    half_move?(source, destination, board) ? reset_half_move_clock : increment_half_move_clock
+    half_move_reset?(source, destination, board) ? reset_half_move_clock : increment_half_move_clock
     increment_full_move_number if full_move?(color)
   end
 
-  def half_move?(source, destination, board)
+  def half_move_reset?(source, destination, board)
     board[source].pawn? || board[destination].occupied?
   end
 

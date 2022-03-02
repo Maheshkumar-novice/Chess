@@ -195,6 +195,16 @@ cell --- bottom_right_diagonal
 cell --- bottom_left_diagonal
 ```
 
+### Check
+Whenever a player make a move their king shouldn't be in check.
+
+### Knight Move
+I designed knight's move as, one step forward in the four directions it can step and the diagonal moves related to that 
+forward step.
+For example, If the knight generate moves for it's left side,
+  * It can step on the left side
+  * It can go to either the top left diagonal or the bottom left diagonal
+
 Then we use other objects to operate and manipulate this board and the pieces in the cells to play the game of chess.
 
 ## What I Learned

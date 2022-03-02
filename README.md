@@ -113,7 +113,7 @@ rspec
 * Choose Mode
 * Create names if asked
 * Board will be shown
-* First prompt will ask you to choose a `source`, that is the piece you want to move
+* First prompt will ask you to choose a `source`, that is the cell of the piece you want to move
 * You can enter `cmd` in this step to enter `command` mode
 * Second prompt will ask you to choose a `destination`, that is the cell you want your piece to go
 

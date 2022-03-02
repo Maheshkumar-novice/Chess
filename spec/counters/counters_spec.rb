@@ -57,12 +57,12 @@ describe Counters do
     end
   end
 
-  describe '#half_move?' do
+  describe '#half_move_reset?' do
     context 'when the source is pawn' do
       it 'returns true' do
         source = :a2
         destination = :a4
-        result = counters.half_move?(source, destination, board)
+        result = counters.half_move_reset?(source, destination, board)
         expect(result).to eq(true)
       end
     end
@@ -73,7 +73,7 @@ describe Counters do
       it 'returns true' do
         source = :b2
         destination = :a3
-        result = counters.half_move?(source, destination, board)
+        result = counters.half_move_reset?(source, destination, board)
         expect(result).to eq(true)
       end
     end
@@ -82,7 +82,7 @@ describe Counters do
       it 'returns false' do
         source = :b1
         destination = :a3
-        result = counters.half_move?(source, destination, board)
+        result = counters.half_move_reset?(source, destination, board)
         expect(result).to eq(false)
       end
     end

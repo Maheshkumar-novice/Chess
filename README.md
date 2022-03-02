@@ -79,10 +79,10 @@
 - [x] Game play testing
 
 #
-- [ ] Fen Copy command
-- [ ] Tests
-- [ ] Refactoring
-- [ ] Game play testing
+- [x] Fen Copy command
+- [x] Tests
+- [x] Refactoring
+- [x] Game play testing
 
 #
 - [ ] Readme Creation

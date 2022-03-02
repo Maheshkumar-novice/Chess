@@ -54,7 +54,7 @@ It's the capstone project of The Odin Project's Ruby Programming course to pract
 It's definitely a big project. I thought chess is a complicated game because I don't have much experience with chess before starting to work on this project. But after doing some research it clicked, it felt simple. Planning and Refactoring helped me stay in the right direction. I spent more time refactoring my code than writing the code. Honestly I enjoyed it. And here comes the important part, Tests. Without tests I can't imagine how I might approached this project. So overall I gained more experience in **Planning, Refactoring, Writing Unit Tests, Serialization, OOP concepts like SOLID, Inheritance, Composition, etc.**
 
 ## Demo
-<!-- ![Example](./assets/example.gif) -->
+![Demo](./demo/demo.gif)
 </br>
   
 ## Built With

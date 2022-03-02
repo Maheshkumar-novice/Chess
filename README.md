@@ -86,7 +86,7 @@ git clone git@github.com:Maheshkumar-novice/chess.git
 
 #### Step 2: Move to Chess Directory
 ```sh
-cd Chess
+cd chess
 ```
 
 #### Step 3: Run the main ruby file

@@ -204,6 +204,7 @@ Then we use other objects to operate and manipulate this board and the pieces in
 * SOLID priniciples of OOP
 * More about Composition
 * More about Inheritance
+* And more....
   
 ## Acknowledgements
 * [The Odin Project](https://theodinproject.com)

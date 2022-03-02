@@ -52,9 +52,11 @@ class Command
   end
 
   def fen(game)
-    print_info(
-      "#{game.board_operator} #{game.current_color == 'white' ? 'w' : 'b'} #{game.board_operator.meta_data} #{game.counters}", ending: "\n\n"
-    )
+    board = game.board_operator.to_s
+    color = game.current_color == 'white' ? 'w' : 'b'
+    meta_data = game.meta_data.to_s
+    counter = game.counters.to_s
+    print_info("#{board} #{color} #{meta_data} #{counter}", ending: "\n\n")
   end
 
   private

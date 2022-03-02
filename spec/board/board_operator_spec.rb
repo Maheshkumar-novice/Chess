@@ -558,4 +558,14 @@ describe BoardOperator do
       end
     end
   end
+
+  describe '#to_s' do
+    let(:fen) { 'rnbqkbnr/pppppppp/8/8/8/1NBQ4/PPPPPPPP/2KR1BNR w Kkq - 0 1' }
+
+    it 'returns the fen form of the board' do
+      result = board_operator.to_s
+      expected_result = 'rnbqkbnr/pppppppp/8/8/8/1NBQ4/PPPPPPPP/2KR1BNR'
+      expect(result).to eq(expected_result)
+    end
+  end
 end

@@ -39,4 +39,8 @@ class MovesMetaData
     @castling_rights = @castling.update_castling_rights(source, destination, @castling_rights)
     @en_passant_move = @en_passant.create_en_passant_move(source, destination, board)
   end
+
+  def to_s
+    "#{@castling_rights} #{@en_passant_move}"
+  end
 end

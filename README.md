@@ -94,6 +94,12 @@ cd chess
 ruby main.rb
 ```
 
+#### Bonus: Pass Custom [FEN](https://www.chessprogramming.org/Forsyth-Edwards_Notation)
+```sh
+ruby main.rb 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+```
+This will load the given FEN to create the game state.
+
 #### To Run the Test Suite
 
 #### Step 1: Install RSpec

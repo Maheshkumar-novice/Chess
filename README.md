@@ -86,4 +86,4 @@
 
 #
 - [x] Readme Creation
-- [ ] Feedback, Review and Reflections
+- [x] Feedback, Review and Reflections

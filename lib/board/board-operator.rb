@@ -85,4 +85,26 @@ class BoardOperator
     @moves += @castling.castling_move(@moves, board, source, @meta_data.castling_rights, color)
     remove_moves_that_leads_to_check(source, color)
   end
+
+  def to_s
+    string_rows = []
+    empty_cell_counter = 0
+    @board.keys.each_slice(8) do |row|
+      string = ''
+      empty_cell_counter = 0
+      row.each do |cell|
+        next empty_cell_counter += 1 if @board[cell].empty?
+
+        if empty_cell_counter.positive?
+          string += empty_cell_counter.to_s
+          empty_cell_counter = 0
+        end
+
+        string += @board[cell].piece_name
+      end
+      string += empty_cell_counter.to_s if empty_cell_counter.positive?
+      string_rows << string
+    end
+    string_rows.join('/')
+  end
 end

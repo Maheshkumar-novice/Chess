@@ -11,7 +11,7 @@ require_relative '../special-moves/promotion/promotion'
 class Game
   include GameHelper
 
-  attr_reader :current_color
+  attr_reader :current_color, :board_operator, :counters
 
   def initialize(board_operator, players, current_color, counters)
     @board_operator = board_operator

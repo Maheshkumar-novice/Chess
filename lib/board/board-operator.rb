@@ -6,7 +6,7 @@ require_relative '../special-moves/castling/castling'
 
 # Performs board operations
 class BoardOperator
-  attr_reader :board
+  attr_reader :board, :meta_data
 
   def initialize(board, meta_data)
     @board = board

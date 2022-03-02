@@ -17,6 +17,10 @@ module GameHelper
     @other_player.name
   end
 
+  def meta_data
+    @board_operator.meta_data
+  end
+
   private
 
   def create_moves_for_source

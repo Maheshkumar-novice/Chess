@@ -85,5 +85,5 @@
 - [x] Game play testing
 
 #
-- [ ] Readme Creation
+- [x] Readme Creation
 - [ ] Feedback, Review and Reflections
